@@ -7,6 +7,7 @@
 import argparse
 import csv
 import logging
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -24,41 +25,32 @@ class RowChecker:
 
     """
 
-    VALID_FORMATS = (
-        ".fq.gz",
-        ".fastq.gz",
-    )
-
     def __init__(
         self,
-        sample_col="sample",
-        first_col="fastq_1",
-        second_col="fastq_2",
-        single_col="single_end",
+        accession_col="assembly_accession",
+        name_col="assembly_name",
+        dir_col="species_dir",
         **kwargs,
     ):
         """
         Initialize the row checker with the expected column names.
 
         Args:
-            sample_col (str): The name of the column that contains the sample name
-                (default "sample").
-            first_col (str): The name of the column that contains the first (or only)
-                FASTQ file path (default "fastq_1").
-            second_col (str): The name of the column that contains the second (if any)
-                FASTQ file path (default "fastq_2").
-            single_col (str): The name of the new column that will be inserted and
-                records whether the sample contains single- or paired-end sequencing
-                reads (default "single_end").
+            accession_col (str): The name of the column that contains the accession
+                number (default "assembly_accession").
+            name_col (str): The name of the column that contains the assembly name
+                (default "assembly_name").
+            dir_col (str): The name of the column that contains the species directory
+                (default "species_dir").
 
         """
         super().__init__(**kwargs)
-        self._sample_col = sample_col
-        self._first_col = first_col
-        self._second_col = second_col
-        self._single_col = single_col
+        self._accession_col = accession_col
+        self._name_col = name_col
+        self._dir_col = dir_col
         self._seen = set()
         self.modified = []
+        self._regex_accession = re.compile(r"^GCA_[0-9]{9}\.[0-9]+")
 
     def validate_and_transform(self, row):
         """
@@ -69,63 +61,31 @@ class RowChecker:
                 (values).
 
         """
-        self._validate_sample(row)
-        self._validate_first(row)
-        self._validate_second(row)
-        self._validate_pair(row)
-        self._seen.add((row[self._sample_col], row[self._first_col]))
+        self._validate_accession(row)
+        self._validate_name(row)
+        self._validate_dir(row)
+        self._seen.add(row[self._accession_col])
         self.modified.append(row)
 
-    def _validate_sample(self, row):
-        """Assert that the sample name exists and convert spaces to underscores."""
-        if len(row[self._sample_col]) <= 0:
-            raise AssertionError("Sample input is required.")
-        # Sanitize samples slightly.
-        row[self._sample_col] = row[self._sample_col].replace(" ", "_")
+    def _validate_accession(self, row):
+        """Assert that the accession number exists and matches the expected nomenclature."""
+        assert len(row[self._accession_col]) > 0, "Accession number is required."
+        assert self._regex_accession.match(row[self._accession_col]), "Accession numbers must match %s." % self._regex_accession
 
-    def _validate_first(self, row):
-        """Assert that the first FASTQ entry is non-empty and has the right format."""
-        if len(row[self._first_col]) <= 0:
-            raise AssertionError("At least the first FASTQ file is required.")
-        self._validate_fastq_format(row[self._first_col])
+    def _validate_name(self, row):
+        """Assert that the assembly name is non-empty and has no space."""
+        assert len(row[self._name_col]) > 0, "Accession name is required."
+        assert " " not in row[self._name_col], "Accession names must not contain whitespace."
 
-    def _validate_second(self, row):
-        """Assert that the second FASTQ entry has the right format if it exists."""
-        if len(row[self._second_col]) > 0:
-            self._validate_fastq_format(row[self._second_col])
+    def _validate_dir(self, row):
+        """Assert that the species directory is non-empty."""
+        assert len(row[self._dir_col]) > 0, "Species directory is required."
 
-    def _validate_pair(self, row):
-        """Assert that read pairs have the same file extension. Report pair status."""
-        if row[self._first_col] and row[self._second_col]:
-            row[self._single_col] = False
-            if Path(row[self._first_col]).suffixes[-2:] != Path(row[self._second_col]).suffixes[-2:]:
-                raise AssertionError("FASTQ pairs must have the same file extensions.")
-        else:
-            row[self._single_col] = True
-
-    def _validate_fastq_format(self, filename):
-        """Assert that a given filename has one of the expected FASTQ extensions."""
-        if not any(filename.endswith(extension) for extension in self.VALID_FORMATS):
-            raise AssertionError(
-                f"The FASTQ file has an unrecognized extension: {filename}\n"
-                f"It should be one of: {', '.join(self.VALID_FORMATS)}"
-            )
-
-    def validate_unique_samples(self):
+    def validate_unique_accessions(self):
         """
-        Assert that the combination of sample name and FASTQ filename is unique.
-
-        In addition to the validation, also rename all samples to have a suffix of _T{n}, where n is the
-        number of times the same sample exist, but with different FASTQ files, e.g., multiple runs per experiment.
-
+        Assert that the accession numbers are unique.
         """
-        if len(self._seen) != len(self.modified):
-            raise AssertionError("The pair of sample name and FASTQ must be unique.")
-        seen = Counter()
-        for row in self.modified:
-            sample = row[self._sample_col]
-            seen[sample] += 1
-            row[self._sample_col] = f"{sample}_T{seen[sample]}"
+        assert len(self._seen) == len(self.modified), "The pair of sample name and FASTQ must be unique."
 
 
 def read_head(handle, num_lines=10):
@@ -165,10 +125,9 @@ def sniff_format(handle):
 
 def check_samplesheet(file_in, file_out):
     """
-    Check that the tabular samplesheet has the structure expected by nf-core pipelines.
+    Check that the tabular samplesheet has the structure expected by the pipeline.
 
-    Validate the general shape of the table, expected columns, and each row. Also add
-    an additional column which records whether one or two FASTQ reads were found.
+    Validate the general shape of the table, expected columns, and each row.
 
     Args:
         file_in (pathlib.Path): The given tabular samplesheet. The format can be either
@@ -177,19 +136,15 @@ def check_samplesheet(file_in, file_out):
             be created; always in CSV format.
 
     Example:
-        This function checks that the samplesheet follows the following structure,
-        see also the `viral recon samplesheet`_::
+        This function checks that the samplesheet follows the following structure::
 
-            sample,fastq_1,fastq_2
-            SAMPLE_PE,SAMPLE_PE_RUN1_1.fastq.gz,SAMPLE_PE_RUN1_2.fastq.gz
-            SAMPLE_PE,SAMPLE_PE_RUN2_1.fastq.gz,SAMPLE_PE_RUN2_2.fastq.gz
-            SAMPLE_SE,SAMPLE_SE_RUN1_1.fastq.gz,
 
-    .. _viral recon samplesheet:
-        https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
+            assembly_accession,assembly_name,species_dir
+            GCA_927399515.1,gfLaeSulp1.1,/lustre/scratch124/tol/projects/darwin/data/fungi/Laetiporus_sulphureus
+            GCA_922984935.2,mMelMel3.2_paternal_haplotype,/lustre/scratch124/tol/projects/darwin/data/mammals/Meles_meles
 
     """
-    required_columns = {"sample", "fastq_1", "fastq_2"}
+    required_columns = {"assembly_accession", "assembly_name", "species_dir"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
@@ -205,9 +160,8 @@ def check_samplesheet(file_in, file_out):
             except AssertionError as error:
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
-        checker.validate_unique_samples()
+        checker.validate_unique_accessions()
     header = list(reader.fieldnames)
-    header.insert(1, "single_end")
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_out.open(mode="w", newline="") as out_handle:
         writer = csv.DictWriter(out_handle, header, delimiter=",")
