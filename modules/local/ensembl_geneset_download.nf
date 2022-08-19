@@ -29,7 +29,7 @@ process ENSEMBL_GENESET_DOWNLOAD {
     def ftp_path = params.ftp_root + "/" + ensembl_species_name + "/" + assembly_accession + "/geneset/" + geneset_version
     def remote_filename_stem = ensembl_species_name + "-" + assembly_accession + "-" + geneset_version
 
-    meta = [ id : assembly_accession, accession : assembly_accession ]
+    meta = [ id : assembly_accession + ".ensembl." + geneset_version, accession : assembly_accession ]
 
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
