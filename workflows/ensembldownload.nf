@@ -15,6 +15,7 @@ WorkflowEnsembldownload.initialise(params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+include { ENSEMBL_GENESET_DOWNLOAD      } from '../modules/local/ensembl_geneset_download'
 include { ENSEMBL_GENOME_DOWNLOAD       } from '../modules/local/ensembl_genome_download'
 include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
 
@@ -69,7 +70,20 @@ workflow ENSEMBLDOWNLOAD {
     .set { ch_parsed_inputs }
 
     ENSEMBL_GENOME_DOWNLOAD ( ch_parsed_inputs.repeats.map { [it["ensembl_species_name"], it["assembly_accession"]] } )
+    ENSEMBL_GENESET_DOWNLOAD ( ch_parsed_inputs.geneset.map { [it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]] } )
     ch_versions         = ch_versions.mix(ENSEMBL_GENOME_DOWNLOAD.out.versions)
+    ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
+
+    ch_all_fasta        = Channel.empty()
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cdna.map { [it[0] + [id: it[0].id + ".cdna"], it[1]] } )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cds.map { [it[0] + [id: it[0].id + ".cds"], it[1]] } )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map { [it[0] + [id: it[0].id + ".pep"], it[1]] } )
+
+    // Preparation of Fasta files
+    PREPARE_GENOME (
+        ch_all_fasta
+    )
+    ch_versions         = ch_versions.mix(PREPARE_GENOME.out.versions)
 
     // Preparation of repeat-masking files
     PREPARE_REPEATS (
