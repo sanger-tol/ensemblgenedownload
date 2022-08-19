@@ -40,8 +40,9 @@ process ENSEMBL_GENESET_DOWNLOAD {
     wget ${ftp_path}/${remote_filename_stem}-pep.fa.gz
     wget ${ftp_path}/md5sum.txt
 
-    grep "\\(-cdna\\.fa\\.gz\$\\|-cds\\.fa\\.gz\$\\|-genes\\.gff3\\.gz\$\\|-pep\\.fa\\.gz\$\\)" md5sum.txt > md5checksums_restricted.txt
-    md5sum -c md5checksums_restricted.txt
+    # Some files may be missing from md5sum.txt, let's not bother
+    grep "\\(-cdna\\.fa\\.gz\$\\|-cds\\.fa\\.gz\$\\|-genes\\.gff3\\.gz\$\\|-pep\\.fa\\.gz\$\\)" md5sum.txt > md5checksums_restricted.txt || true
+    [ -s md5checksums_restricted.txt ] && md5sum -c md5checksums_restricted.txt
     gunzip *.gz
 
     cat <<-END_VERSIONS > versions.yml
