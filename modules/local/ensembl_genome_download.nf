@@ -14,8 +14,8 @@ process ENSEMBL_GENOME_DOWNLOAD {
     tuple val(ensembl_species_name), val(assembly_accession)
 
     output:
-    tuple val(meta), path("*.fa") , emit: fasta
-    path  "versions.yml"          , emit: versions
+    tuple val(meta), path("*.fasta") , emit: fasta
+    path  "versions.yml"             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -37,7 +37,7 @@ process ENSEMBL_GENOME_DOWNLOAD {
 
     grep -- "-softmasked\\.fa\\.gz\$" md5sum.txt > md5checksums_restricted.txt
     md5sum -c md5checksums_restricted.txt
-    zcat ${remote_filename_stem}-softmasked.fa.gz > ${prefix}.fa
+    zcat ${remote_filename_stem}-softmasked.fa.gz > ${prefix}.fasta
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
