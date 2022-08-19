@@ -26,7 +26,8 @@ process ENSEMBL_GENOME_DOWNLOAD {
     def ftp_path = params.ftp_root + "/" + ensembl_species_name + "/" + assembly_accession + "/genome"
     def remote_filename_stem = ensembl_species_name + "-" + assembly_accession
 
-    meta = [ id : assembly_accession, accession : assembly_accession ]
+    meta = [ id : assembly_accession + ".masked.ensembl", accession : assembly_accession ]
+    def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
@@ -36,7 +37,7 @@ process ENSEMBL_GENOME_DOWNLOAD {
 
     grep -- "-softmasked\\.fa\\.gz\$" md5sum.txt > md5checksums_restricted.txt
     md5sum -c md5checksums_restricted.txt
-    gunzip *.gz
+    zcat ${remote_filename_stem}-softmasked.fa.gz > ${prefix}.fa
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
