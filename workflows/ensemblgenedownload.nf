@@ -15,11 +15,13 @@ WorkflowEnsemblgenedownload.initialise(params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+include { ENSEMBL_GENESET_DOWNLOAD      } from '../modules/local/ensembl_geneset_download'
 include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
+include { PREPARE_GENOME                } from '../subworkflows/local/prepare_genome'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,24 +60,19 @@ workflow ENSEMBLGENEDOWNLOAD {
 
     }
 
-    // actual download -> all files (incl. masked fasta)
-    // remove masking -> unmasked fasta
-    DOWNLOAD_GENOME (
-        ch_inputs.map { it["assembly_accession"] },
-        ch_inputs.map { it["assembly_name"] }
-    )
-    ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
+    ENSEMBL_GENESET_DOWNLOAD ( ch_inputs.map { [it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]] } )
+    ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
 
-    // bgzip
-    // samtools faidx
-    // samtools dict
-    // chrom.sizes
+    ch_all_fasta        = Channel.empty()
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cdna.map { [it[0] + [id: it[0].id + ".cdna"], it[1]] } )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cds.map { [it[0] + [id: it[0].id + ".cds"], it[1]] } )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map { [it[0] + [id: it[0].id + ".pep"], it[1]] } )
+
+    // Preparation of Fasta files
     PREPARE_GENOME (
-        DOWNLOAD_GENOME.out.fasta_unmasked
+        ch_all_fasta
     )
-    ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
-
-    //DOWNLOAD_GENOME.out.fasta_masked.view()
+    ch_versions         = ch_versions.mix(PREPARE_GENOME.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
