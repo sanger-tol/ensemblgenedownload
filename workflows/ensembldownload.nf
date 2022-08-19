@@ -9,11 +9,6 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowEnsembldownload.initialise(params, log)
 
-// TODO nf-core: Add all file path parameters for the pipeline to the list below
-// Check input path parameters to see if they exist
-def checkPathParamList = [ params.fasta ]
-for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
@@ -25,6 +20,7 @@ include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_che
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
+include { PREPARE_REPEATS               } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,11 +54,33 @@ workflow ENSEMBLDOWNLOAD {
     } else {
 
         ch_inputs = Channel.from( [
-            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name, species_dir:params.outdir]
+            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name]
         ] )
 
     }
-    ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions)
+
+    // actual download -> all files (incl. masked fasta)
+    // remove masking -> unmasked fasta
+    DOWNLOAD_GENOME (
+        ch_inputs.map { it["assembly_accession"] },
+        ch_inputs.map { it["assembly_name"] }
+    )
+    ch_versions = ch_versions.mix(DOWNLOAD_GENOME.out.versions)
+
+    // bgzip
+    // samtools faidx
+    // samtools dict
+    // chrom.sizes
+    PREPARE_GENOME (
+        DOWNLOAD_GENOME.out.fasta_unmasked
+    )
+    ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
+
+    //DOWNLOAD_GENOME.out.fasta_masked.view()
+    PREPARE_REPEATS (
+        DOWNLOAD_GENOME.out.fasta_masked
+    )
+    ch_versions = ch_versions.mix(PREPARE_REPEATS.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
