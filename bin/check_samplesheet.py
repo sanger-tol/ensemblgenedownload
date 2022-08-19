@@ -27,10 +27,9 @@ class RowChecker:
 
     def __init__(
         self,
-        accession_col="assembly_accession",
-        name_col="assembly_name",
-        dir_col="species_dir",
+        dir_col="analysis_dir",
         ensembl_name_col="ensembl_species_name",
+        accession_col="assembly_accession",
         geneset_col="geneset_version",
         **kwargs,
     ):
@@ -38,23 +37,20 @@ class RowChecker:
         Initialize the row checker with the expected column names.
 
         Args:
-            accession_col (str): The name of the column that contains the accession
-                number (default "assembly_accession").
-            name_col (str): The name of the column that contains the assembly name
-                (default "assembly_name").
             dir_col (str): The name of the column that contains the species directory
-                (default "species_dir").
+                (default "analysis_dir").
             ensembl_name_col(str): The name of the column that contains the Ensembl species name
                 (default "ensembl_species_name").
+            accession_col (str): The name of the column that contains the accession
+                number (default "assembly_accession").
             geneset_col (str): The name of the column that contains the geneset version
                 (default "geneset_version").
 
         """
         super().__init__(**kwargs)
-        self._accession_col = accession_col
-        self._name_col = name_col
         self._dir_col = dir_col
         self._ensembl_name_col = ensembl_name_col
+        self._accession_col = accession_col
         self._geneset_col = geneset_col
         self._seen = set()
         self.modified = []
@@ -70,10 +66,9 @@ class RowChecker:
                 (values).
 
         """
-        self._validate_accession(row)
-        self._validate_name(row)
         self._validate_dir(row)
         self._validate_ensembl_name(row)
+        self._validate_accession(row)
         self._validate_geneset(row)
         self._seen.add( (row[self._accession_col], row[self._geneset_col]) )
         self.modified.append(row)
@@ -83,11 +78,6 @@ class RowChecker:
         assert len(row[self._accession_col]) > 0, "Accession number is required."
         assert self._regex_accession.match(row[self._accession_col]), "Accession numbers must match %s." % self._regex_accession
 
-    def _validate_name(self, row):
-        """Assert that the assembly name is non-empty and has no space."""
-        assert len(row[self._name_col]) > 0, "Accession name is required."
-        assert " " not in row[self._name_col], "Accession name must not contain whitespace."
-
     def _validate_dir(self, row):
         """Assert that the species directory is non-empty."""
         assert len(row[self._dir_col]) > 0, "Species directory is required."
@@ -95,7 +85,7 @@ class RowChecker:
     def _validate_ensembl_name(self, row):
         """Assert that the Ensembl name is non-empty and has no space."""
         assert len(row[self._ensembl_name_col]) > 0, "Ensembl name is required."
-        assert " " not in row[self._name_col], "Ensembl name must not contain whitespace."
+        assert " " not in row[self._ensembl_name_col], "Ensembl name must not contain whitespace."
 
     def _validate_geneset(self, row):
         """Assert that the geneset version matches the expected nomenclature."""
@@ -158,11 +148,10 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            assembly_accession,assembly_name,species_dir,ensembl_species_name,geneset_version
-            GCA_905163415.1,ilNocFimb1.1,/lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata,Noctua_fimbriata,2022_03
-
+            analysis_dir,ensembl_species_name,assembly_accession,geneset_version
+            /lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03
     """
-    required_columns = {"assembly_accession", "assembly_name", "species_dir", "ensembl_species_name", "geneset_version"}
+    required_columns = {"analysis_dir", "ensembl_species_name", "assembly_accession", "geneset_version"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))

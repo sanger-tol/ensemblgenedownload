@@ -55,7 +55,7 @@ workflow ENSEMBLGENEDOWNLOAD {
     } else {
 
         ch_inputs = Channel.from( [
-            [assembly_accession:params.assembly_accession, assembly_name:params.assembly_name]
+            [assembly_accession:params.assembly_accession]
         ] )
 
     }
