@@ -8,6 +8,18 @@
                 "custom/dumpsoftwareversions": {
                     "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d",
                     "branch": "master"
+                },
+                "samtools/dict": {
+                    "git_sha": "31409f5e727ec932f0b3a399c7a3847d70b21374",
+                    "branch": "master"
+                },
+                "samtools/faidx": {
+                    "git_sha": "ce06694af8ca2f7453206aa974c2c9a2b99ec093",
+                    "branch": "master"
+                },
+                "tabix/tabix": {
+                    "git_sha": "b3e9b88e80880f450ad79a95b2b7aa05e1de5484",
+                    "branch": "master"
                 }
             }
         }
