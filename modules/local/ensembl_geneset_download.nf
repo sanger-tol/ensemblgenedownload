@@ -30,7 +30,7 @@ process ENSEMBL_GENESET_DOWNLOAD {
     def remote_filename_stem = ensembl_species_name + "-" + assembly_accession + "-" + geneset_version
 
     meta = [
-        id : assembly_accession,
+        id : assembly_accession + ".ensembl." + geneset_version,
         assembly_accession : assembly_accession,
     ]
 
