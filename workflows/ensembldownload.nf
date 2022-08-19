@@ -63,14 +63,16 @@ workflow ENSEMBLDOWNLOAD {
     }
 
     ch_inputs.branch {
-        m ->
-            geneset : m["geneset_version"]
+        it ->
+            geneset : it["geneset_version"]
+                return [it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]]
             repeats : true
+                return [it["ensembl_species_name"], it["assembly_accession"]]
     }
     .set { ch_parsed_inputs }
 
-    ENSEMBL_GENOME_DOWNLOAD ( ch_parsed_inputs.repeats.map { [it["ensembl_species_name"], it["assembly_accession"]] } )
-    ENSEMBL_GENESET_DOWNLOAD ( ch_parsed_inputs.geneset.map { [it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]] } )
+    ENSEMBL_GENOME_DOWNLOAD ( ch_parsed_inputs.repeats )
+    ENSEMBL_GENESET_DOWNLOAD ( ch_parsed_inputs.geneset )
     ch_versions         = ch_versions.mix(ENSEMBL_GENOME_DOWNLOAD.out.versions)
     ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
 
