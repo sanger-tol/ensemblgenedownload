@@ -77,9 +77,10 @@ workflow ENSEMBLDOWNLOAD {
     ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
 
     ch_all_fasta        = Channel.empty()
-        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cdna.map { [it[0] + [id: it[0].id + ".cdna"], it[1]] } )
-        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cds.map { [it[0] + [id: it[0].id + ".cds"], it[1]] } )
-        .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map { [it[0] + [id: it[0].id + ".pep"], it[1]] } )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cdna.map { it + ["cdna"] } )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cds.map  { it + ["cds"] }  )
+        .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map  { it + ["pep"] }  )
+        .map { [it[0] + [id: [it[0].accession, it[1], it[0].version, it[3]].join("."), method: it[1]], it[2]] }
 
     // Preparation of Fasta files
     PREPARE_GENOME (

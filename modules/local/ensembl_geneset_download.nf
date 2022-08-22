@@ -14,11 +14,11 @@ process ENSEMBL_GENESET_DOWNLOAD {
     tuple val(ensembl_species_name), val(assembly_accession), val(geneset_version)
 
     output:
-    tuple val(meta), path("*-cdna.fa")    , emit: cdna
-    tuple val(meta), path("*-cds.fa")     , emit: cds
-    tuple val(meta), path("*-genes.gff3") , emit: gff
-    tuple val(meta), path("*-pep.fa")     , emit: pep
-    path  "versions.yml"                  , emit: versions
+    tuple val(meta), env(ANNOTATION_METHOD), path("*-cdna.fa")    , emit: cdna
+    tuple val(meta), env(ANNOTATION_METHOD), path("*-cds.fa")     , emit: cds
+    tuple val(meta), env(ANNOTATION_METHOD), path("*-genes.gff3") , emit: gff
+    tuple val(meta), env(ANNOTATION_METHOD), path("*-pep.fa")     , emit: pep
+    path  "versions.yml"                                          , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -29,7 +29,8 @@ process ENSEMBL_GENESET_DOWNLOAD {
     def ftp_path = params.ftp_root + "/" + ensembl_species_name + "/" + assembly_accession + "/geneset/" + geneset_version
     def remote_filename_stem = ensembl_species_name + "-" + assembly_accession + "-" + geneset_version
 
-    meta = [ id : assembly_accession + ".ensembl." + geneset_version, accession : assembly_accession ]
+    // id will be added later
+    meta = [ accession : assembly_accession, version: geneset_version ]
 
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
@@ -44,6 +45,12 @@ process ENSEMBL_GENESET_DOWNLOAD {
     grep "\\(-cdna\\.fa\\.gz\$\\|-cds\\.fa\\.gz\$\\|-genes\\.gff3\\.gz\$\\|-pep\\.fa\\.gz\$\\)" md5sum.txt > md5checksums_restricted.txt || true
     [ -s md5checksums_restricted.txt ] && md5sum -c md5checksums_restricted.txt
     gunzip *.gz
+    if head -n 1 ${remote_filename_stem}-pep.fa | grep '^>BRAKER'
+    then
+        ANNOTATION_METHOD=braker2
+    else
+        ANNOTATION_METHOD=ensembl
+    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
