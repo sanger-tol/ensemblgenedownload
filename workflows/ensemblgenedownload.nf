@@ -55,7 +55,12 @@ workflow ENSEMBLGENEDOWNLOAD {
     } else {
 
         ch_inputs = Channel.from( [
-            [assembly_accession:params.assembly_accession]
+            [
+                analysis_dir: '',
+                assembly_accession: params.assembly_accession,
+                ensembl_species_name: params.ensembl_species_name,
+                geneset_version: params.geneset_version,
+            ]
         ] )
 
     }
