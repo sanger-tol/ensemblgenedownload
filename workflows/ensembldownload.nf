@@ -65,9 +65,9 @@ workflow ENSEMBLDOWNLOAD {
     ch_inputs.branch {
         it ->
             geneset : it["geneset_version"]
-                return [it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]]
+                return [it["analysis_dir"], it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]]
             repeats : true
-                return [it["ensembl_species_name"], it["assembly_accession"]]
+                return [it["analysis_dir"], it["ensembl_species_name"], it["assembly_accession"]]
     }
     .set { ch_parsed_inputs }
 

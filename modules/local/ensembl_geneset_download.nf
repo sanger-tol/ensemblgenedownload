@@ -11,7 +11,7 @@ process ENSEMBL_GENESET_DOWNLOAD {
         'quay.io/biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
-    tuple val(ensembl_species_name), val(assembly_accession), val(geneset_version)
+    tuple val(analysis_dir), val(ensembl_species_name), val(assembly_accession), val(geneset_version)
 
     output:
     tuple val(meta), env(ANNOTATION_METHOD), path("*-cdna.fa")    , emit: cdna
@@ -30,7 +30,7 @@ process ENSEMBL_GENESET_DOWNLOAD {
     def remote_filename_stem = ensembl_species_name + "-" + assembly_accession + "-" + geneset_version
 
     // id will be added later
-    meta = [ accession : assembly_accession, version: geneset_version ]
+    meta = [ outdir : analysis_dir, accession : assembly_accession, version: geneset_version ]
 
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128

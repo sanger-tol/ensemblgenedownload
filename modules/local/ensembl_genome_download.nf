@@ -11,7 +11,7 @@ process ENSEMBL_GENOME_DOWNLOAD {
         'quay.io/biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
-    tuple val(ensembl_species_name), val(assembly_accession)
+    tuple val(analysis_dir), val(ensembl_species_name), val(assembly_accession)
 
     output:
     tuple val(meta), path("*.fasta") , emit: fasta
@@ -26,7 +26,7 @@ process ENSEMBL_GENOME_DOWNLOAD {
     def ftp_path = params.ftp_root + "/" + ensembl_species_name + "/" + assembly_accession + "/genome"
     def remote_filename_stem = ensembl_species_name + "-" + assembly_accession
 
-    meta = [ id : assembly_accession + ".masked.ensembl", accession : assembly_accession ]
+    meta = [ id : assembly_accession + ".masked.ensembl", outdir: analysis_dir, accession : assembly_accession ]
     def prefix = task.ext.prefix ?: "${meta.id}"
 
     """
