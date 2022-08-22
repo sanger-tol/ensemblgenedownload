@@ -1,6 +1,6 @@
 analysis_dir,ensembl_species_name,assembly_accession,geneset_version
-/lustre/scratch124/tol/projects/25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2020_11
-/lustre/scratch124/tol/projects/25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2022_03
-/lustre/scratch124/tol/projects/25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1,Osmia_bicornis_bicornis,GCA_907164935.1,2021_11
-/lustre/scratch124/tol/projects/25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1_alternate_haplotype,Osmia_bicornis_bicornis,GCA_907164925.1,2022_02
-/lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03
+25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2020_11
+25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2022_03
+25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1,Osmia_bicornis_bicornis,GCA_907164935.1,2021_11
+25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1_alternate_haplotype,Osmia_bicornis_bicornis,GCA_907164925.1,2022_02
+darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03

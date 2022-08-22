@@ -60,7 +60,7 @@ workflow ENSEMBLGENEDOWNLOAD {
 
     }
 
-    ENSEMBL_GENESET_DOWNLOAD ( ch_inputs.map { [it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]] } )
+    ENSEMBL_GENESET_DOWNLOAD ( ch_inputs.map { [it["analysis_dir"], it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]] } )
     ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
 
     ch_all_fasta        = Channel.empty()
