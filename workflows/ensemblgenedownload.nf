@@ -15,12 +15,12 @@ WorkflowEnsemblgenedownload.initialise(params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { ENSEMBL_GENESET_DOWNLOAD      } from '../modules/local/ensembl_geneset_download'
 include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
+include { DOWNLOAD                      } from '../subworkflows/local/download'
 include { PREPARE_GENOME                } from '../subworkflows/local/prepare_genome'
 
 /*
@@ -60,18 +60,15 @@ workflow ENSEMBLGENEDOWNLOAD {
 
     }
 
-    ENSEMBL_GENESET_DOWNLOAD ( ch_inputs.map { [it["analysis_dir"], it["ensembl_species_name"], it["assembly_accession"], it["geneset_version"]] } )
-    ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
-
-    ch_all_fasta        = Channel.empty()
-        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cdna.map { it + ["cdna"] } )
-        .mix( ENSEMBL_GENESET_DOWNLOAD.out.cds.map  { it + ["cds"] }  )
-        .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map  { it + ["pep"] }  )
-        .map { [it[0] + [id: [it[0].assembly_accession, it[1], it[0].geneset_version, it[3]].join("."), method: it[1]], it[2]] }
+    // Actual download
+    DOWNLOAD (
+        ch_inputs
+    )
+    ch_versions         = ch_versions.mix(DOWNLOAD.out.versions)
 
     // Preparation of Fasta files
     PREPARE_GENOME (
-        ch_all_fasta
+        DOWNLOAD.out.genes
     )
     ch_versions         = ch_versions.mix(PREPARE_GENOME.out.versions)
 
