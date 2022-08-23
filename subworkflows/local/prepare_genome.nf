@@ -34,7 +34,7 @@ workflow PREPARE_GENOME {
     ch_versions         = ch_versions.mix(CHROM_SIZES.out.versions)
 
     emit:
-    fasta_gz = ch_compressed_fasta       // path: genome.fasta.gz
+    fasta_gz = ch_compressed_fasta       // path: genome.fa.gz
     faidx    = ch_samtools_faidx         // path: samtools/faidx/
     dict     = ch_samtools_dict          // path: samtools/dict/
     sizes    = ch_chrom_sizes            // path: samtools/dict/
