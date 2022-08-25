@@ -36,8 +36,10 @@ process ENSEMBL_GENOME_DOWNLOAD {
     wget ${ftp_path}/${remote_filename_stem}-softmasked.fa.gz
     wget ${ftp_path}/md5sum.txt
 
-    grep -- "-softmasked\\.fa\\.gz\$" md5sum.txt > md5checksums_restricted.txt
-    md5sum -c md5checksums_restricted.txt
+    if grep -- "-softmasked\\.fa\\.gz\$" md5sum.txt > md5checksums_restricted.txt
+    then
+        md5sum -c md5checksums_restricted.txt
+    fi
     zcat ${remote_filename_stem}-softmasked.fa.gz > ${prefix}.fa
 
     cat <<-END_VERSIONS > versions.yml
