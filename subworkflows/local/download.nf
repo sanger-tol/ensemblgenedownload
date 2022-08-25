@@ -40,8 +40,11 @@ workflow DOWNLOAD {
             it[2]
         ] }
 
+    ch_gff              = ENSEMBL_GENESET_DOWNLOAD.out.gff.map { [it[0] + [id: [it[0].accession, it[1], it[0].version].join("."), method: it[1]], it[2]] }
+
 
     emit:
     genes    = ch_all_gene_fasta         // path: (cdna|cds|pep).fa
+    gff      = ch_gff                    // path: genes.gff
     versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }

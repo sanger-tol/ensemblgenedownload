@@ -22,6 +22,7 @@ include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_che
 //
 include { DOWNLOAD                      } from '../subworkflows/local/download'
 include { PREPARE_GENOME                } from '../subworkflows/local/prepare_genome'
+include { PREPARE_GFF                   } from '../subworkflows/local/prepare_gff'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,6 +77,12 @@ workflow ENSEMBLGENEDOWNLOAD {
         DOWNLOAD.out.genes
     )
     ch_versions         = ch_versions.mix(PREPARE_GENOME.out.versions)
+
+    // Preparation of GFF files
+    PREPARE_GFF (
+        DOWNLOAD.out.gff
+    )
+    ch_versions         = ch_versions.mix(PREPARE_GFF.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

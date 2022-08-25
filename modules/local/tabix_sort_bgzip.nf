@@ -23,8 +23,9 @@ process TABIX_SORT_BGZIP {
     script:
     def args = task.ext.args ?: ''
     prefix   = task.ext.prefix ?: "${meta.id}"
+    coord    = input.name.endsWith(".bed") ? 2 : 4
     """
-    (grep "^#" $input; grep -v "^#" $input | sort -k1,1 -k2,2n) |
+    (grep "^#" $input; grep -v "^#" $input | sort -k1,1 -k${coord},${coord}n) |
     bgzip \
         -i -I ${prefix}.${input.getExtension()}.gz.gzi \
         $args -@${task.cpus} \
