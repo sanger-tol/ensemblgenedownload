@@ -9,8 +9,18 @@ Initial release of sanger-tol/ensemblgenedownload, created with the [nf-core](ht
 
 ### `Added`
 
-### `Fixed`
+- Download from Ensembl
+- `samtools faidx` and `samtools dict` indices for the annotation fastas
+- tabix index for the GFF3 file
 
 ### `Dependencies`
 
-### `Deprecated`
+All dependencies are automatically fetched by Singularity.
+
+- bgzip
+- samtools
+- tabix
+- python3
+- wget
+- awk
+- gzip
