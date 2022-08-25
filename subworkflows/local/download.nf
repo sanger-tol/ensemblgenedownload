@@ -32,6 +32,8 @@ workflow DOWNLOAD {
         .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map  { it + ["pep"] }  )
         .map { [it[0] + [id: [it[0].accession, it[1], it[0].version, it[3]].join("."), method: it[1]], it[2]] }
 
+    ch_gff              = ENSEMBL_GENESET_DOWNLOAD.out.gff.map { [it[0] + [id: [it[0].accession, it[1], it[0].version].join("."), method: it[1]], it[2]] }
+
     ch_genome_fasta     = ENSEMBL_GENOME_DOWNLOAD ( ch_parsed_inputs.repeats ).fasta
     ch_versions         = ch_versions.mix(ENSEMBL_GENOME_DOWNLOAD.out.versions)
 
@@ -39,5 +41,6 @@ workflow DOWNLOAD {
     emit:
     genome   = ch_genome_fasta           // path: genome.fa
     genes    = ch_all_gene_fasta         // path: (cdna|cds|pep).fa
+    gff      = ch_gff                    // path: genes.gff
     versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }
