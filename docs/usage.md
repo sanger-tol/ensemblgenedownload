@@ -16,8 +16,8 @@ The pipeline accepts command-one line arguments to specify a single genome to do
 - `--outdir` (mandatory): Where to download the data.
 
 ```console
-nextflow run src/ensembldownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --outdir ens1
-nextflow run src/ensembldownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --geneset_version 2022_03 --outdir ens2
+nextflow run sanger-tol/ensembldownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --outdir ens1
+nextflow run sanger-tol/ensembldownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --geneset_version 2022_03 --outdir ens2
 ```
 
 When the geneset version is provided, the pipeline downloads it. Otherwise it downloads the repeat-masked genome to which the annotation is attached.
