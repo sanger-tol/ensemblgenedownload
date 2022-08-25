@@ -5,8 +5,8 @@
 include { MASKING_TO_BED          } from '../../modules/local/masking_to_bed'
 include { SAMTOOLS_FAIDX          } from '../../modules/nf-core/modules/samtools/faidx/main'
 include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools/dict/main'
-include { TABIX_BGZIP as TABIX_BGZIP_BED   } from '../../modules/local/tabix_bgzip'
-include { TABIX_BGZIP as TABIX_BGZIP_FASTA } from '../../modules/local/tabix_bgzip'
+include { TABIX_SORT_BGZIP        } from '../../modules/local/tabix_sort_bgzip'
+include { TABIX_BGZIP             } from '../../modules/local/tabix_bgzip'
 include { TABIX_TABIX             } from '../../modules/nf-core/modules/tabix/tabix/main'
 
 
@@ -23,17 +23,16 @@ workflow PREPARE_REPEATS {
     ch_versions         = ch_versions.mix(MASKING_TO_BED.out.versions)
 
     // Compress the BED file
-    ch_compressed_bed   = TABIX_BGZIP_BED ( ch_masking_bed ).output
-    ch_versions         = ch_versions.mix(TABIX_BGZIP_BED.out.versions)
-    // TODO: sort the BED File
+    ch_compressed_bed   = TABIX_SORT_BGZIP ( ch_masking_bed ).output
+    ch_versions         = ch_versions.mix(TABIX_SORT_BGZIP.out.versions)
 
     // Index the BED file
     ch_indexed_bed      = TABIX_TABIX ( ch_compressed_bed ).tbi
     ch_versions         = ch_versions.mix(TABIX_TABIX.out.versions)
 
     // Compress the Fasta file
-    ch_compressed_fasta = TABIX_BGZIP_FASTA (fasta).output
-    ch_versions         = ch_versions.mix(TABIX_BGZIP_FASTA.out.versions)
+    ch_compressed_fasta = TABIX_BGZIP (fasta).output
+    ch_versions         = ch_versions.mix(TABIX_BGZIP.out.versions)
 
     // Generate Samtools index
     // NOTE: this file is identical to the one of the unmasked genome but
