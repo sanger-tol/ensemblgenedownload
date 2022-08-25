@@ -32,6 +32,7 @@ process ENSEMBL_GENOME_DOWNLOAD {
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
     #export http_proxy=http://wwwcache.sanger.ac.uk:3128
+    rm -f *.gz md5sum.txt
     wget ${ftp_path}/${remote_filename_stem}-softmasked.fa.gz
     wget ${ftp_path}/md5sum.txt
 
