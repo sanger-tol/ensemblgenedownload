@@ -43,8 +43,10 @@ process ENSEMBL_GENESET_DOWNLOAD {
     wget ${ftp_path}/md5sum.txt
 
     # Some files may be missing from md5sum.txt, let's not bother
-    grep "\\(-cdna\\.fa\\.gz\$\\|-cds\\.fa\\.gz\$\\|-genes\\.gff3\\.gz\$\\|-pep\\.fa\\.gz\$\\)" md5sum.txt > md5checksums_restricted.txt || true
-    [ -s md5checksums_restricted.txt ] && md5sum -c md5checksums_restricted.txt
+    if grep "\\(-cdna\\.fa\\.gz\$\\|-cds\\.fa\\.gz\$\\|-genes\\.gff3\\.gz\$\\|-pep\\.fa\\.gz\$\\)" md5sum.txt > md5checksums_restricted.txt
+    then
+        md5sum -c md5checksums_restricted.txt
+    fi
     gunzip *.gz
     if head -n 1 ${remote_filename_stem}-pep.fa | grep '^>BRAKER'
     then
