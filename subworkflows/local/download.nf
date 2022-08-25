@@ -40,7 +40,15 @@ workflow DOWNLOAD {
             it[2]
         ] }
 
-    ch_gff              = ENSEMBL_GENESET_DOWNLOAD.out.gff.map { [it[0] + [id: [it[0].accession, it[1], it[0].version].join("."), method: it[1]], it[2]] }
+    // tuple(meta,annotation_method,gff) at this stage
+    ch_gff = ENSEMBL_GENESET_DOWNLOAD.out.gff.map { [
+                // Like above, turn into the regular tuple(meta,file), with `id` and others in meta
+                it[0] + [
+                    id: [it[0].assembly_accession, it[1], it[0].geneset_version].join("."),
+                    method: it[1],
+                ],
+                it[2]
+            ] }
 
 
     emit:
