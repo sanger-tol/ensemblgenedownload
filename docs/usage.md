@@ -4,51 +4,59 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+The pipeline downloads Enembl gene and/or repeat annotations for one of multiple assemblied. It also builds a set of common indices (such as `samtools faidx`, `tabix`).
+
+## One-off downloads
+
+The pipeline accepts command-one line arguments to specify a single genome to download:
+
+- `--ensembl_species_name` (mandatory): How Ensembl name the species (as it can be different from Tree of Life),
+- `--assembly_accession` (mandatory): The accession number of the assembly,
+- `--geneset_version` (optional): The geneset version to download,
+- `--outdir` (mandatory): Where to download the data.
+
+```console
+nextflow run src/ensembldownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --outdir ens1
+nextflow run src/ensembldownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --geneset_version 2022_03 --outdir ens2
+```
+
+When the geneset version is provided, the pipeline downloads it. Otherwise it downloads the repeat-masked genome to which the annotation is attached.
 
 ## Samplesheet input
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+To download multiple datasets at once, descrbe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
 
 ```bash
 --input '[path to samplesheet file]'
 ```
 
-### Multiple runs of the same sample
-
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The file must have four columns, although the last one (`geneset_version`) can have empty values, as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+analysis_dir,ensembl_species_name,assembly_accession,geneset_version
+darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03
+25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1,Osmia_bicornis_bicornis,GCA_907164935.1,
+25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1,Osmia_bicornis_bicornis,GCA_907164935.1,2021_11
+25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1_alternate_haplotype,Osmia_bicornis_bicornis,GCA_907164925.1,2022_02
+25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1_alternate_haplotype,Osmia_bicornis_bicornis,GCA_907164925.1,
+25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,
+25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2020_11
+25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2022_03
 ```
 
-### Full samplesheet
+| Column               | Description                                                                    |
+| -------------------- | ------------------------------------------------------------------------------ |
+| `analysis_dir` | Output analysis directory for this assembly. Must be a relative path, which will be evaluated from `--outdir` |
+| `ensembl_species_name`      | Name of the species, *as used by Ensembl*. Note: it may differ from Tree of Life's |
+| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
+| `geneset_version`      | (optional) Version of the geneset, usually in the form `YYYY-MM`. When missing, the dataset considered is actually the repeat annotation.
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+A samplesheet may contain:
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
-
-```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
-```
-
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+- multiple datasets of the same species
+- multiple datasets of the same assembly
+- multiple datasets in the same output directory
+- any combination of gene and repeat annotation datasets
 
 ## Running the pipeline
 
@@ -117,6 +125,9 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter or Charliecloud.
 - `test`
+  - A profile with a complete configuration for automated testing
+  - Includes links to test data so needs no other parameters
+- `test_full`
   - A profile with a complete configuration for automated testing
   - Includes links to test data so needs no other parameters
 
