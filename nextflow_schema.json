@@ -10,29 +10,57 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["outdir"],
+            "required": ["ftp_root", "outdir"],
             "properties": {
+                "assembly_accession": {
+                    "type": "string",
+                    "description": "Accession number of the assembly to download. Typically of the form `GCA_*.*`",
+                    "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
+                    "fa_icon": "fas fa-font"
+                },
+                "ensembl_species_name": {
+                    "type": "string",
+                    "description": "Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's",
+                    "fa_icon": "fas fa-italic"
+                },
+                "geneset_version": {
+                    "type": "string",
+                    "description": "Version of the geneset, usually in the form `YYYY-MM`.",
+                    "pattern": "^20[0-9]{2}_[01][0-9]$",
+                    "fa_icon": "fas fa-italic"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "description": "The output directory where the results will be saved. Not considered when running the pipeline with a .csv file as input.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
+                    "description": "Path to comma-separated file containing information about the assemblies to download. Used for bulk download of many assemblies.",
+                    "help_text": "The file has to be a comma-separated file with 2 columns, and a header row. The columns names must be `assembly_accession` and `assembly_name`.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "ftp_root": {
+                    "type": "string",
+                    "description": "Root location of the NCBI FTP, in which all assemblies can be found. Access protocol is actually not limited to FTP, and we use HTTPS by default.",
+                    "default": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA",
+                    "hidden": true,
+                    "fa_icon": "fas fa-link"
                 },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
                     "fa_icon": "fas fa-envelope",
                     "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
-                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+                    "hidden": true
                 }
             }
-        },
-        "reference_genome_options": {
-            "title": "Reference genome options",
-            "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
-            "properties": {}
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -192,9 +220,6 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
-        },
-        {
-            "$ref": "#/definitions/reference_genome_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
