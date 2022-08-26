@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "21.10.3"
+          - "22.04.0"
           - "latest-everything"
     steps:
       - name: Check out pipeline code
@@ -31,9 +31,14 @@ jobs:
         with:
           version: "${{ matrix.NXF_VER }}"
 
-      - name: Run pipeline with test data
-        # TODO nf-core: You can customise CI pipeline run tests as required
-        # For example: adding multiple test runs with different parameters
-        # Remember that you can parallelise this by using strategy.matrix
+      - name: Run pipeline to download a masked genome
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile docker  --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --outdir ./results
+
+      - name: Run pipeline to download a geneset
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} --profile docker --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --geneset_version 2022_03 --outdir ./results
+
+      - name: Run pipeline with a samplesheet
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
