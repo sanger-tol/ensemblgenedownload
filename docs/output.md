@@ -16,25 +16,40 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Repeat annotation files](#repeat-annotation-files) - Files corresponding to analyses run (by the NCBI) on the original assembly, e.g repeat masking
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
+All data files are compressed (and indexed) with `bgzip`.
+
+All Fasta files are indexed with `samtools faidx`, which allows accessing any region of the assembly in constant time, and `samtools dict`, which allows identifying a sequence by its MD5 checksum.
+
+All BED files are indexed with tabixin CSI mode, allowing large sequences.
+
 ### Gene annotation files
 
 Here are the files you can expect in the `gene/` sub-directory.
 
 ```text
-/lustre/scratch124/tol/projects/vgp/data/fish/Parambassis_ranga/
+/lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata/
 └── analysis
-    └── fParRan2.2
+    └── ilNocFimb1.1
         └── gene
-            └── ensembl
-                ├── GCA_900634625.2.ensembl.2020_09.cdna.fa.gz
-                ├── GCA_900634625.2.ensembl.2020_09.cdna.fa.gz.dict
-                ├── GCA_900634625.2.ensembl.2020_09.cdna.fa.gz.gzi
-                ├── GCA_900634625.2.ensembl.2020_09.cds.fa.gz
-                ├── GCA_900634625.2.ensembl.2020_09.cds.fa.gz.dict
-                ├── GCA_900634625.2.ensembl.2020_09.cds.fa.gz.gzi
-                ├── GCA_900634625.2.ensembl.2020_09.pep.fa.gz
-                ├── GCA_900634625.2.ensembl.2020_09.pep.fa.gz.dict
-                └── GCA_900634625.2.ensembl.2020_09.pep.fa.gz.gzi
+            └── braker2
+                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz
+                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz.dict
+                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz.fai
+                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz.gzi
+                ├── GCA_905163415.1.braker2.2022_03.cdna.seq_length.tsv
+                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz
+                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz.dict
+                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz.fai
+                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz.gzi
+                ├── GCA_905163415.1.braker2.2022_03.cds.seq_length.tsv
+                ├── GCA_905163415.1.braker2.2022_03.gff3.gz
+                ├── GCA_905163415.1.braker2.2022_03.gff3.gz.csi
+                ├── GCA_905163415.1.braker2.2022_03.gff3.gz.gzi
+                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz
+                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz.dict
+                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz.fai
+                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz.gzi
+                └── GCA_905163415.1.braker2.2022_03.pep.seq_length.tsv
 ```
 
 The directory structure includes the assembly name, e.g. `fParRan2.2`, and all files are named after the assembly accession, e.g. `GCA_900634625.2`.
@@ -43,7 +58,11 @@ The file name (and the directory name) includes the annotation method and date. 
 - `braker2` for [BRAKER2](https://academic.oup.com/nargab/article/3/1/lqaa108/6066535)
 - `ensembl` for Ensembl's own annotation pipeline
 
+The `.seq_length.tsv` files are tabular analogous to the common `chrom.sizes`. They contain the sequence names and their lengths.
+
 _The following documentation is copied from Ensembl's FTP_
+
+#### Fasta files
 
 Ensembl provide gene sequences in FASTA format in three files. The 'cdna' file contains
 transcript sequences for all types of gene (including, for example,
@@ -89,6 +108,8 @@ Example 'pep' header:
 
 Stable IDs for genes, transcripts, and proteins include a version
 suffix. Gene symbols and descriptions are not available for all genes.
+
+#### GFF3 file
 
 A GFF3 ([specification](https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md)) file is also provided.
 GFF3 files are validated using [GenomeTools](http://genometools.org).
@@ -166,12 +187,8 @@ analysis
 They all correspond to the repeat-masking analysis run by Ensembl themselves. Like for the `assembly/` sub-directory,
 the directory structure includes the assembly name, e.g. `gfLaeSulp1.1`, and all files are named after the assembly accession, e.g. `GCA_927399515.1`.
 
-- `GCA_*.masked.ncbi.fasta.gz`: Masked assembly in Fasta format, compressed with `bgzip` (whose index is `GCA_*.fasta.gz.gzi`)
-- `GCA_*.masked.ncbi.fasta.gz.fai`: `samtools faidx` index, which allows accessing any region of the assembly in constant time
-- `GCA_*.masked.ncbi.fasta.dict`: `samtools dict` index, which allows identifying a sequence by its MD5 checksum
-- `GCA_*.masked.ncbi.bed.gz`: BED file with the coordinates of the regions masked by the NCBI pipeline, with accompanying `bgzip` and `tabix` indices (resp. `.gzi` and `.tbi`)
-
-_The following documentation is copied from Ensembl's FTP_
+- `GCA_*.masked.ncbi.fasta.gz`: Masked assembly in Fasta format
+- `GCA_*.masked.ncbi.bed.gz`: BED file with the coordinates of the regions masked by the Ensembl pipeline
 
 ### Pipeline information
 
