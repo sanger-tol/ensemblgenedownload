@@ -136,7 +136,7 @@ Attributes for feature types:
 - region types:
   - ID: Unique identifier, format "<region_type>:<region_name>"
   - [Alias]: A comma-separated list of aliases, usually including the
-      INSDC accession
+    INSDC accession
   - [Is_circular]: Flag to indicate circular regions
 - gene types:
   - ID: Unique identifier, format "gene:<gene_stable_id>"
@@ -152,13 +152,13 @@ Attributes for feature types:
   - transcript_id: Ensembl transcript stable ID
   - version: Ensembl transcript version
   - [Note]: If the transcript sequence has been edited (i.e. differs
-      from the genomic sequence), the edits are described in a note.
+    from the genomic sequence), the edits are described in a note.
 - exon
   - Parent: Transcript identifier, format "transcript:<transcript_stable_id>"
   - exon_id: Ensembl exon stable ID
   - version: Ensembl exon version
   - constitutive: Flag to indicate if exon is present in all
-      transcripts
+    transcripts
   - rank: Integer that show the 5'->3' ordering of exons
 - CDS
   - ID: Unique identifier, format "CDS:<protein_stable_id>"

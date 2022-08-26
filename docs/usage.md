@@ -44,12 +44,12 @@ darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_
 25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2022_03
 ```
 
-| Column               | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `analysis_dir` | Output analysis directory for this assembly. Must be a relative path, which will be evaluated from `--outdir` |
-| `ensembl_species_name`      | Name of the species, *as used by Ensembl*. Note: it may differ from Tree of Life's |
-| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
-| `geneset_version`      | (optional) Version of the geneset, usually in the form `YYYY-MM`. When missing, the dataset considered is actually the repeat annotation.
+| Column                 | Description                                                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `analysis_dir`         | Output analysis directory for this assembly. Must be a relative path, which will be evaluated from `--outdir`                             |
+| `ensembl_species_name` | Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's                                                        |
+| `assembly_accession`   | Accession number of the assembly to download. Typically of the form `GCA_*.*`.                                                            |
+| `geneset_version`      | (optional) Version of the geneset, usually in the form `YYYY-MM`. When missing, the dataset considered is actually the repeat annotation. |
 
 A samplesheet may contain:
 
