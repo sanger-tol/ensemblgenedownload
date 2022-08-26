@@ -70,13 +70,15 @@ class RowChecker:
         self._validate_ensembl_name(row)
         self._validate_accession(row)
         self._validate_geneset(row)
-        self._seen.add( (row[self._accession_col], row[self._geneset_col]) )
+        self._seen.add((row[self._accession_col], row[self._geneset_col]))
         self.modified.append(row)
 
     def _validate_accession(self, row):
         """Assert that the accession number exists and matches the expected nomenclature."""
         assert len(row[self._accession_col]) > 0, "Accession number is required."
-        assert self._regex_accession.match(row[self._accession_col]), "Accession numbers must match %s." % self._regex_accession
+        assert self._regex_accession.match(row[self._accession_col]), (
+            "Accession numbers must match %s." % self._regex_accession
+        )
 
     def _validate_dir(self, row):
         """Assert that the species directory is non-empty."""
@@ -85,18 +87,24 @@ class RowChecker:
     def _validate_ensembl_name(self, row):
         """Assert that the Ensembl name is non-empty and has no space."""
         assert len(row[self._ensembl_name_col]) > 0, "Ensembl name is required."
-        assert " " not in row[self._ensembl_name_col], "Ensembl name must not contain whitespace."
+        assert (
+            " " not in row[self._ensembl_name_col]
+        ), "Ensembl name must not contain whitespace."
 
     def _validate_geneset(self, row):
         """Assert that the geneset version is either empty or matches the expected nomenclature."""
         if len(row[self._geneset_col]) > 0:
-            assert self._regex_geneset.match(row[self._geneset_col]), "Geneset versions must match %s." % self._regex_geneset
+            assert self._regex_geneset.match(row[self._geneset_col]), (
+                "Geneset versions must match %s." % self._regex_geneset
+            )
 
     def validate_unique_samples(self):
         """
         Assert that the sample identifiers are unique.
         """
-        assert len(self._seen) == len(self.modified), "The pair of sample name and FASTQ must be unique."
+        assert len(self._seen) == len(
+            self.modified
+        ), "The pair of sample name and FASTQ must be unique."
 
 
 def read_head(handle, num_lines=10):
@@ -153,13 +161,20 @@ def check_samplesheet(file_in, file_out):
             /lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03
             /lustre/scratch124/tol/projects/25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,
     """
-    required_columns = {"analysis_dir", "ensembl_species_name", "assembly_accession", "geneset_version"}
+    required_columns = {
+        "analysis_dir",
+        "ensembl_species_name",
+        "assembly_accession",
+        "geneset_version",
+    }
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
         # Validate the existence of the expected header columns.
         if not required_columns.issubset(reader.fieldnames):
-            logger.critical(f"The sample sheet **must** contain the column headers: {', '.join(required_columns)}.")
+            logger.critical(
+                f"The sample sheet **must** contain the column headers: {', '.join(required_columns)}."
+            )
             sys.exit(1)
         # Validate each row.
         checker = RowChecker()
