@@ -29,6 +29,14 @@ The pipeline takes a CSV file that contains assembly accession number, Ensembl s
 The pipeline downloads the Fasta files of the genes (cdna, cds, and protein sequences) as well as the GFF3 file.
 All files are compressed with `bgzip`, and indexed with `samtools faidx` or `tabix`.
 
+Steps involved:
+
+- Download from the NCBI the GFF3 file, and the sequences of the genes in
+  Fasta format.
+- Compress and index all Fasta files with `bgzip`, `samtools faidx`, and
+  `samtools dict`.
+- Compress and index the GFF3 file with `bgzip` and `tabix`.
+
 ## Quick Start
 
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=22.04.0`)
