@@ -30,6 +30,22 @@ When the geneset version is given, the pipeline downloads the Fasta files of the
 When the geneset version is _not_ given, the pipeline downloads the repeat annotation as the masked Fasta file and a BED file.
 All files are compressed with `bgzip`, and indexed with `samtools faidx` or `tabix`.
 
+Steps involved:
+
+_Gene annotation download_:
+
+- Download from the NCBI the GFF3 file, and the sequences of the genes in
+  Fasta format.
+- Compress and index all Fasta files with `bgzip`, `samtools faidx`, and
+  `samtools dict`.
+- Compress and index the GFF3 file with `bgzip` and `tabix`.
+
+_Masked assembly download_:
+
+- Download the masked fasta file from Ensembl.
+- Extract the coordinates of the masked regions into a BED file.
+- Compress and index the BED file with `bgzip` and `tabix`.
+
 ## Quick Start
 
 1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=22.04.0`)
