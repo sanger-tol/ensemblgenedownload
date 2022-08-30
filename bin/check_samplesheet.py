@@ -37,7 +37,7 @@ class RowChecker:
         Initialize the row checker with the expected column names.
 
         Args:
-            dir_col (str): The name of the column that contains the species directory
+            dir_col (str): The name of the column that contains the species' analysis directory
                 (default "analysis_dir").
             ensembl_name_col(str): The name of the column that contains the Ensembl species name
                 (default "ensembl_species_name").
@@ -81,8 +81,8 @@ class RowChecker:
         )
 
     def _validate_dir(self, row):
-        """Assert that the species directory is non-empty."""
-        assert len(row[self._dir_col]) > 0, "Species directory is required."
+        """Assert that the analysis directory is non-empty."""
+        assert len(row[self._dir_col]) > 0, "Analysis directory is required."
 
     def _validate_ensembl_name(self, row):
         """Assert that the Ensembl name is non-empty and has no space."""
