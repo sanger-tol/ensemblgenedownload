@@ -9,6 +9,10 @@
                     "branch": "master",
                     "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
                 },
+                "custom/getchromsizes": {
+                    "branch": "master",
+                    "git_sha": "d75b37fef175f241230ee25c485bd574c768e282"
+                },
                 "samtools/dict": {
                     "branch": "master",
                     "git_sha": "31409f5e727ec932f0b3a399c7a3847d70b21374"
