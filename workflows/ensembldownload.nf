@@ -21,9 +21,9 @@ include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_che
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { DOWNLOAD                      } from '../subworkflows/local/download'
-include { PREPARE_GENOME                } from '../subworkflows/local/prepare_genome'
+include { PREPARE_FASTA                 } from '../subworkflows/local/prepare_genome'
 include { PREPARE_GFF                   } from '../subworkflows/local/prepare_gff'
-include { PREPARE_REPEATS               } from '../subworkflows/local/prepare_repeats'
+include { PREPARE_REPEAT_MASKED_FASTA   } from '../subworkflows/local/prepare_repeats'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,10 +84,10 @@ workflow ENSEMBLDOWNLOAD {
     ch_versions         = ch_versions.mix(DOWNLOAD.out.versions)
 
     // Preparation of Fasta files
-    PREPARE_GENOME (
+    PREPARE_FASTA (
         DOWNLOAD.out.genes
     )
-    ch_versions         = ch_versions.mix(PREPARE_GENOME.out.versions)
+    ch_versions         = ch_versions.mix(PREPARE_FASTA.out.versions)
 
     // Preparation of GFF files
     PREPARE_GFF (
@@ -96,10 +96,10 @@ workflow ENSEMBLDOWNLOAD {
     ch_versions         = ch_versions.mix(PREPARE_GFF.out.versions)
 
     // Preparation of repeat-masking files
-    PREPARE_REPEATS (
+    PREPARE_REPEAT_MASKED_FASTA (
         DOWNLOAD.out.genome
     )
-    ch_versions         = ch_versions.mix(PREPARE_REPEATS.out.versions)
+    ch_versions         = ch_versions.mix(PREPARE_REPEAT_MASKED_FASTA.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

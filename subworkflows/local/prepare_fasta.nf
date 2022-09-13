@@ -1,5 +1,5 @@
 //
-// Uncompress and prepare reference genome files
+// Prepare all the indexes for a Fasta file
 //
 
 include { CUSTOM_GETCHROMSIZES    } from '../../modules/nf-core/modules/custom/getchromsizes/main'
@@ -7,7 +7,7 @@ include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools
 include { TABIX_BGZIP             } from '../../modules/nf-core/modules/tabix/bgzip/main'
 
 
-workflow PREPARE_GENOME {
+workflow PREPARE_FASTA {
 
     take:
     fasta  // file: /path/to/genome.fa
@@ -27,6 +27,7 @@ workflow PREPARE_GENOME {
     // Generate Samtools dictionary
     ch_samtools_dict    = SAMTOOLS_DICT (fasta).dict
     ch_versions         = ch_versions.mix(SAMTOOLS_DICT.out.versions)
+
 
     emit:
     fasta_gz = ch_compressed_fasta       // path: genome.fa.gz
