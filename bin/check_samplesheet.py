@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# This script is modified from nf-core's default check_samplesheet.py
 
 
 """Provide a command line tool to validate and transform tabular samplesheets."""
@@ -27,9 +28,9 @@ class RowChecker:
 
     def __init__(
         self,
-        dir_col="analysis_dir",
+        dir_col="species_dir",
+        name_col="assembly_name",
         ensembl_name_col="ensembl_species_name",
-        accession_col="assembly_accession",
         geneset_col="geneset_version",
         **kwargs,
     ):
@@ -37,24 +38,23 @@ class RowChecker:
         Initialize the row checker with the expected column names.
 
         Args:
-            dir_col (str): The name of the column that contains the species' analysis directory
-                (default "analysis_dir").
+            dir_col (str): The name of the column that contains the species directory
+                (default "species_dir").
+            name_col (str): The name of the column that contains the assembly name
+                (default "assembly_name").
             ensembl_name_col(str): The name of the column that contains the Ensembl species name
                 (default "ensembl_species_name").
-            accession_col (str): The name of the column that contains the accession
-                number (default "assembly_accession").
             geneset_col (str): The name of the column that contains the geneset version
                 (default "geneset_version").
 
         """
         super().__init__(**kwargs)
         self._dir_col = dir_col
+        self._name_col = name_col
         self._ensembl_name_col = ensembl_name_col
-        self._accession_col = accession_col
         self._geneset_col = geneset_col
         self._seen = set()
         self.modified = []
-        self._regex_accession = re.compile(r"^GCA_[0-9]{9}\.[0-9]+$")
         self._regex_geneset = re.compile(r"^20[0-9]{2}_[01][0-9]$")
 
     def validate_and_transform(self, row):
@@ -67,40 +67,42 @@ class RowChecker:
 
         """
         self._validate_dir(row)
+        self._validate_name(row)
         self._validate_ensembl_name(row)
-        self._validate_accession(row)
         self._validate_geneset(row)
-        self._seen.add((row[self._accession_col], row[self._geneset_col]))
+        self._seen.add((row[self._name_col], row[self._geneset_col]))
         self.modified.append(row)
 
-    def _validate_accession(self, row):
-        """Assert that the accession number exists and matches the expected nomenclature."""
-        assert len(row[self._accession_col]) > 0, "Accession number is required."
-        assert self._regex_accession.match(row[self._accession_col]), (
-            "Accession numbers must match %s." % self._regex_accession
-        )
-
     def _validate_dir(self, row):
-        """Assert that the analysis directory is non-empty."""
-        assert len(row[self._dir_col]) > 0, "Analysis directory is required."
+        """Assert that the species directory is non-empty."""
+        if not row[self._dir_col]:
+            raise AssertionError("Species directory is required.")
+
+    def _validate_name(self, row):
+        """Assert that the assembly name is non-empty and has no space."""
+        if not row[self._name_col]:
+            raise AssertionError("Assembly name is required.")
+        if " " in row[self._name_col]:
+            raise AssertionError("Accession names must not contain whitespace.")
 
     def _validate_ensembl_name(self, row):
         """Assert that the Ensembl name is non-empty and has no space."""
-        assert len(row[self._ensembl_name_col]) > 0, "Ensembl name is required."
-        assert (
-            " " not in row[self._ensembl_name_col]
-        ), "Ensembl name must not contain whitespace."
+        if not row[self._ensembl_name_col]:
+            raise AssertionError("Ensembl name is required.")
+        if " " in row[self._ensembl_name_col]:
+            raise AssertionError("Ensembl names must not contain whitespace.")
 
     def _validate_geneset(self, row):
         """Assert that the geneset version is either empty or matches the expected nomenclature."""
         if len(row[self._geneset_col]) > 0:
-            assert self._regex_geneset.match(row[self._geneset_col]), (
-                "Geneset versions must match %s." % self._regex_geneset
-            )
+            if not self._regex_geneset.match(row[self._geneset_col]):
+                raise AssertionError(
+                    "Geneset versions must match %s." % self._regex_geneset
+                )
 
-    def validate_unique_samples(self):
+    def validate_unique_objects(self):
         """
-        Assert that the sample identifiers are unique.
+        Assert that the list of objects to download is unique.
         """
         assert len(self._seen) == len(
             self.modified
@@ -135,9 +137,9 @@ def sniff_format(handle):
     peek = read_head(handle)
     handle.seek(0)
     sniffer = csv.Sniffer()
-    if not sniffer.has_header(peek):
-        logger.critical(f"The given sample sheet does not appear to contain a header.")
-        sys.exit(1)
+    #if not sniffer.has_header(peek):
+    #    logger.critical(f"The given sample sheet does not appear to contain a header.")
+    #    sys.exit(1)
     dialect = sniffer.sniff(peek)
     return dialect
 
@@ -157,14 +159,15 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            analysis_dir,ensembl_species_name,assembly_accession,geneset_version
-            /lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03
-            /lustre/scratch124/tol/projects/25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,
+            species_dir,assembly_name,ensembl_species_name,geneset_version
+            25g/data/echinoderms/Asterias_rubens,eAstRub1.3,Asterias_rubens,
+            25g/data/echinoderms/Asterias_rubens,eAstRub1.3,Asterias_rubens,2020_11
+
     """
     required_columns = {
-        "analysis_dir",
+        "species_dir",
+        "assembly_name",
         "ensembl_species_name",
-        "assembly_accession",
         "geneset_version",
     }
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
@@ -184,7 +187,7 @@ def check_samplesheet(file_in, file_out):
             except AssertionError as error:
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
-        checker.validate_unique_samples()
+        checker.validate_unique_objects()
     header = list(reader.fieldnames)
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_out.open(mode="w", newline="") as out_handle:
