@@ -137,25 +137,25 @@ Attributes for feature types:
   - `ID`: Unique identifier, format `<region_type>:<region_name>`
   - _`Alias`_: A comma-separated list of aliases, usually including the
     `INSDC` accession
-  - _`Is\_circular`_: Flag to indicate circular regions
+  - _`Is_circular`_: Flag to indicate circular regions
 - gene types:
   - `ID`: Unique identifier, format `gene:<gene_stable_id>`
-  - `biotype`: Ensembl biotype, e.g. `protein\_coding`, `pseudogene`
-  - `gene\_id`: Ensembl gene stable ID
+  - `biotype`: Ensembl biotype, e.g. `protein_coding`, `pseudogene`
+  - `gene_id`: Ensembl gene stable ID
   - `version`: Ensembl gene version
   - _`Name`_: Gene name
   - _`description`_: Gene description
 - transcript types:
-  - `ID`: Unique identifier, format `transcript:<transcript\_stable\_id>`
-  - `Parent`: Gene identifier, format `gene:<gene\_stable\_id>`
-  - `biotype`: Ensembl biotype, e.g. `protein\_coding`, `pseudogene`
-  - `transcript\_id`: Ensembl transcript stable ID
+  - `ID`: Unique identifier, format `transcript:<transcript_stable_id>`
+  - `Parent`: Gene identifier, format `gene:<gene_stable_id>`
+  - `biotype`: Ensembl biotype, e.g. `protein_coding`, `pseudogene`
+  - `transcript_id`: Ensembl transcript stable ID
   - `version`: Ensembl transcript version
   - _`Note`_: If the transcript sequence has been edited (i.e. differs
     from the genomic sequence), the edits are described in a note.
 - exon
   - `Parent`: Transcript identifier, format `transcript:<transcript_stable_id>`
-  - `exon\_id`: Ensembl exon stable ID
+  - `exon_id`: Ensembl exon stable ID
   - `version`: Ensembl exon version
   - `constitutive`: Flag to indicate if exon is present in all
     transcripts
@@ -163,7 +163,7 @@ Attributes for feature types:
 - CDS
   - `ID`: Unique identifier, format `CDS:<protein_stable_id>`
   - `Parent`: Transcript identifier, format `transcript:<transcript_stable_id>`
-  - `protein\_id`: Ensembl protein stable ID
+  - `protein_id`: Ensembl protein stable ID
   - `version`: Ensembl protein version
 
 ### Repeat annotation files
