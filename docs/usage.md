@@ -38,20 +38,21 @@ To download multiple datasets at once, descrbe these in a "samplesheet": a comma
 The file must have four columns, as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
 
 ```console
-analysis_dir,ensembl_species_name,assembly_accession,geneset_version
-darwin/data/insects/Noctua_fimbriata/analysis/ilNocFimb1.1,Noctua_fimbriata,GCA_905163415.1,2022_03
-25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1,Osmia_bicornis_bicornis,GCA_907164935.1,2021_11
-25g/data/insects/Osmia_bicornis/analysis/iOsmBic2.1_alternate_haplotype,Osmia_bicornis_bicornis,GCA_907164925.1,2022_02
-25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2020_11
-25g/data/echinoderms/Asterias_rubens/analysis/eAstRub1.3,Asterias_rubens,GCA_902459465.3,2022_03
+species_dir,assembly_name,assembly_accession,ensembl_species_name,geneset_version
+25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3,Asterias_rubens,2020_11
+25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3,Asterias_rubens,2022_03
+25g/data/insects/Osmia_bicornis,iOsmBic2.1,GCA_907164935.1,Osmia_bicornis_bicornis,2021_11
+25g/data/insects/Osmia_bicornis,iOsmBic2.1_alternate_haplotype,GCA_907164925.1,Osmia_bicornis_bicornis,2022_02
+darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1,Noctua_fimbriata,2022_03
 ```
 
-| Column               | Description                                                                    |
-| -------------------- | ------------------------------------------------------------------------------ |
-| `analysis_dir` | Output analysis directory for this assembly. Must be a relative path, which will be evaluated from `--outdir` |
-| `ensembl_species_name`      | Name of the species, *as used by Ensembl*. Note: it may differ from Tree of Life's |
-| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`. |
-| `geneset_version`      | Version of the geneset, usually in the form `YYYY-MM`. |
+| Column                 | Description                                                                                                                                                |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `species_dir`          | Output directory for this species (evaluated from the current directory if a relative path). Analysis results are deposited in `analysis/$assembly_name/`. |
+| `assembly_name`        | Name of the assembly. Used to build the actual output directory.                                                                                           |
+| `assembly_accession`   | Accession number of the assembly to download. Typically of the form `GCA_*.*`.                                                                             |
+| `ensembl_species_name` | Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's                                                                         |
+| `geneset_version`      | Version of the geneset, usually in the form `YYYY-MM`.                                                                                                     |
 
 A samplesheet may contain:
 
