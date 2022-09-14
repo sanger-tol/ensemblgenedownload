@@ -50,14 +50,21 @@ workflow ENSEMBLGENEDOWNLOAD {
 
         SAMPLESHEET_CHECK ( file(params.input, checkIfExists: true) )
             .csv
+            // Provides species_dir, assembly_name, ensembl_species_name, and geneset_version
             .splitCsv ( header:true, sep:',' )
+            // Add analysis_dir, following the Tree of Life directory structure
+            .map {
+                it + [
+                    analysis_dir: "${it["species_dir"]}/analysis/${it["assembly_name"]}",
+                    ]
+            }
             .set { ch_inputs }
 
     } else {
 
         ch_inputs = Channel.from( [
             [
-                analysis_dir: '',
+                analysis_dir: params.outdir,
                 assembly_accession: params.assembly_accession,
                 ensembl_species_name: params.ensembl_species_name,
                 geneset_version: params.geneset_version,
