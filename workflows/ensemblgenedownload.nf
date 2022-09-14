@@ -20,9 +20,9 @@ include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_che
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { DOWNLOAD                      } from '../subworkflows/local/download'
-include { PREPARE_FASTA                 } from '../subworkflows/local/prepare_fasta'
-include { PREPARE_GFF                   } from '../subworkflows/local/prepare_gff'
+include { DOWNLOAD      } from '../subworkflows/local/download'
+include { PREPARE_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
+include { PREPARE_GFF   } from '../subworkflows/local/prepare_gff'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
