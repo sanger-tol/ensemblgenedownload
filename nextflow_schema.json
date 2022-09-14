@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/sanger-tol/ensembldownload/master/nextflow_schema.json",
     "title": "sanger-tol/ensembldownload pipeline parameters",
-    "description": "Pipeline to download annotations from Ensembl onto the Tree of Life directory structure",
+    "description": "Pipeline that downloads annotations from Ensembl into the Tree of Life directory structure",
     "type": "object",
     "definitions": {
         "input_output_options": {
