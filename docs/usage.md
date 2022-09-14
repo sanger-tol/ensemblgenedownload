@@ -1,10 +1,9 @@
 # sanger-tol/ensembldownload: Usage
 
-> _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
-
 ## Introduction
 
-The pipeline downloads Enembl gene and/or repeat annotations for one of multiple assemblied. It also builds a set of common indices (such as `samtools faidx`, `tabix`).
+The pipeline downloads Enembl gene and/or repeat annotations for one of multiple assemblied.
+It also builds a set of common indices (such as `samtools faidx`, `tabix`).
 
 ## One-off downloads
 
@@ -22,7 +21,7 @@ nextflow run sanger-tol/ensembldownload -profile singularity --ensembl_species_n
 
 When the geneset version is provided, the pipeline downloads it. Otherwise it downloads the repeat-masked genome to which the annotation is attached.
 
-## Samplesheet input
+## Bulk download
 
 To download multiple datasets at once, descrbe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
 
@@ -125,7 +124,8 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter or Charliecloud.
 - `test`
-  - A profile with a complete configuration for automated testing
+  - A profile with a minimal configuration for automated testing
+  - Corresponds to defining the assembly to download as command-line parameters so needs no other parameters
   - Includes links to test data so needs no other parameters
 - `test_full`
   - A profile with a complete configuration for automated testing

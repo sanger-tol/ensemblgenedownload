@@ -116,55 +116,55 @@ GFF3 files are validated using [GenomeTools](http://genometools.org).
 
 The 'type' of gene features is:
 
-- "gene" for protein-coding genes
-- "ncRNA_gene" for RNA genes
-- "pseudogene" for pseudogenes
+- `gene` for protein-coding genes
+- `ncRNA_gene` for RNA genes
+- `pseudogene` for pseudogenes
 
 The 'type' of transcript features is:
 
-- "mRNA" for protein-coding transcripts
-- a specific type or RNA transcript such as "snoRNA" or "lnc_RNA"
-- "pseudogenic_transcript" for pseudogenes
+- `mRNA` for protein-coding transcripts
+- a specific type or RNA transcript such as `snoRNA` or `lnc_RNA`
+- `pseudogenic_transcript` for pseudogenes
 
-All transcripts are linked to "exon" features.
-Protein-coding transcripts are linked to "CDS", "five_prime_UTR", and
-"three_prime_UTR" features.
+All transcripts are linked to `exon` features.
+Protein-coding transcripts are linked to `CDS`, `five_prime_UTR`, and
+`three_prime_UTR` features.
 
 Attributes for feature types:
-(square brackets indicate data which is not available for all features)
+(italics indicate data which is not available for all features)
 
 - region types:
-  - ID: Unique identifier, format "<region_type>:<region_name>"
-  - [Alias]: A comma-separated list of aliases, usually including the
-    INSDC accession
-  - [Is_circular]: Flag to indicate circular regions
+  - `ID`: Unique identifier, format `<region_type>:<region_name>`
+  - _`Alias`_: A comma-separated list of aliases, usually including the
+    `INSDC` accession
+  - _`Is\_circular`_: Flag to indicate circular regions
 - gene types:
-  - ID: Unique identifier, format "gene:<gene_stable_id>"
-  - biotype: Ensembl biotype, e.g. "protein_coding", "pseudogene"
-  - gene_id: Ensembl gene stable ID
-  - version: Ensembl gene version
-  - [Name]: Gene name
-  - [description]: Gene description
+  - `ID`: Unique identifier, format `gene:<gene_stable_id>`
+  - `biotype`: Ensembl biotype, e.g. `protein\_coding`, `pseudogene`
+  - `gene\_id`: Ensembl gene stable ID
+  - `version`: Ensembl gene version
+  - _`Name`_: Gene name
+  - _`description`_: Gene description
 - transcript types:
-  - ID: Unique identifier, format "transcript:<transcript_stable_id>"
-  - Parent: Gene identifier, format "gene:<gene_stable_id>"
-  - biotype: Ensembl biotype, e.g. "protein_coding", "pseudogene"
-  - transcript_id: Ensembl transcript stable ID
-  - version: Ensembl transcript version
-  - [Note]: If the transcript sequence has been edited (i.e. differs
+  - `ID`: Unique identifier, format `transcript:<transcript\_stable\_id>`
+  - `Parent`: Gene identifier, format `gene:<gene\_stable\_id>`
+  - `biotype`: Ensembl biotype, e.g. `protein\_coding`, `pseudogene`
+  - `transcript\_id`: Ensembl transcript stable ID
+  - `version`: Ensembl transcript version
+  - _`Note`_: If the transcript sequence has been edited (i.e. differs
     from the genomic sequence), the edits are described in a note.
 - exon
-  - Parent: Transcript identifier, format "transcript:<transcript_stable_id>"
-  - exon_id: Ensembl exon stable ID
-  - version: Ensembl exon version
-  - constitutive: Flag to indicate if exon is present in all
+  - `Parent`: Transcript identifier, format `transcript:<transcript_stable_id>`
+  - `exon\_id`: Ensembl exon stable ID
+  - `version`: Ensembl exon version
+  - `constitutive`: Flag to indicate if exon is present in all
     transcripts
-  - rank: Integer that show the 5'->3' ordering of exons
+  - `rank`: Integer that show the 5'->3' ordering of exons
 - CDS
-  - ID: Unique identifier, format "CDS:<protein_stable_id>"
-  - Parent: Transcript identifier, format "transcript:<transcript_stable_id>"
-  - protein_id: Ensembl protein stable ID
-  - version: Ensembl protein version
+  - `ID`: Unique identifier, format `CDS:<protein_stable_id>`
+  - `Parent`: Transcript identifier, format `transcript:<transcript_stable_id>`
+  - `protein\_id`: Ensembl protein stable ID
+  - `version`: Ensembl protein version
 
 ### Repeat annotation files
 
