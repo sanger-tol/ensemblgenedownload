@@ -30,6 +30,7 @@ workflow DOWNLOAD {
         .mix( ENSEMBL_GENESET_DOWNLOAD.out.cdna.map { it + ["cdna"] } )
         .mix( ENSEMBL_GENESET_DOWNLOAD.out.cds.map  { it + ["cds"] }  )
         .mix( ENSEMBL_GENESET_DOWNLOAD.out.pep.map  { it + ["pep"] }  )
+        // Add meta.id and meta.method
         .map { [it[0] + [id: [it[0].accession, it[1], it[0].version, it[3]].join("."), method: it[1]], it[2]] }
 
     ch_gff              = ENSEMBL_GENESET_DOWNLOAD.out.gff.map { [it[0] + [id: [it[0].accession, it[1], it[0].version].join("."), method: it[1]], it[2]] }
