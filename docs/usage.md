@@ -35,7 +35,7 @@ To download multiple datasets at once, descrbe these in a "samplesheet": a comma
 --input '[path to samplesheet file]'
 ```
 
-The file must have four columns, as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
+The file must have four columns, but accepts five as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
 
 ```console
 species_dir,assembly_name,assembly_accession,ensembl_species_name,geneset_version
@@ -50,7 +50,7 @@ darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1,Noctua_fimbria
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `species_dir`          | Output directory for this species (evaluated from the current directory if a relative path). Analysis results are deposited in `analysis/$assembly_name/`. |
 | `assembly_name`        | Name of the assembly. Used to build the actual output directory.                                                                                           |
-| `assembly_accession`   | Accession number of the assembly to download. Typically of the form `GCA_*.*`.                                                                             |
+| `assembly_accession`   | (Optional). Accession number of the assembly to download. Typically of the form `GCA_*.*`. If missing, the pipeline will infer it from the ACCESSION file. |
 | `ensembl_species_name` | Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's                                                                         |
 | `geneset_version`      | Version of the geneset, usually in the form `YYYY-MM`.                                                                                                     |
 

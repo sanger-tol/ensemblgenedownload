@@ -19,7 +19,7 @@ All data files are compressed (and indexed) with `bgzip`.
 
 All Fasta files are indexed with `samtools faidx`, which allows accessing any region of the assembly in constant time, and `samtools dict`, which allows identifying a sequence by its MD5 checksum.
 
-All BED files are indexed with tabixin CSI mode, allowing large sequences.
+All BED files are indexed with tabix in CSI mode, allowing large sequences.
 
 ### Gene annotation files
 
