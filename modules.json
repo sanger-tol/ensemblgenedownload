@@ -23,7 +23,7 @@
                 },
                 "tabix/bgzip": {
                     "branch": "master",
-                    "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                    "git_sha": "07e2868920201d81e5b99fda47101ce6c67268eb"
                 },
                 "tabix/tabix": {
                     "branch": "master",
