@@ -15,12 +15,11 @@ WorkflowEnsemblgenedownload.initialise(params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SAMPLESHEET_CHECK             } from '../modules/local/samplesheet_check'
-
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { DOWNLOAD      } from '../subworkflows/local/download'
+include { PARAMS_CHECK  } from '../subworkflows/local/params_check'
 include { PREPARE_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
 include { PREPARE_GFF   } from '../subworkflows/local/prepare_gff'
 
@@ -45,37 +44,19 @@ workflow ENSEMBLGENEDOWNLOAD {
 
     ch_versions = Channel.empty()
 
-    ch_inputs = Channel.empty()
-    if (params.input) {
-
-        SAMPLESHEET_CHECK ( file(params.input, checkIfExists: true) )
-            .csv
-            // Provides species_dir, assembly_name, ensembl_species_name, and geneset_version
-            .splitCsv ( header:true, sep:',' )
-            // Add analysis_dir, following the Tree of Life directory structure
-            .map {
-                it + [
-                    analysis_dir: "${it["species_dir"]}/analysis/${it["assembly_name"]}",
-                    ]
-            }
-            .set { ch_inputs }
-
-    } else {
-
-        ch_inputs = Channel.from( [
-            [
-                analysis_dir: params.outdir,
-                assembly_accession: params.assembly_accession,
-                ensembl_species_name: params.ensembl_species_name,
-                geneset_version: params.geneset_version,
-            ]
-        ] )
-
-    }
+    PARAMS_CHECK (
+        [
+            params.input,
+            params.assembly_accession,
+            params.ensembl_species_name,
+            params.geneset_version,
+            params.outdir,
+        ]
+    )
 
     // Actual download
     DOWNLOAD (
-        ch_inputs
+        PARAMS_CHECK.out.ensembl_params
     )
     ch_versions         = ch_versions.mix(DOWNLOAD.out.versions)
 

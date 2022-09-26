@@ -8,20 +8,13 @@ include { ENSEMBL_GENESET_DOWNLOAD      } from '../../modules/local/ensembl_gene
 workflow DOWNLOAD {
 
     take:
-    inputs  // maps that indicate what to download (straight from the samplesheet)
+    annotation_params         // tuple(analysis_dir, ensembl_species_name, assembly_accession, geneset_version)
 
 
     main:
     ch_versions = Channel.empty()
 
-    ENSEMBL_GENESET_DOWNLOAD ( inputs.map {
-        [
-            it["analysis_dir"],
-            it["ensembl_species_name"],
-            it["assembly_accession"],
-            it["geneset_version"],
-        ]
-    } )
+    ENSEMBL_GENESET_DOWNLOAD ( annotation_params )
     ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
 
     // Note: ideally ENSEMBL_GENESET_DOWNLOAD should set meta right, but we need the annotation method
