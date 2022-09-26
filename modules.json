@@ -7,7 +7,7 @@
             "modules": {
                 "custom/dumpsoftwareversions": {
                     "branch": "master",
-                    "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                    "git_sha": "de7b50fdd07f7f81849d582e731b784ee75b20e5"
                 },
                 "custom/getchromsizes": {
                     "branch": "master",
