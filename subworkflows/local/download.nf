@@ -29,6 +29,7 @@ workflow DOWNLOAD {
             it[0] + [
                 id: [it[0].assembly_accession, it[1], it[0].geneset_version, it[3]].join("."),
                 method: it[1],
+                geneset_version: it[0].geneset_version,
             ],
             it[2]
         ] }
@@ -39,6 +40,7 @@ workflow DOWNLOAD {
                 it[0] + [
                     id: [it[0].assembly_accession, it[1], it[0].geneset_version].join("."),
                     method: it[1],
+                    geneset_version: it[0].geneset_version,
                 ],
                 it[2]
             ] }
