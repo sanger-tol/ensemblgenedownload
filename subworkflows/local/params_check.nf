@@ -29,6 +29,22 @@ workflow PARAMS_CHECK {
                     analysis_dir: "${it["species_dir"]}/analysis/${it["assembly_name"]}",
                     ]
             }
+            .branch {
+                it ->
+                    // Check if there is an assembly_accession in the samplesheet
+                    with_accession: it["assembly_accession"]
+                    without_accession : true
+            }
+            .set { ch_samplesheet }
+
+            // If assembly_accession is missing:
+            // Load the accession number from file, following the Tree of Life directory structure
+            ch_samplesheet.with_accession.mix( ch_samplesheet.without_accession.map {
+                it + [
+                    assembly_accession: file("${it["species_dir"]}/assembly/release/${it["assembly_name"]}/insdc/ACCESSION", checkIfExists: true).text.trim(),
+                    ]
+            } )
+            // Convert to tuple, as required by the download subworkflow
             .map { [
                 it["analysis_dir"],
                 it["ensembl_species_name"],

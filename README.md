@@ -26,6 +26,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 ## Overview
 
 The pipeline takes a CSV file that contains assembly accession number, Ensembl species names (as they may differ from Tree of Life ones !), output directories, and geneset versions.
+Assembly accession numbers are optional. If missing, the pipeline assumes it can be retrieved from files named `ACCESSION` in the standard location on disk.
 The pipeline downloads the Fasta files of the genes (cdna, cds, and protein sequences) as well as the GFF3 file.
 All files are compressed with `bgzip`, and indexed with `samtools faidx` or `tabix`.
 
