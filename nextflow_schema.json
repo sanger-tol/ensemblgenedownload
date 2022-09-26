@@ -47,8 +47,8 @@
                 },
                 "ftp_root": {
                     "type": "string",
-                    "description": "Root location of the NCBI FTP, in which all assemblies can be found. Access protocol is actually not limited to FTP, and we use HTTPS by default.",
-                    "default": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA",
+                    "description": "Root location of the Ensembl FTP, in which all annotations can be found. Access protocol is actually not limited to FTP, and we use HTTPS by default.",
+                    "default": "https://ftp.ensembl.org/pub/rapid-release/species",
                     "hidden": true,
                     "fa_icon": "fas fa-link"
                 },

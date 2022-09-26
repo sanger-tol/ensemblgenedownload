@@ -12,7 +12,7 @@ The directories comply with Tree of Life's canonical directory structure.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [Gene annotation files](#gene-annotation-files) - Assembly files, either straight from the NCBI FTP, or indices built on them
+- [Gene annotation files](#gene-annotation-files) - Annotation files, either straight from the Ensembl FTP, or indices built on them
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
 All data files are compressed (and indexed) with `bgzip`.
