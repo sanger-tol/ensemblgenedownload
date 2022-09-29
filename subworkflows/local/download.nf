@@ -15,7 +15,7 @@ workflow DOWNLOAD {
     ch_versions = Channel.empty()
 
     ENSEMBL_GENESET_DOWNLOAD ( annotation_params )
-    ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions)
+    ch_versions         = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions.first())
 
     // Note: ideally ENSEMBL_GENESET_DOWNLOAD should set meta right, but we need the annotation method
     //       which is only available once the download has happened

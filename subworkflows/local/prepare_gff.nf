@@ -17,13 +17,13 @@ workflow PREPARE_GFF {
 
     // Compress the GFF file
     ch_compressed_gff   = TABIX_SORT_BGZIP ( gff ).output
-    ch_versions         = ch_versions.mix(TABIX_SORT_BGZIP.out.versions)
+    ch_versions         = ch_versions.mix(TABIX_SORT_BGZIP.out.versions.first())
 
     // Index the GFF file in two formats for maximum compatibility
     ch_indexed_gff_csi  = TABIX_TABIX_CSI ( ch_compressed_gff ).csi
-    ch_versions         = ch_versions.mix(TABIX_TABIX_CSI.out.versions)
+    ch_versions         = ch_versions.mix(TABIX_TABIX_CSI.out.versions.first())
     ch_indexed_gff_tbi  = TABIX_TABIX_TBI ( ch_compressed_gff ).tbi
-    ch_versions         = ch_versions.mix(TABIX_TABIX_TBI.out.versions)
+    ch_versions         = ch_versions.mix(TABIX_TABIX_TBI.out.versions.first())
 
 
     emit:

@@ -53,6 +53,7 @@ workflow ENSEMBLGENEDOWNLOAD {
             params.outdir,
         ]
     )
+    ch_versions         = ch_versions.mix(PARAMS_CHECK.out.versions)
 
     // Actual download
     DOWNLOAD (
