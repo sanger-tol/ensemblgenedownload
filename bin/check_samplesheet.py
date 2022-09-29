@@ -86,8 +86,10 @@ class RowChecker:
 
     def _validate_accession(self, row):
         """Assert that the accession number exists and matches the expected nomenclature."""
-        if row[self._accession_col] and not self._regex_accession.match(
-            row[self._accession_col]
+        if (
+            self._accession_col in row
+            and row[self._accession_col]
+            and not self._regex_accession.match(row[self._accession_col])
         ):
             raise AssertionError(
                 "Accession numbers must match %s." % self._regex_accession
