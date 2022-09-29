@@ -31,10 +31,10 @@ jobs:
         with:
           version: "${{ matrix.NXF_VER }}"
 
-      - name: Run pipeline with command-line parameters
-        run: |
-          nextflow run ${GITHUB_WORKSPACE} --profile docker --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --geneset_version 2022_03 --outdir ./results
-
-      - name: Run pipeline with a samplesheet
+      - name: Run the test profile of the pipeline
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+
+      - name: Run the full test profile of the pipeline
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_full,docker --outdir ./results_full

@@ -114,9 +114,9 @@ class RowChecker:
                 "Geneset versions must match %s." % self._regex_geneset
             )
 
-    def validate_unique_objects(self):
+    def validate_unique_genesets(self):
         """
-        Assert that the list of objects to download is unique.
+        Assert that the list of genesets to download is unique.
         """
         if len(self._seen) != len(self.modified):
             raise AssertionError("The pair of sample name and FASTQ must be unique.")
@@ -199,7 +199,7 @@ def check_samplesheet(file_in, file_out):
             except AssertionError as error:
                 logger.critical(f"{str(error)} On line {i + 2}.")
                 sys.exit(1)
-        checker.validate_unique_objects()
+        checker.validate_unique_genesets()
     header = list(reader.fieldnames)
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_out.open(mode="w", newline="") as out_handle:

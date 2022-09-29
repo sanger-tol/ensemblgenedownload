@@ -41,8 +41,8 @@
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
-                    "description": "Path to comma-separated file containing information about the assemblies to download. Used for bulk download of many assemblies.",
-                    "help_text": "The file has to be a comma-separated file with 2 columns, and a header row. The columns names must be `assembly_accession` and `assembly_name`.",
+                    "description": "Path to comma-separated file containing information about the genesets to download. Used for bulk download of many genesets.",
+                    "help_text": "The file has to be a comma-separated file with fivecolumns, and a header row. The columns names must be `species_dir`, `assembly_name`, `ensembl_species_name`, and `geneset_version`. An additional `assembly_accession` column can be provided too.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ftp_root": {
