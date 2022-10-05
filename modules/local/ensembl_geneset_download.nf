@@ -2,7 +2,7 @@
 // The module checks that the MD5 checksums match before releasing the data.
 // It also uncompresses the files, since we want bgzip compression.
 process ENSEMBL_GENESET_DOWNLOAD {
-    tag "${assembly_accession}|${geneset_version}"
+    tag "${meta.assembly_accession}|${meta.geneset_version}"
     label 'process_single'
 
     conda (params.enable_conda ? "bioconda::wget=1.18" : null)
@@ -11,7 +11,7 @@ process ENSEMBL_GENESET_DOWNLOAD {
         'quay.io/biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
-    tuple val(analysis_dir), val(ensembl_species_name), val(assembly_accession), val(geneset_version)
+    tuple val(meta), val(ftp_path), val(remote_filename_stem)
 
     output:
     tuple val(meta), env(ANNOTATION_METHOD), path("*-cdna.fa")    , emit: cdna
@@ -24,18 +24,6 @@ process ENSEMBL_GENESET_DOWNLOAD {
     task.ext.when == null || task.ext.when
 
     script:
-
-    // e.g. https://ftp.ensembl.org/pub/rapid-release/species/Agriopis_aurantiaria/GCA_914767915.1/geneset/2021_12/Agriopis_aurantiaria-GCA_914767915.1-2021_12-cdna.fa.gz
-    def ftp_path = params.ftp_root + "/" + ensembl_species_name + "/" + assembly_accession + "/geneset/" + geneset_version
-    def remote_filename_stem = ensembl_species_name + "-" + assembly_accession + "-" + geneset_version
-
-    // id will be added later
-    meta = [
-        outdir : analysis_dir,
-        assembly_accession : assembly_accession,
-        geneset_version: geneset_version,
-    ]
-
     """
     #export https_proxy=http://wwwcache.sanger.ac.uk:3128
     #export http_proxy=http://wwwcache.sanger.ac.uk:3128
