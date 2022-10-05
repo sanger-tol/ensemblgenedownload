@@ -7,18 +7,15 @@ include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check'
 workflow PARAMS_CHECK {
 
     take:
-    inputs          // tuple, see below
+    samplesheet  // file
+    cli_params   // tuple, see below
 
 
     main:
-
-    def (samplesheet, assembly_accession, ensembl_species_name, geneset_version, outdir) = inputs
-
     ch_versions = Channel.empty()
 
     ch_inputs = Channel.empty()
     if (samplesheet) {
-
         SAMPLESHEET_CHECK ( file(samplesheet, checkIfExists: true) )
             .csv
             // Provides species_dir, assembly_name, assembly_accession (optional), ensembl_species_name, and geneset_version
@@ -39,20 +36,10 @@ workflow PARAMS_CHECK {
             .set { ch_inputs }
 
         ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions.first())
-
-    } else {
-
-        ch_inputs = Channel.of(
-            [
-                params.outdir,
-                params.ensembl_species_name,
-                params.assembly_accession,
-                params.geneset_version,
-            ]
-        )
-
     }
 
+    // Add the other input channel in, as it's expected to have all the parameters in the right order
+    ch_inputs = ch_inputs.mix(cli_params)
 
     emit:
     ensembl_params  = ch_inputs        // tuple(analysis_dir, ensembl_species_name, assembly_accession, geneset_version)
