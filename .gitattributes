@@ -1,3 +1,5 @@
 *.config linguist-language=nextflow
 modules/nf-core/** linguist-generated
+modules/sanger-tol/** linguist-generated
 subworkflows/nf-core/** linguist-generated
+subworkflows/sanger-tol/** linguist-generated
