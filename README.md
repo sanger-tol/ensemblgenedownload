@@ -1,3 +1,5 @@
+# ![sanger-tol/ensemblgenedownload](docs/images/sanger-tol-ensemblgenedownload_logo.png)
+
 [![GitHub Actions CI Status](https://github.com/sanger-tol/ensemblgenedownload/workflows/nf-core%20CI/badge.svg)](https://github.com/sanger-tol/ensemblgenedownload/actions?query=workflow%3A%22nf-core+CI%22)
 
 <!-- [![GitHub Actions Linting Status](https://github.com/sanger-tol/ensemblgenedownload/workflows/nf-core%20linting/badge.svg)](https://github.com/sanger-tol/ensemblgenedownload/actions?query=workflow%3A%22nf-core+linting%22) -->
