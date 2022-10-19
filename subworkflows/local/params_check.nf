@@ -35,11 +35,12 @@ workflow PARAMS_CHECK {
             ] }
             .set { ch_inputs }
 
-        ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions.first())
-    }
+        ch_versions = ch_versions.mix(SAMPLESHEET_CHECK.out.versions)
 
-    // Add the other input channel in, as it's expected to have all the parameters in the right order
-    ch_inputs = ch_inputs.mix(cli_params)
+    } else {
+        // Add the other input channel in, as it's expected to have all the parameters in the right order
+        ch_inputs = ch_inputs.mix(cli_params)
+    }
 
     emit:
     ensembl_params  = ch_inputs        // tuple(analysis_dir, ensembl_species_name, assembly_accession, geneset_version)
