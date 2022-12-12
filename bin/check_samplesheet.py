@@ -32,6 +32,7 @@ class RowChecker:
         name_col="assembly_name",
         accession_col="assembly_accession",
         ensembl_name_col="ensembl_species_name",
+        method_col="annotation_method",
         geneset_col="geneset_version",
         **kwargs,
     ):
@@ -47,6 +48,8 @@ class RowChecker:
                 number (default "assembly_accession").
             ensembl_name_col(str): The name of the column that contains the Ensembl species name
                 (default "ensembl_species_name").
+            annotation_method (str): The name of the column that contains the annotation method
+                (default "annotation_method").
             geneset_col (str): The name of the column that contains the geneset version
                 (default "geneset_version").
 
@@ -56,6 +59,7 @@ class RowChecker:
         self._name_col = name_col
         self._accession_col = accession_col
         self._ensembl_name_col = ensembl_name_col
+        self._method_col = method_col
         self._geneset_col = geneset_col
         self._seen = set()
         self.modified = []
@@ -75,8 +79,9 @@ class RowChecker:
         self._validate_name(row)
         self._validate_accession(row)
         self._validate_ensembl_name(row)
+        self._validate_method(row)
         self._validate_geneset(row)
-        self._seen.add((row[self._name_col], row[self._geneset_col]))
+        self._seen.add((row[self._name_col], row[self._method_col], row[self._geneset_col]))
         self.modified.append(row)
 
     def _validate_dir(self, row):
@@ -108,6 +113,13 @@ class RowChecker:
             raise AssertionError("Ensembl name is required.")
         if " " in row[self._ensembl_name_col]:
             raise AssertionError("Ensembl names must not contain whitespace.")
+
+    def _validate_method(self, row):
+        """Assert that the annotation method is non-empty and has no space."""
+        if not row[self._method_col]:
+            raise AssertionError("Annotation method is required.")
+        if " " in row[self._method_col]:
+            raise AssertionError("Annotation methods must not contain whitespace.")
 
     def _validate_geneset(self, row):
         """Assert that the geneset version matches the expected nomenclature."""
@@ -174,14 +186,15 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            species_dir,assembly_name,ensembl_species_name,geneset_version
-            25g/data/echinoderms/Asterias_rubens,eAstRub1.3,Asterias_rubens,2020_11
+            species_dir,assembly_name,ensembl_species_name,annotation_method,geneset_version
+            25g/data/echinoderms/Asterias_rubens,eAstRub1.3,Asterias_rubens,ensembl,2020_11
 
     """
     required_columns = {
         "species_dir",
         "assembly_name",
         "ensembl_species_name",
+        "annotation_method",
         "geneset_version",
     }
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.

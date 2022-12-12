@@ -18,7 +18,7 @@ workflow PARAMS_CHECK {
     if (samplesheet) {
         SAMPLESHEET_CHECK ( file(samplesheet, checkIfExists: true) )
             .csv
-            // Provides species_dir, assembly_name, assembly_accession (optional), ensembl_species_name, and geneset_version
+            // Provides species_dir, assembly_name, assembly_accession (optional), ensembl_species_name, annotation_method, and geneset_version
             .splitCsv ( header:true, sep:',' )
             .map {
                 // If assembly_accession is missing, load the accession number from file, following the Tree of Life directory structure
@@ -31,6 +31,7 @@ workflow PARAMS_CHECK {
                 "${it["species_dir"]}/analysis/${it["assembly_name"]}",
                 it["ensembl_species_name"],
                 it["assembly_accession"],
+                it["annotation_method"],
                 it["geneset_version"],
             ] }
             .set { ch_inputs }
@@ -43,7 +44,7 @@ workflow PARAMS_CHECK {
     }
 
     emit:
-    ensembl_params  = ch_inputs        // tuple(analysis_dir, ensembl_species_name, assembly_accession, geneset_version)
+    ensembl_params  = ch_inputs        // tuple(analysis_dir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
     versions        = ch_versions      // channel: versions.yml
 }
 

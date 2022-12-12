@@ -17,8 +17,8 @@ class WorkflowEnsemblgenedownload {
                 System.exit(1)
             }
         } else {
-            if (!params.assembly_accession || !params.ensembl_species_name || !params.geneset_version || !params.outdir) {
-                log.error "Either --input, or --assembly_accession, --assembly_name, --geneset_version, and --outdir must be provided"
+            if (!params.assembly_accession || !params.ensembl_species_name || !params.annotation_method || !params.geneset_version || !params.outdir) {
+                log.error "Either --input, or --assembly_accession, --assembly_name, --annotation_method, --geneset_version, and --outdir must be provided"
                 System.exit(1)
             }
         }

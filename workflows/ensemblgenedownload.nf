@@ -51,6 +51,7 @@ workflow ENSEMBLGENEDOWNLOAD {
                 params.outdir,
                 params.ensembl_species_name,
                 params.assembly_accession,
+                params.annotation_method,
                 params.geneset_version,
             ]
         ),
