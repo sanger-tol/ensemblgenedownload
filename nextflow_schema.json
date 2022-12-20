@@ -21,6 +21,7 @@
                 "ensembl_species_name": {
                     "type": "string",
                     "description": "Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's",
+                    "pattern": "^\\S+$",
                     "fa_icon": "fas fa-italic"
                 },
                 "annotation_method": {
