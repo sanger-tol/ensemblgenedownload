@@ -30,7 +30,7 @@ work                # Directory containing the nextflow working files
 
 ## Bulk download
 
-To download multiple datasets at once, descrbe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
+To download multiple datasets at once, describe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
 
 ```bash
 --input '[path to samplesheet file]'
