@@ -9,6 +9,7 @@ workflow PARAMS_CHECK {
     take:
     samplesheet  // file
     cli_params   // tuple, see below
+    outdir       // file output directory
 
 
     main:
@@ -28,7 +29,7 @@ workflow PARAMS_CHECK {
             }
             // Convert to tuple, as required by the download subworkflow
             .map { [
-                "${it["species_dir"]}/analysis/${it["assembly_name"]}",
+                (it["species_dir"].startsWith("/") ? "" : outdir + "/") + "${it["species_dir"]}/analysis/${it["assembly_name"]}",
                 it["ensembl_species_name"],
                 it["assembly_accession"],
                 it["annotation_method"],
