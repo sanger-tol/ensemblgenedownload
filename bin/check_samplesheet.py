@@ -81,7 +81,9 @@ class RowChecker:
         self._validate_ensembl_name(row)
         self._validate_method(row)
         self._validate_geneset(row)
-        self._seen.add((row[self._name_col], row[self._method_col], row[self._geneset_col]))
+        self._seen.add(
+            (row[self._name_col], row[self._method_col], row[self._geneset_col])
+        )
         self.modified.append(row)
 
     def _validate_dir(self, row):
