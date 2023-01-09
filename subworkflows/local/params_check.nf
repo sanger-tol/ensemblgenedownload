@@ -41,7 +41,7 @@ workflow PARAMS_CHECK {
 
     } else {
         // Add the other input channel in, as it's expected to have all the parameters in the right order
-        ch_inputs = ch_inputs.mix(cli_params)
+        ch_inputs = ch_inputs.mix(cli_params.map { [outdir] + it } )
     }
 
     emit:

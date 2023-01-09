@@ -39,7 +39,8 @@
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "The output directory where the results will be saved. Not considered when running the pipeline with a .csv file as input.",
+                    "description": "The output directory where the results will be saved. Not considered for sample-sheet entries that have an absolute path.",
+                    "default": "results",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "input": {
