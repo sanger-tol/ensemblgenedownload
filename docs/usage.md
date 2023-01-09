@@ -11,47 +11,35 @@ The pipeline accepts command-one line arguments to specify a single genome to do
 
 - `--ensembl_species_name`: How Ensembl name the species (as it can be different from Tree of Life),
 - `--assembly_accession`: The accession number of the assembly,
+- `--annotation_method`: The annotation method of the geneset,
 - `--geneset_version`: The geneset version to download,
 - `--outdir`: Where to download the data.
 
 ```console
-nextflow run sanger-tol/ensemblgenedownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --geneset_version 2022_03 --outdir results
-```
-
-Note that the pipeline will create the following files in your working directory:
-
-```bash
-work                # Directory containing the nextflow working files
-<OUTDIR>            # Finished results in specified location (defined with --outdir)
-.nextflow_log       # Log file from Nextflow
-# Other nextflow hidden files, eg. history of pipeline runs and old logs.
+nextflow run sanger-tol/ensemblgenedownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir results
 ```
 
 ## Bulk download
 
-To download multiple datasets at once, descrbe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
-
-```bash
---input '[path to samplesheet file]'
-```
-
-The file must have four columns, but accepts five as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
+To download multiple datasets at once, describe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
+The file must have five columns, but accepts six as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
 
 ```console
-species_dir,assembly_name,assembly_accession,ensembl_species_name,geneset_version
-25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3,Asterias_rubens,2020_11
-25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3,Asterias_rubens,2022_03
-25g/data/insects/Osmia_bicornis,iOsmBic2.1,GCA_907164935.1,Osmia_bicornis_bicornis,2021_11
-25g/data/insects/Osmia_bicornis,iOsmBic2.1_alternate_haplotype,GCA_907164925.1,Osmia_bicornis_bicornis,2022_02
-darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1,Noctua_fimbriata,2022_03
+
+species_dir,assembly_name,assembly_accession,ensembl_species_name,annotation_method,geneset_version
+25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2020_11
+25g/data/echinoderms/Asterias_rubens,eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2022_03
+25g/data/insects/Osmia_bicornis,iOsmBic2.1_alternate_haplotype,GCA_907164925.1,Osmia_bicornis_bicornis,ensembl,2022_02
+darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1,Noctua_fimbriata,braker,2022_03
 ```
 
 | Column                 | Description                                                                                                                                                |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `species_dir`          | Output directory for this species (evaluated from the current directory if a relative path). Analysis results are deposited in `analysis/$assembly_name/`. |
+| `species_dir`          | Output directory for this species (evaluated from `--outdir` if a relative path). Analysis results are deposited in `analysis/$assembly_name/`.            |
 | `assembly_name`        | Name of the assembly. Used to build the actual output directory.                                                                                           |
 | `assembly_accession`   | (Optional). Accession number of the assembly to download. Typically of the form `GCA_*.*`. If missing, the pipeline will infer it from the ACCESSION file. |
 | `ensembl_species_name` | Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's                                                                         |
+| `annotation_method`    | Name of the method of the geneset.                                                                                                                         |
 | `geneset_version`      | Version of the geneset, usually in the form `YYYY-MM`.                                                                                                     |
 
 A samplesheet may contain:
@@ -59,6 +47,21 @@ A samplesheet may contain:
 - multiple datasets of the same species
 - multiple datasets of the same assembly
 - multiple datasets in the same output directory
+
+```bash
+nextflow run sanger-tol/ensemblgenedownload -profile singularity --input samplesheet.csv --outdir results
+```
+
+## Running the pipeline
+
+Note that the pipeline will create the following files in your working directory:
+
+```bash
+work                # Directory containing the nextflow working files
+<OUTDIR>            # Finished results in specified location (defined with --outdir)
+.nextflow_log       # Log file from Nextflow
+.nextflow           # Directory where Nextflow keeps track of jobs
+```
 
 ### Updating the pipeline
 

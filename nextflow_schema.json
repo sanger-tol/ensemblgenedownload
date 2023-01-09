@@ -21,7 +21,14 @@
                 "ensembl_species_name": {
                     "type": "string",
                     "description": "Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's",
+                    "pattern": "^\\S+$",
                     "fa_icon": "fas fa-italic"
+                },
+                "annotation_method": {
+                    "type": "string",
+                    "description": "Method used to annotate the genome. Typically `ensembl`, `braker`, etc.",
+                    "pattern": "^\\S+$",
+                    "fa_icon": "fas fa-book"
                 },
                 "geneset_version": {
                     "type": "string",
@@ -32,7 +39,8 @@
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
-                    "description": "The output directory where the results will be saved. Not considered when running the pipeline with a .csv file as input.",
+                    "description": "The output directory where the results will be saved. Not considered for sample-sheet entries that have an absolute path.",
+                    "default": "results",
                     "fa_icon": "fas fa-folder-open"
                 },
                 "input": {
@@ -42,7 +50,7 @@
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the genesets to download. Used for bulk download of many genesets.",
-                    "help_text": "The file has to be a comma-separated file with fivecolumns, and a header row. The columns names must be `species_dir`, `assembly_name`, `ensembl_species_name`, and `geneset_version`. An additional `assembly_accession` column can be provided too.",
+                    "help_text": "The file has to be a comma-separated file with six columns, and a header row. The columns names must be `species_dir`, `assembly_name`, `ensembl_species_name`, `annotation_method`, and `geneset_version`. An additional `assembly_accession` column can be provided too.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ftp_root": {

@@ -11,7 +11,6 @@ Minor bugfix update.
 
 - When a samplesheet is provided, do not process the individual command-line parameters
 
-
 ## v1.0.0 - [2022-10-07]
 
 Initial release of sanger-tol/ensemblgenedownload, created with the [nf-core](https://nf-co.re/) template.

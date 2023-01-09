@@ -30,32 +30,33 @@ Here are the files you can expect in the `gene/` sub-directory.
 └── analysis
     └── ilNocFimb1.1
         └── gene
-            └── braker2
-                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz
-                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz.dict
-                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz.fai
-                ├── GCA_905163415.1.braker2.2022_03.cdna.fa.gz.gzi
-                ├── GCA_905163415.1.braker2.2022_03.cdna.seq_length.tsv
-                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz
-                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz.dict
-                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz.fai
-                ├── GCA_905163415.1.braker2.2022_03.cds.fa.gz.gzi
-                ├── GCA_905163415.1.braker2.2022_03.cds.seq_length.tsv
-                ├── GCA_905163415.1.braker2.2022_03.gff3.gz
-                ├── GCA_905163415.1.braker2.2022_03.gff3.gz.csi
-                ├── GCA_905163415.1.braker2.2022_03.gff3.gz.gzi
-                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz
-                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz.dict
-                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz.fai
-                ├── GCA_905163415.1.braker2.2022_03.pep.fa.gz.gzi
-                └── GCA_905163415.1.braker2.2022_03.pep.seq_length.tsv
+            └── braker
+                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz
+                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz.dict
+                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz.fai
+                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz.gzi
+                ├── GCA_905163415.1.braker.2022_03.cdna.seq_length.tsv
+                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz
+                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz.dict
+                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz.fai
+                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz.gzi
+                ├── GCA_905163415.1.braker.2022_03.cds.seq_length.tsv
+                ├── GCA_905163415.1.braker.2022_03.gff3.gz
+                ├── GCA_905163415.1.braker.2022_03.gff3.gz.csi
+                ├── GCA_905163415.1.braker.2022_03.gff3.gz.gzi
+                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz
+                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz.dict
+                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz.fai
+                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz.gzi
+                └── GCA_905163415.1.braker.2022_03.pep.seq_length.tsv
 ```
 
 The directory structure includes the assembly name, e.g. `fParRan2.2`, and all files are named after the assembly accession, e.g. `GCA_900634625.2`.
-The file name (and the directory name) includes the annotation method and date. Current methods are:
+The file name (and the directory name) includes the annotation method and date. Current methods include:
 
-- `braker2` for [BRAKER2](https://academic.oup.com/nargab/article/3/1/lqaa108/6066535)
 - `ensembl` for Ensembl's own annotation pipeline
+- `braker` for [BRAKER2](https://academic.oup.com/nargab/article/3/1/lqaa108/6066535)
+- `refseq` for [RefSeq](https://academic.oup.com/nar/article/49/D1/D1020/6018440)
 
 The `.seq_length.tsv` files are tabular analogous to the common `chrom.sizes`. They contain the sequence names and their lengths.
 
