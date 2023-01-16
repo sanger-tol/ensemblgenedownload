@@ -14,11 +14,11 @@ process ENSEMBL_GENESET_DOWNLOAD {
     tuple val(meta), val(ftp_path), val(remote_filename_stem)
 
     output:
-    tuple val(meta), env(ANNOTATION_METHOD), path("*-cdna.fa")    , emit: cdna
-    tuple val(meta), env(ANNOTATION_METHOD), path("*-cds.fa")     , emit: cds
-    tuple val(meta), env(ANNOTATION_METHOD), path("*-genes.gff3") , emit: gff
-    tuple val(meta), env(ANNOTATION_METHOD), path("*-pep.fa")     , emit: pep
-    path  "versions.yml"                                          , emit: versions
+    tuple val(meta), path("*-cdna.fa")    , emit: cdna
+    tuple val(meta), path("*-cds.fa")     , emit: cds
+    tuple val(meta), path("*-genes.gff3") , emit: gff
+    tuple val(meta), path("*-pep.fa")     , emit: pep
+    path  "versions.yml"                  , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -40,12 +40,6 @@ process ENSEMBL_GENESET_DOWNLOAD {
         md5sum -c md5checksums_restricted.txt
     fi
     gunzip *.gz
-    if head -n 1 ${remote_filename_stem}-pep.fa | grep '^>BRAKER'
-    then
-        ANNOTATION_METHOD=braker2
-    else
-        ANNOTATION_METHOD=ensembl
-    fi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

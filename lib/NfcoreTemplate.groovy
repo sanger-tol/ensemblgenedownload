@@ -228,7 +228,7 @@ class NfcoreTemplate {
             ${colors.blue} | (___   __ _ _ __   __ _  ___ _ __ ${colors.reset}______${colors.green}| |${colors.yellow} ___ ${colors.red}| |${colors.reset}
             ${colors.blue}  \\___ \\ / _` | '_ \\ / _` |/ _ \\ '__|${colors.reset}______${colors.green}| |${colors.yellow}/ _ \\${colors.red}| |${colors.reset}
             ${colors.blue}  ____) | (_| | | | | (_| |  __/ |         ${colors.green}| |${colors.yellow} (_) ${colors.red}| |____${colors.reset}
-            ${colors.blue} |_____/ \\__,_|_| |_|\\__, |\\___|_|         ${colors.green}|_|${colors.yellow}\\___/${colors.red}}|______|${colors.reset}
+            ${colors.blue} |_____/ \\__,_|_| |_|\\__, |\\___|_|         ${colors.green}|_|${colors.yellow}\\___/${colors.red}|______|${colors.reset}
             ${colors.blue}                      __/ |${colors.reset}
             ${colors.blue}                     |___/${colors.reset}
             ${colors.purple}  ${workflow.manifest.name} v${workflow.manifest.version}${colors.reset}

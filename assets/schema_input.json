@@ -25,14 +25,19 @@
             "ensembl_species_name": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Name of the species, as used in the Ensembl FTP"
+                "errorMessage": "The (Ensembl) species name must be provided and cannot contain spaces"
+            },
+            "annotation_method": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "The annotation method must be provided and cannot contain spaces"
             },
             "geneset_version": {
                 "type": "string",
                 "pattern": "^20[0-9]{2}_[01][0-9]$",
-                "errorMessage": "Version of the geneset, usually in the form `YYYY-MM`."
+                "errorMessage": "The version of the geneset must be in the form `YYYY-MM`."
             }
         },
-        "required": ["species_dir", "assembly_name", "ensembl_species_name", "geneset_version"]
+        "required": ["species_dir", "assembly_name", "ensembl_species_name", "annotation_method", "geneset_version"]
     }
 }
