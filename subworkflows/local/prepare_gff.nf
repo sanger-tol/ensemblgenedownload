@@ -28,7 +28,14 @@ workflow PREPARE_GFF {
                         return [meta, gff_gz]
         only_csi:    max_coord < 2**31
                         return [meta, gff_gz]
+        no_tabix:    true
+                        return [meta, gff_gz]
     }
+
+    // Output channels to tell the downstream subworkflows which indexes are missing
+    // (therefore, only meta is available)
+    no_csi              = tabix_selector.no_tabix.map {it[0]}
+    no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map {it[0]}
 
     ch_indexed_gff_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).csi
     ch_versions         = ch_versions.mix(TABIX_TABIX_CSI.out.versions.first())
@@ -40,6 +47,8 @@ workflow PREPARE_GFF {
     gff_gz   = ch_compressed_gff         // path: genes.gff.gz
     gff_csi  = ch_indexed_gff_csi        // path: genes.gff.csi
     gff_tbi  = ch_indexed_gff_tbi        // path: genes.gff.tbi
+    no_csi   = no_csi                       // (only meta)
+    no_tbi   = no_tbi                       // (only meta)
     versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
 }
 
