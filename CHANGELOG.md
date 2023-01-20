@@ -3,6 +3,20 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.0 - [date]
+
+### `Fixed`
+
+- Support for the updated directory structure of the Ensembl FTP
+- Relative paths in the sample-sheet are now evaluated from the `--outdir` parameter
+- Memory usage rules for `samtools dict`
+- Appropriate use of `tabix`'s TBI and CSI indexing, depending on the sequence lengths
+
+### `Added`
+
+- New command-line parameter (`--annotation_method`): required for accessing the files on the Ensembl FTP
+- `--outdir` is a _mandatory_ parameter
+
 ## v1.0.1 - [2022-10-11]
 
 Minor bugfix update.
