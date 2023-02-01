@@ -16,13 +16,16 @@ The pipeline accepts command-one line arguments to specify a single genome to do
 - `--outdir`: Where to download the data.
 
 ```console
-nextflow run sanger-tol/ensemblgenedownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir results
+nextflow run sanger-tol/ensemblgenedownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir Noctua_fimbriata_braker_2022_03
 ```
+
+This will launch the pipeline and download the `2022_03` Braker annotation of the assembly of `Noctua_fimbriata` accession `GCA_905163415.1` into the `Noctua_fimbriata_braker_2022_03/` directory,
+which will be created if needed.
 
 ## Bulk download
 
-To download multiple datasets at once, describe these in a "samplesheet": a comma-separated files that lists the command-line arguments.
-The file must have five columns, but accepts six as in the [example samplesheet](../assets/samplesheet.csv) provided with the pipeline and pasted here:
+The pipeline can download multiple genesets at once, by providing them in a `.csv` file through the `--input` parameter.
+It has to be a comma-separated file with five or six columns, and a header row as shown in the examples below.
 
 ```console
 
@@ -44,16 +47,21 @@ darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1,Noctua_fimbria
 
 A samplesheet may contain:
 
-- multiple datasets of the same species
-- multiple datasets of the same assembly
-- multiple datasets in the same output directory
+- multiple genesets of the same species
+- multiple genesets of the same assembly
+- multiple genesets in the same output directory
+- only one row per geneset
 
-```bash
-nextflow run sanger-tol/ensemblgenedownload -profile singularity --input samplesheet.csv --outdir results
-```
-
+All samplesheet columns correspond exactly to their corresponding command-line parameter,
+except `species_dir` which overrides or complements `--oudir`.
 `species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
 from Sanger Tree of Life.
+
+An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+```bash
+nextflow run sanger-tol/ensemblgenedownload -profile singularity --input /path/to/samplesheet.csv --outdir /path/to/results
+```
 
 ## Nextflow outputs
 
