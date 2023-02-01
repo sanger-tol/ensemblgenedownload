@@ -52,7 +52,10 @@ A samplesheet may contain:
 nextflow run sanger-tol/ensemblgenedownload -profile singularity --input samplesheet.csv --outdir results
 ```
 
-## Running the pipeline
+`species_dir` is used to fit the output of this pipeline into a directory structure compatible with the other pipelines
+from Sanger Tree of Life.
+
+## Nextflow outputs
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -61,6 +64,7 @@ work                # Directory containing the nextflow working files
 <OUTDIR>            # Finished results in specified location (defined with --outdir)
 .nextflow_log       # Log file from Nextflow
 .nextflow           # Directory where Nextflow keeps track of jobs
+# Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
 
 ### Updating the pipeline
