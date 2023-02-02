@@ -2,7 +2,7 @@
 // The module checks that the MD5 checksums match before releasing the data.
 // It also uncompresses the files, since we want bgzip compression.
 process ENSEMBL_GENESET_DOWNLOAD {
-    tag "${meta.assembly_accession}|${meta.geneset_version}"
+    tag "${meta.assembly_accession}.${meta.method}.${meta.geneset_version}"
     label 'process_single'
 
     conda (params.enable_conda ? "bioconda::wget=1.18" : null)
