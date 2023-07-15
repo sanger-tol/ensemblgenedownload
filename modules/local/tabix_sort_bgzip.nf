@@ -4,7 +4,7 @@ process TABIX_SORT_BGZIP {
     tag "$input"
     label 'process_single'
 
-    conda (params.enable_conda ? 'bioconda::tabix=1.11' : null)
+    conda 'bioconda::tabix=1.11'
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/tabix:1.11--hdfd78af_0' :
         'quay.io/biocontainers/tabix:1.11--hdfd78af_0' }"
