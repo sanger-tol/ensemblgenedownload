@@ -12,7 +12,6 @@ lint:
     - .github/workflows/awsfulltest.yml
   files_unchanged:
     - LICENSE
-    - .gitattributes
     - .github/CONTRIBUTING.md
     - .github/ISSUE_TEMPLATE/bug_report.yml
     - .github/workflows/linting.yml
