@@ -81,9 +81,7 @@ class RowChecker:
         self._validate_ensembl_name(row)
         self._validate_method(row)
         self._validate_geneset(row)
-        self._seen.add(
-            (row[self._name_col], row[self._method_col], row[self._geneset_col])
-        )
+        self._seen.add((row[self._name_col], row[self._method_col], row[self._geneset_col]))
         self.modified.append(row)
 
     def _validate_dir(self, row):
@@ -98,9 +96,7 @@ class RowChecker:
             and row[self._accession_col]
             and not self._regex_accession.match(row[self._accession_col])
         ):
-            raise AssertionError(
-                "Accession numbers must match %s." % self._regex_accession
-            )
+            raise AssertionError("Accession numbers must match %s." % self._regex_accession)
 
     def _validate_name(self, row):
         """Assert that the assembly name is non-empty and has no space."""
@@ -126,9 +122,7 @@ class RowChecker:
     def _validate_geneset(self, row):
         """Assert that the geneset version matches the expected nomenclature."""
         if not self._regex_geneset.match(row[self._geneset_col]):
-            raise AssertionError(
-                "Geneset versions must match %s." % self._regex_geneset
-            )
+            raise AssertionError("Geneset versions must match %s." % self._regex_geneset)
 
     def validate_unique_genesets(self):
         """
