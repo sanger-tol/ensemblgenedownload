@@ -93,7 +93,7 @@ ensembl_species_name: "Noctua_fimbriata"
 assembly_accession: "GCA_905163415.1"
 annotation_method: "braker"
 geneset_version: "2022_03"
-outdir: './results/'
+outdir: "./results/"
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
