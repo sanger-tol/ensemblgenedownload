@@ -89,11 +89,11 @@ nextflow run sanger-tol/ensemblgenedownload -profile docker -params-file params.
 with `params.yaml` containing:
 
 ```yaml
-input: './samplesheet.csv'
+ensembl_species_name: "Noctua_fimbriata"
+assembly_accession: "GCA_905163415.1"
+annotation_method: "braker"
+geneset_version: "2022_03"
 outdir: './results/'
-genome: 'GRCh37'
-input: 'data'
-<...>
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
