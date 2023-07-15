@@ -2,32 +2,33 @@
     "name": "sanger-tol/ensemblgenedownload",
     "homePage": "https://github.com/sanger-tol/ensemblgenedownload",
     "repos": {
-        "nf-core/modules": {
-            "git_url": "https://github.com/nf-core/modules.git",
+        "https://github.com/nf-core/modules.git": {
             "modules": {
-                "custom/dumpsoftwareversions": {
-                    "branch": "master",
-                    "git_sha": "82501fe6d0d12614db67751d30af98d16e63dc59"
-                },
-                "custom/getchromsizes": {
-                    "branch": "master",
-                    "git_sha": "d75b37fef175f241230ee25c485bd574c768e282"
-                },
-                "samtools/dict": {
-                    "branch": "master",
-                    "git_sha": "31409f5e727ec932f0b3a399c7a3847d70b21374"
-                },
-                "samtools/faidx": {
-                    "branch": "master",
-                    "git_sha": "3eb99152cedbb7280258858e5df08478a4670696"
-                },
-                "tabix/bgzip": {
-                    "branch": "master",
-                    "git_sha": "31c0b49f6527ef196e89eca49a36af2de71711f8"
-                },
-                "tabix/tabix": {
-                    "branch": "master",
-                    "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                "nf-core": {
+                    "custom/dumpsoftwareversions": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "custom/getchromsizes": {
+                        "branch": "master",
+                        "git_sha": "d75b37fef175f241230ee25c485bd574c768e282"
+                    },
+                    "samtools/dict": {
+                        "branch": "master",
+                        "git_sha": "31409f5e727ec932f0b3a399c7a3847d70b21374"
+                    },
+                    "samtools/faidx": {
+                        "branch": "master",
+                        "git_sha": "3eb99152cedbb7280258858e5df08478a4670696"
+                    },
+                    "tabix/bgzip": {
+                        "branch": "master",
+                        "git_sha": "31c0b49f6527ef196e89eca49a36af2de71711f8"
+                    },
+                    "tabix/tabix": {
+                        "branch": "master",
+                        "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                    }
                 }
             }
         }

@@ -2,6 +2,8 @@
 // This file holds several functions specific to the workflow/ensemblgenedownload.nf in the sanger-tol/ensemblgenedownload pipeline
 //
 
+import groovy.text.SimpleTemplateEngine
+
 class WorkflowEnsemblgenedownload {
 
     //
