@@ -3,7 +3,6 @@
 //
 
 import nextflow.Nextflow
-import groovy.text.SimpleTemplateEngine
 
 class WorkflowEnsemblgenedownload {
 
