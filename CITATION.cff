@@ -18,7 +18,7 @@ authors:
       affiliation: Wellcome Sanger Institute
 identifiers:
     - type: doi
-      value: 10.5281/zenodo.7183206
+      value: 10.5281/zenodo.7155206
 repository-code: "https://github.com/sanger-tol/ensemblgenedownload"
 license: MIT
 commit: TODO
