@@ -26,6 +26,17 @@ nextflow run sanger-tol/ensemblgenedownload -profile singularity --ensembl_speci
 This will launch the pipeline and download the `2022_03` Braker annotation of the assembly of `Noctua_fimbriata` accession `GCA_905163415.1` into the `Noctua_fimbriata_braker_2022_03/` directory,
 which will be created if needed.
 
+Those parameters can be retrieved by browsing the [Ensembl Rapid Release](https://rapid.ensembl.org/) site.
+
+* Go to the [species list](https://rapid.ensembl.org/info/about/species.html) and click on the
+  annotation link of your species of interest.
+* From the URL, e.g. `https://ftp.ensembl.org/pub/rapid-release/species/Noctua_fimbriata/GCA_905163425.1/braker/geneset/`,
+  extract the species name, the assembly accession, and the annotation method.
+* From the firectory listing, grab the version of the geneset.
+
+> [!WARNING]
+> Only the _Rapid Release_ site is currently supported, not the other sites.
+
 ## Bulk download
 
 The pipeline can download multiple genesets at once, by providing them in a `.csv` file through the `--input` parameter.
