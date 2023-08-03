@@ -47,7 +47,7 @@ darwin/data/insects/Noctua_fimbriata,ilNocFimb1.1,GCA_905163415.1,Noctua_fimbria
 | `assembly_accession`   | (Optional). Accession number of the assembly to download. Typically of the form `GCA_*.*`. If missing, the pipeline will infer it from the ACCESSION file. |
 | `ensembl_species_name` | Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's                                                                         |
 | `annotation_method`    | Name of the method of the geneset.                                                                                                                         |
-| `geneset_version`      | Version of the geneset, usually in the form `YYYY-MM`.                                                                                                     |
+| `geneset_version`      | Version of the geneset, usually in the form `YYYY_MM`.                                                                                                     |
 
 A samplesheet may contain:
 
