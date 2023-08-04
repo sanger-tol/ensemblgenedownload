@@ -15,7 +15,6 @@ lint:
     - .github/ISSUE_TEMPLATE/bug_report.yml
     - .github/workflows/linting.yml
     - assets/sendmail_template.txt
-    - docs/README.md
     - lib/NfcoreTemplate.groovy
   nextflow_config:
     - manifest.name
