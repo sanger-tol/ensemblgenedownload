@@ -51,7 +51,7 @@ nextflow run sanger-tol/ensemblgenedownload --ensembl_species_name Noctua_fimbri
 > see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
 
 The pipeline also supports bulk downloads through a sample-sheet.
-More information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/insdcdownload/usage).
+More information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/ensemblgenedownload/usage).
 
 ## Credits
 
