@@ -28,11 +28,11 @@ which will be created if needed.
 
 Those parameters can be retrieved by browsing the [Ensembl Rapid Release](https://rapid.ensembl.org/) site.
 
-* Go to the [species list](https://rapid.ensembl.org/info/about/species.html) and click on the
+- Go to the [species list](https://rapid.ensembl.org/info/about/species.html) and click on the
   annotation link of your species of interest.
-* From the URL, e.g. `https://ftp.ensembl.org/pub/rapid-release/species/Noctua_fimbriata/GCA_905163425.1/braker/geneset/`,
+- From the URL, e.g. `https://ftp.ensembl.org/pub/rapid-release/species/Noctua_fimbriata/GCA_905163425.1/braker/geneset/`,
   extract the species name, the assembly accession, and the annotation method.
-* From the firectory listing, grab the version of the geneset.
+- From the firectory listing, grab the version of the geneset.
 
 > [!WARNING]
 > Only the _Rapid Release_ site is currently supported, not the other sites.
