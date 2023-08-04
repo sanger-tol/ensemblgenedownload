@@ -28,8 +28,7 @@ class RowChecker:
 
     def __init__(
         self,
-        dir_col="species_dir",
-        name_col="assembly_name",
+        dir_col="outdir",
         accession_col="assembly_accession",
         ensembl_name_col="ensembl_species_name",
         method_col="annotation_method",
@@ -41,9 +40,7 @@ class RowChecker:
 
         Args:
             dir_col (str): The name of the column that contains the species directory
-                (default "species_dir").
-            name_col (str): The name of the column that contains the assembly name
-                (default "assembly_name").
+                (default "outdir").
             accession_col (str): The name of the column that contains the accession
                 number (default "assembly_accession").
             ensembl_name_col(str): The name of the column that contains the Ensembl species name
@@ -56,7 +53,6 @@ class RowChecker:
         """
         super().__init__(**kwargs)
         self._dir_col = dir_col
-        self._name_col = name_col
         self._accession_col = accession_col
         self._ensembl_name_col = ensembl_name_col
         self._method_col = method_col
@@ -76,12 +72,11 @@ class RowChecker:
 
         """
         self._validate_dir(row)
-        self._validate_name(row)
         self._validate_accession(row)
         self._validate_ensembl_name(row)
         self._validate_method(row)
         self._validate_geneset(row)
-        self._seen.add((row[self._name_col], row[self._method_col], row[self._geneset_col]))
+        self._seen.add((row[self._accession_col], row[self._method_col], row[self._geneset_col]))
         self.modified.append(row)
 
     def _validate_dir(self, row):
@@ -91,19 +86,10 @@ class RowChecker:
 
     def _validate_accession(self, row):
         """Assert that the accession number exists and matches the expected nomenclature."""
-        if (
-            self._accession_col in row
-            and row[self._accession_col]
-            and not self._regex_accession.match(row[self._accession_col])
-        ):
+        if not row[self._accession_col]:
+            raise AssertionError("Assembly accession is required.")
+        if not self._regex_accession.match(row[self._accession_col]):
             raise AssertionError("Accession numbers must match %s." % self._regex_accession)
-
-    def _validate_name(self, row):
-        """Assert that the assembly name is non-empty and has no space."""
-        if not row[self._name_col]:
-            raise AssertionError("Assembly name is required.")
-        if " " in row[self._name_col]:
-            raise AssertionError("Accession names must not contain whitespace.")
 
     def _validate_ensembl_name(self, row):
         """Assert that the Ensembl name is non-empty and has no space."""
@@ -179,13 +165,13 @@ def check_samplesheet(file_in, file_out):
     Example:
         This function checks that the samplesheet follows the following structure::
 
-            species_dir,assembly_name,ensembl_species_name,annotation_method,geneset_version
-            25g/data/echinoderms/Asterias_rubens,eAstRub1.3,Asterias_rubens,ensembl,2020_11
+            outdir,assembly_accession,ensembl_species_name,annotation_method,geneset_version
+            Asterias_rubens/eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2020_11
 
     """
     required_columns = {
-        "species_dir",
-        "assembly_name",
+        "outdir",
+        "assembly_accession",
         "ensembl_species_name",
         "annotation_method",
         "geneset_version",

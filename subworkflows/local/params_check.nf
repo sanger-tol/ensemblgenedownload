@@ -19,19 +19,13 @@ workflow PARAMS_CHECK {
     if (samplesheet) {
         SAMPLESHEET_CHECK ( file(samplesheet, checkIfExists: true) )
             .csv
-            // Provides species_dir, assembly_name, assembly_accession (optional), ensembl_species_name, annotation_method, and geneset_version
+            // Provides outdir, assembly_accession, ensembl_species_name, annotation_method, and geneset_version
             .splitCsv ( header:true, sep:',' )
-            .map {
-                // If assembly_accession is missing, load the accession number from file, following the Tree of Life directory structure
-                it["assembly_accession"] ? it : it + [
-                    assembly_accession: file("${it["species_dir"]}/assembly/release/${it["assembly_name"]}/insdc/ACCESSION", checkIfExists: true).text.trim(),
-                ]
-            }
             // Convert to tuple, as required by the download subworkflow
             .map { [
-                (it["species_dir"].startsWith("/") ? "" : outdir + "/") + "${it["species_dir"]}/analysis/${it["assembly_name"]}",
-                it["ensembl_species_name"],
+                (it["outdir"].startsWith("/") ? "" : outdir + "/") + it["outdir"],
                 it["assembly_accession"],
+                it["ensembl_species_name"],
                 it["annotation_method"],
                 it["geneset_version"],
             ] }
@@ -44,8 +38,9 @@ workflow PARAMS_CHECK {
         ch_inputs = ch_inputs.mix(cli_params.map { [outdir] + it } )
     }
 
+
     emit:
-    ensembl_params  = ch_inputs        // tuple(analysis_dir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
+    ensembl_params  = ch_inputs        // tuple(outdir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
     versions        = ch_versions      // channel: versions.yml
 }
 
