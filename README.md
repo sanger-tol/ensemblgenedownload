@@ -32,6 +32,9 @@ Steps involved:
   `samtools dict`.
 - Compress and index the GFF3 file with `bgzip` and `tabix`.
 
+> [!WARNING]
+> Only the _Rapid Release_ site is currently supported, not the other Ensembl sites.
+
 ## Usage
 
 > **Note**

@@ -35,7 +35,7 @@ Those parameters can be retrieved by browsing the [Ensembl Rapid Release](https:
 - From the firectory listing, grab the version of the geneset.
 
 > [!WARNING]
-> Only the _Rapid Release_ site is currently supported, not the other sites.
+> Only the _Rapid Release_ site is currently supported, not the other Ensembl sites.
 
 ## Bulk download
 
