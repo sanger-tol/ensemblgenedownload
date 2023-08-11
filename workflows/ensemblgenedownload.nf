@@ -20,7 +20,7 @@ WorkflowEnsemblgenedownload.initialise(params, log)
 //
 include { DOWNLOAD      } from '../subworkflows/local/download'
 include { PARAMS_CHECK  } from '../subworkflows/local/params_check'
-include { PREPARE_FASTA } from '../subworkflows/sanger-tol/prepare_fasta'
+include { PREPARE_FASTA } from '../subworkflows/local/prepare_fasta'
 include { PREPARE_GFF   } from '../subworkflows/local/prepare_gff'
 
 /*
@@ -32,7 +32,7 @@ include { PREPARE_GFF   } from '../subworkflows/local/prepare_gff'
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,6 +92,9 @@ workflow.onComplete {
         NfcoreTemplate.email(workflow, params, summary_params, projectDir, log)
     }
     NfcoreTemplate.summary(workflow, params, log)
+    if (params.hook_url) {
+        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
+    }
 }
 
 /*

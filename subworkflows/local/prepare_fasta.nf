@@ -2,9 +2,9 @@
 // Prepare all the indexes for a Fasta file
 //
 
-include { CUSTOM_GETCHROMSIZES    } from '../../modules/nf-core/modules/custom/getchromsizes/main'
-include { SAMTOOLS_DICT           } from '../../modules/nf-core/modules/samtools/dict/main'
-include { TABIX_BGZIP             } from '../../modules/nf-core/modules/tabix/bgzip/main'
+include { CUSTOM_GETCHROMSIZES    } from '../../modules/nf-core/custom/getchromsizes/main'
+include { SAMTOOLS_DICT           } from '../../modules/nf-core/samtools/dict/main'
+include { TABIX_BGZIP             } from '../../modules/nf-core/tabix/bgzip/main'
 
 
 workflow PREPARE_FASTA {

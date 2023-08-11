@@ -5,10 +5,10 @@ process ENSEMBL_GENESET_DOWNLOAD {
     tag "${meta.assembly_accession}.${meta.method}.${meta.geneset_version}"
     label 'process_single'
 
-    conda (params.enable_conda ? "bioconda::wget=1.18" : null)
+    conda "bioconda::gnu-wget=1.18"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gnu-wget:1.18--h7132678_6' :
-        'quay.io/biocontainers/gnu-wget:1.18--h7132678_6' }"
+        'biocontainers/gnu-wget:1.18--h7132678_6' }"
 
     input:
     tuple val(meta), val(ftp_path), val(remote_filename_stem)

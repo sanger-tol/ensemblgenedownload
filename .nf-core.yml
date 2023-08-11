@@ -1,7 +1,6 @@
 repository_type: pipeline
 lint:
   files_exist:
-    - CODE_OF_CONDUCT.md
     - assets/multiqc_config.yml
     - assets/nf-core-ensemblgenedownload_logo_light.png
     - conf/igenomes.config
@@ -12,12 +11,10 @@ lint:
     - .github/workflows/awsfulltest.yml
   files_unchanged:
     - LICENSE
-    - .gitattributes
     - .github/CONTRIBUTING.md
     - .github/ISSUE_TEMPLATE/bug_report.yml
     - .github/workflows/linting.yml
     - assets/sendmail_template.txt
-    - docs/README.md
     - lib/NfcoreTemplate.groovy
   nextflow_config:
     - manifest.name
