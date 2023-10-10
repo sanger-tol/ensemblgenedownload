@@ -48,8 +48,8 @@ workflow ENSEMBLGENEDOWNLOAD {
         params.input,
         Channel.of(
             [
-                params.ensembl_species_name,
                 params.assembly_accession,
+                params.ensembl_species_name,
                 params.annotation_method,
                 params.geneset_version,
             ]

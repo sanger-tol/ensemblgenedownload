@@ -8,7 +8,7 @@ include { ENSEMBL_GENESET_DOWNLOAD      } from '../../modules/local/ensembl_gene
 workflow DOWNLOAD {
 
     take:
-    annotation_params         // tuple(analysis_dir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
+    annotation_params         // tuple(outdir, assembly_accession, ensembl_species_name, annotation_method, geneset_version)
 
 
     main:
@@ -17,9 +17,9 @@ workflow DOWNLOAD {
     ENSEMBL_GENESET_DOWNLOAD (
         annotation_params.map {
 
-            species_dir,
-            ensembl_species_name,
+            outdir,
             assembly_accession,
+            ensembl_species_name,
             annotation_method,
             geneset_version
 
@@ -29,7 +29,7 @@ workflow DOWNLOAD {
                     assembly_accession: assembly_accession,
                     geneset_version: geneset_version,
                     method: annotation_method,
-                    outdir: species_dir,
+                    outdir: outdir,
                 ],
 
                 // e.g. https://ftp.ensembl.org/pub/rapid-release/species/Agriopis_aurantiaria/GCA_914767915.1/braker/geneset/2021_12/Agriopis_aurantiaria-GCA_914767915.1-2021_12-cdna.fa.gz

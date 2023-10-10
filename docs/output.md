@@ -4,7 +4,8 @@
 
 This document describes the output produced by the pipeline.
 
-The directories listed below will be created in the results directory (or `species_dir` when using a samplesheet) after the pipeline has finished.
+The directories listed below will be created in a directory based on the `--outdir` command-line parameter and the `outdir` column of the samplesheet.
+) after the pipeline has finished.
 All paths are relative to the top-level results directory.
 
 The directories comply with Tree of Life's canonical directory structure.
@@ -27,37 +28,37 @@ All BED files are indexed with tabix in both TBI and CSI modes, unless the seque
 Here are the files you can expect in the `gene/` sub-directory.
 
 ```text
-/lustre/scratch124/tol/projects/darwin/data/insects/Noctua_fimbriata/
-└── analysis
-    └── ilNocFimb1.1
-        └── gene
-            └── braker
-                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz
-                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz.dict
-                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz.fai
-                ├── GCA_905163415.1.braker.2022_03.cdna.fa.gz.gzi
-                ├── GCA_905163415.1.braker.2022_03.cdna.seq_length.tsv
-                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz
-                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz.dict
-                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz.fai
-                ├── GCA_905163415.1.braker.2022_03.cds.fa.gz.gzi
-                ├── GCA_905163415.1.braker.2022_03.cds.seq_length.tsv
-                ├── GCA_905163415.1.braker.2022_03.gff3.gz
-                ├── GCA_905163415.1.braker.2022_03.gff3.gz.csi
-                ├── GCA_905163415.1.braker.2022_03.gff3.gz.gzi
-                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz
-                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz.dict
-                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz.fai
-                ├── GCA_905163415.1.braker.2022_03.pep.fa.gz.gzi
-                └── GCA_905163415.1.braker.2022_03.pep.seq_length.tsv
+gene
+└── ensembl
+    └── 2022_02
+        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz
+        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.dict
+        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.fai
+        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi
+        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.sizes
+        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz
+        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.dict
+        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.fai
+        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi
+        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.sizes
+        ├── GCA_907164925.1.ensembl.2022_02.gff3.gz
+        ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.csi
+        ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi
+        ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi
+        ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz
+        ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.dict
+        ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.fai
+        ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi
+        └── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.sizes
 ```
 
-The directory structure includes the assembly name, e.g. `fParRan2.2`, and all files are named after the assembly accession, e.g. `GCA_900634625.2`.
-The file name (and the directory name) includes the annotation method and date. Current methods include:
+All files are named after:
 
-- `ensembl` for Ensembl's own annotation pipeline
-- `braker` for [BRAKER2](https://academic.oup.com/nargab/article/3/1/lqaa108/6066535)
-- `refseq` for [RefSeq](https://academic.oup.com/nar/article/49/D1/D1020/6018440)
+- the assembly accession, e.g. `GCA_907164925.1`;
+- the annotation method, e.g. `ensembl`;
+- the annotation date, e.g. `2022_02`.
+
+These information are also in the directory names to allow multiple annotations to be loaded.
 
 The `.seq_length.tsv` files are tabular analogous to the common `chrom.sizes`. They contain the sequence names and their lengths.
 

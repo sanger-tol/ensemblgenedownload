@@ -50,7 +50,7 @@
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the genesets to download. Used for bulk download of many genesets.",
-                    "help_text": "The file has to be a comma-separated file with six columns, and a header row. The columns names must be `species_dir`, `assembly_name`, `ensembl_species_name`, `annotation_method`, and `geneset_version`. An additional `assembly_accession` column can be provided too.",
+                    "help_text": "The file has to be a comma-separated file with five columns, and a header row. The columns names must be `outdir`, `assembly_accession`, `ensembl_species_name`, `annotation_method`, and `geneset_version`.",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "ftp_root": {
