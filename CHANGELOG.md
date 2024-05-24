@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.0 - [date]
+## [[2.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/2.0.0)] – Vicious Uruk-hai – [2024-05-24]
 
 ### `Fixed`
 
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New command-line parameter (`--annotation_method`): required for accessing the files on the Ensembl FTP
 - `--outdir` is a _mandatory_ parameter
 
-## v1.0.1 - [2022-10-11]
+## [[1.0.1](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/1.0.1)] [2022-10-19]
 
 Minor bugfix update.
 
@@ -25,7 +25,7 @@ Minor bugfix update.
 
 - When a samplesheet is provided, do not process the individual command-line parameters
 
-## v1.0.0 - [2022-10-07]
+## [[1.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/1.0.0)] – Hefty mûmakil – [2022-10-07]
 
 Initial release of sanger-tol/ensemblgenedownload, created with the [nf-core](https://nf-co.re/) template.
 

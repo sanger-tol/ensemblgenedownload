@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: sanger-tol/insdcdownload v1.0.1 - Hefty mûmakil
+title: sanger-tol/ensemblgenedownload
 message: >-
     If you use this software, please cite it using the
     metadata from this file.
@@ -22,5 +22,5 @@ identifiers:
 repository-code: "https://github.com/sanger-tol/ensemblgenedownload"
 license: MIT
 commit: TODO
-version: 1.0.1
+version: 2.0.0
 date-released: "2022-10-11"
