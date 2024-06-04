@@ -2,6 +2,8 @@
 // This file holds several functions specific to the workflow/ensemblgenedownload.nf in the sanger-tol/ensemblgenedownload pipeline
 //
 
+import nextflow.Nextflow
+
 class WorkflowEnsemblgenedownload {
 
     //
@@ -13,14 +15,15 @@ class WorkflowEnsemblgenedownload {
         if (params.input) {
             def f = new File(params.input);
             if (!f.exists()) {
-                log.error "'${params.input}' doesn't exist"
-                System.exit(1)
+                Nextflow.error "'${params.input}' doesn't exist"
             }
         } else {
-            if (!params.assembly_accession || !params.ensembl_species_name || !params.geneset_version || !params.outdir) {
-                log.error "Either --input, or --assembly_accession, --assembly_name, --geneset_version, and --outdir must be provided"
-                System.exit(1)
+            if (!params.assembly_accession || !params.ensembl_species_name || !params.annotation_method || !params.geneset_version) {
+                Nextflow.error "Either --input, or --assembly_accession, --ensembl_species_name, --annotation_method, and --geneset_version must be provided"
             }
+        }
+        if (!params.outdir) {
+            Nextflow.error "--outdir is mandatory"
         }
     }
 

@@ -1,19 +1,18 @@
-process SAMTOOLS_FAIDX {
+process SAMTOOLS_DICT {
     tag "$fasta"
     label 'process_single'
 
-    conda (params.enable_conda ? "bioconda::samtools=1.15.1" : null)
+    conda "bioconda::samtools=1.17"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/samtools:1.15.1--h1170115_0' :
-        'quay.io/biocontainers/samtools:1.15.1--h1170115_0' }"
+        'https://depot.galaxyproject.org/singularity/samtools:1.17--h00cdaf9_0' :
+        'biocontainers/samtools:1.17--h00cdaf9_0' }"
 
     input:
     tuple val(meta), path(fasta)
 
     output:
-    tuple val(meta), path ("*.fai"), emit: fai
-    tuple val(meta), path ("*.gzi"), emit: gzi, optional: true
-    path "versions.yml"            , emit: versions
+    tuple val(meta), path ("*.dict"), emit: dict
+    path "versions.yml"             , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,9 +21,10 @@ process SAMTOOLS_FAIDX {
     def args = task.ext.args ?: ''
     """
     samtools \\
-        faidx \\
+        dict \\
         $args \\
-        $fasta
+        $fasta \\
+        > ${fasta}.dict
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -34,7 +34,7 @@ process SAMTOOLS_FAIDX {
 
     stub:
     """
-    touch ${fasta}.fai
+    touch ${fasta}.dict
     cat <<-END_VERSIONS > versions.yml
 
     "${task.process}":

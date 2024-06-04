@@ -2,25 +2,25 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: sanger-tol/insdcdownload v1.0.1 - Hefty mûmakil
+title: sanger-tol/ensemblgenedownload
 message: >-
-  If you use this software, please cite it using the
-  metadata from this file.
+    If you use this software, please cite it using the
+    metadata from this file.
 type: software
 authors:
-  - given-names: Matthieu
-    family-names: Muffato
-    affiliation: Wellcome Sanger Institute
-    orcid: "https://orcid.org/0000-0002-7860-3560"
-  - given-names: Priyanka
-    family-names: Surana
-    orcid: "https://orcid.org/0000-0002-7167-0875"
-    affiliation: Wellcome Sanger Institute
+    - given-names: Matthieu
+      family-names: Muffato
+      affiliation: Wellcome Sanger Institute
+      orcid: "https://orcid.org/0000-0002-7860-3560"
+    - given-names: Priyanka
+      family-names: Surana
+      orcid: "https://orcid.org/0000-0002-7167-0875"
+      affiliation: Wellcome Sanger Institute
 identifiers:
-  - type: doi
-    value: 10.5281/zenodo.7183206
+    - type: doi
+      value: 10.5281/zenodo.7155206
 repository-code: "https://github.com/sanger-tol/ensemblgenedownload"
 license: MIT
 commit: TODO
-version: 1.0.1
+version: 2.0.0
 date-released: "2022-10-11"
