@@ -17,7 +17,7 @@ Note, since the pipeline is using Nextflow DSL2, each process will be run with i
 
 | Dependency | Old version | New version |
 | ---------- | ----------- | ----------- |
-| `Python `  | 3.8.3,3.9.1 | 3.9.1       |
+| `Python`   | 3.8.3,3.9.1 | 3.9.1       |
 | `samtools` | 1.17        | 1.21        |
 | `tabix`    | 1.11        | 1.20        |
 
@@ -58,7 +58,7 @@ Note, since the pipeline is using Nextflow DSL2, each process will be run with i
 | ---------- | ----------- | ----------- |
 | multiqc    | 1.13        | 1.14        |
 
-## [[1.0.1](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/1.0.1)] [2022-10-19]
+## [[1.0.1](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/1.0.1)] – Hefty mûmakil (patch 1) – [2022-10-19]
 
 Minor bugfix update.
 
