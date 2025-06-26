@@ -1,49 +1,100 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    sanger-tol/ensemblgenedownload
+    nf-core/ensemblgenedownload
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/sanger-tol/ensemblgenedownload
+    Github : https://github.com/nf-core/ensemblgenedownload
+    Website: https://nf-co.re/ensemblgenedownload
+    Slack  : https://nfcore.slack.com/channels/ensemblgenedownload
 ----------------------------------------------------------------------------------------
 */
 
-nextflow.enable.dsl = 2
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE & PRINT PARAMETER SUMMARY
+    IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-WorkflowMain.initialise(workflow, params, log)
+include { ENSEMBLGENEDOWNLOAD  } from './workflows/ensemblgenedownload'
+include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
+include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
+include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    NAMED WORKFLOW FOR PIPELINE
+    GENOME PARAMETER VALUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { ENSEMBLGENEDOWNLOAD } from './workflows/ensemblgenedownload'
+// TODO nf-core: Remove this line if you don't need a FASTA file
+//   This is an example of how to use getGenomeAttribute() to fetch parameters
+//   from igenomes.config using `--genome`
+params.fasta = getGenomeAttribute('fasta')
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    NAMED WORKFLOWS FOR PIPELINE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
 //
-// WORKFLOW: Run main sanger-tol/ensemblgenedownload analysis pipeline
+// WORKFLOW: Run main analysis pipeline depending on type of input
 //
-workflow SANGERTOL_ENSEMBLGENEDOWNLOAD {
-    ENSEMBLGENEDOWNLOAD ()
+workflow NFCORE_ENSEMBLGENEDOWNLOAD {
+
+    take:
+    samplesheet // channel: samplesheet read in from --input
+
+    main:
+
+    //
+    // WORKFLOW: Run pipeline
+    //
+    ENSEMBLGENEDOWNLOAD (
+        samplesheet
+    )
+    emit:
+    multiqc_report = ENSEMBLGENEDOWNLOAD.out.multiqc_report // channel: /path/to/multiqc_report.html
 }
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    RUN ALL WORKFLOWS
+    RUN MAIN WORKFLOW
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-//
-// WORKFLOW: Execute a single named workflow for the pipeline
-// See: https://github.com/nf-core/rnaseq/issues/619
-//
 workflow {
-    SANGERTOL_ENSEMBLGENEDOWNLOAD ()
+
+    main:
+    //
+    // SUBWORKFLOW: Run initialisation tasks
+    //
+    PIPELINE_INITIALISATION (
+        params.version,
+        params.validate_params,
+        params.monochrome_logs,
+        args,
+        params.outdir,
+        params.input
+    )
+
+    //
+    // WORKFLOW: Run main workflow
+    //
+    NFCORE_ENSEMBLGENEDOWNLOAD (
+        PIPELINE_INITIALISATION.out.samplesheet
+    )
+    //
+    // SUBWORKFLOW: Run completion tasks
+    //
+    PIPELINE_COMPLETION (
+        params.email,
+        params.email_on_fail,
+        params.plaintext_email,
+        params.outdir,
+        params.monochrome_logs,
+        params.hook_url,
+        NFCORE_ENSEMBLGENEDOWNLOAD.out.multiqc_report
+    )
 }
 
 /*

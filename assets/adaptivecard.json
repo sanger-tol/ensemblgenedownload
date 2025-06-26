@@ -17,7 +17,7 @@
                         "size": "Large",
                         "weight": "Bolder",
                         "color": "<% if (success) { %>Good<% } else { %>Attention<%} %>",
-                        "text": "sanger-tol/ensemblgenedownload v${version} - ${runName}",
+                        "text": "nf-core/ensemblgenedownload v${version} - ${runName}",
                         "wrap": true
                     },
                     {
