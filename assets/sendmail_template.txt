@@ -25,4 +25,7 @@ Content-Disposition: inline; filename="sanger-tol-ensemblgenedownload_logo_light
     flatten().
     join( '\n' ) %>
 
+<%
+%>
+
 --nfcoremimeboundary--

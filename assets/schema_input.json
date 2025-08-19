@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/sanger-tol/ensemblgenedownload/master/assets/schema_input.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/sanger-tol/ensemblgenedownload/main/assets/schema_input.json",
     "title": "sanger-tol/ensemblgenedownload pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
@@ -10,7 +10,7 @@
             "outdir": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Species directory must be provided and exist"
+                "errorMessage": "Species directory must not contain spaces"
             },
             "assembly_accession": {
                 "type": "string",
