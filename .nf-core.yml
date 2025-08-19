@@ -25,8 +25,8 @@ nf_core_version: 3.2.1
 repository_type: pipeline
 template:
   author: "@muffato"
-  description: Pipeline to download gene annotations from Ensembl into a Tree of Life
-    directory structure
+  description: Pipeline to download gene annotations from Ensembl into a Tree of
+    Life directory structure
   force: false
   is_nfcore: false
   name: ensemblgenedownload
