@@ -1,26 +1,35 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
-
-cff-version: 1.2.0
-title: sanger-tol/ensemblgenedownload
-message: >-
-    If you use this software, please cite it using the
-    metadata from this file.
-type: software
 authors:
-    - given-names: Matthieu
-      family-names: Muffato
-      affiliation: Wellcome Sanger Institute
-      orcid: "https://orcid.org/0000-0002-7860-3560"
-    - given-names: Priyanka
-      family-names: Surana
-      orcid: "https://orcid.org/0000-0002-7167-0875"
-      affiliation: Wellcome Sanger Institute
-identifiers:
-    - type: doi
-      value: 10.5281/zenodo.7155206
-repository-code: "https://github.com/sanger-tol/ensemblgenedownload"
+  - affiliation: Wellcome Sanger Institute
+    email: tc25@sanger.ac.uk
+    family-names: Chafin
+    given-names: Tyler
+    orcid: https://orcid.org/0000-0001-8687-5905
+    website: https://github.com/tkchafin
+  - affiliation: Wellcome Sanger Institute
+    email: mm49@sanger.ac.uk
+    family-names: Muffato
+    given-names: Matthieu
+    orcid: https://orcid.org/0000-0002-7860-3560
+    website: https://github.com/muffato
+  - affiliation: Wellcome Sanger Institute
+    email: 729395+gq1@users.noreply.github.com
+    family-names: Qi
+    given-names: Guoying
+    orcid: https://orcid.org/0000-0003-1262-8973
+    website: https://github.com/gq1
+  - affiliation: Wellcome Sanger Institute
+    family-names: Surana
+    given-names: Priyanka
+    orcid: https://orcid.org/0000-0002-7167-0875
+    website: https://github.com/priyanka-surana
+cff-version: 1.2.0
+date-released: "2025-08-19"
+doi: 10.5281/zenodo.7155206
 license: MIT
-commit: TODO
+message: If you use this software, please cite it using the metadata from this file
+  and all references from CITATIONS.md .
+repository-code: https://github.com/sanger-tol/ensemblgenedownload
+title: sanger-tol/ensemblgenedownload v2.0.0 - Vicious Uruk-hai
+type: software
+url: https://pipelines.tol.sanger.ac.uk/ensemblgenedownload
 version: 2.0.0
-date-released: "2022-10-11"
