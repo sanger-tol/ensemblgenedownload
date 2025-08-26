@@ -23,13 +23,13 @@ authors:
     orcid: https://orcid.org/0000-0002-7167-0875
     website: https://github.com/priyanka-surana
 cff-version: 1.2.0
-date-released: "2025-08-19"
+date-released: "2025-08-22"
 doi: 10.5281/zenodo.7155206
 license: MIT
 message: If you use this software, please cite it using the metadata from this file
   and all references from CITATIONS.md .
 repository-code: https://github.com/sanger-tol/ensemblgenedownload
-title: sanger-tol/ensemblgenedownload v2.0.0 - Vicious Uruk-hai
+title: sanger-tol/ensemblgenedownload v2.0.1 - Vicious Uruk-hai (patch 1)
 type: software
 url: https://pipelines.tol.sanger.ac.uk/ensemblgenedownload
-version: 2.0.0
+version: 2.0.1
