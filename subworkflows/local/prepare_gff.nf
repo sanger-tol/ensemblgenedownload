@@ -59,7 +59,7 @@ def get_max_coord(gff_file) {
         def line
         while ((line = reader.readLine()) != null) {
             if (!line.startsWith('#')) {
-                def end_coord = line.split()[4].toInteger()
+                def end_coord = line.split()[4].toLong()
                 if (end_coord > max_coord) {
                     max_coord = end_coord
                 }
