@@ -1,6 +1,7 @@
 {
     "-profile test": {
         "content": [
+            13,
             {
                 "ENSEMBL_GENESET_DOWNLOAD": {
                     "wget": 1.18,
