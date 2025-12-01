@@ -1,18 +1,70 @@
 {
     "-profile test": {
         "content": [
-            null,
+            {
+                "ENSEMBL_GENESET_DOWNLOAD": {
+                    "wget": 1.18,
+                    "BusyBox": "v1.32.1"
+                },
+                "SAMTOOLS_DICT": {
+                    "samtools": "1.22.1"
+                },
+                "SAMTOOLS_FAIDX": {
+                    "samtools": "1.22.1"
+                },
+                "TABIX_BGZIP": {
+                    "tabix": 1.21
+                },
+                "TABIX_SORT_BGZIP": {
+                    "tabix": 1.12
+                },
+                "TABIX_TABIX_CSI": {
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_TBI": {
+                    "tabix": 1.21
+                },
+                "Workflow": {
+                    "sanger-tol/ensemblgenedownload": "v2.0.2"
+                }
+            },
             [
-                "pipeline_info"
+                "gene",
+                "gene/ensembl",
+                "gene/ensembl/2022_02",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.dict",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz.dict",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz.csi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz.dict",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi",
+                "pipeline_info",
+                "pipeline_info/ensemblgenedownload_software_versions.yml"
             ],
             [
-                
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz:md5,4d5c420e52e3e7324b67ef74ff0fe1f7",
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi:md5,9a29747ca7342b429c5848d7bafb6208",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz:md5,c89040e34d8e3940cbf7e911e799a445",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi:md5,3652541cf1189eb8a2bdddd3a99542d2",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz:md5,55906aed982f5430af357c45c96710e6",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.csi:md5,9ea1b599bbb1e2ae8b930546284ef841",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi:md5,ca69bb30adb6f53a44540ddaf01af816",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi:md5,d63256c11032177b1c2aa046d9894d1d",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz:md5,132610ec5f06f5d2d5c79629d6ecb15a",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi:md5,2b47dfbf504eaec497bf7b16c7877f40"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2025-12-01T15:59:59.984328588"
+        "timestamp": "2025-12-01T16:20:44.436514647"
     }
 }
