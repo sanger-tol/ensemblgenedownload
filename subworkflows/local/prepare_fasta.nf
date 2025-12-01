@@ -2,7 +2,7 @@
 // Prepare all the indexes for a Fasta file
 //
 
-include { CUSTOM_GETCHROMSIZES    } from '../../modules/nf-core/custom/getchromsizes/main'
+include { SAMTOOLS_FAIDX          } from '../../modules/nf-core/samtools/faidx/main'
 include { SAMTOOLS_DICT           } from '../../modules/nf-core/samtools/dict/main'
 include { TABIX_BGZIP             } from '../../modules/nf-core/tabix/bgzip/main'
 
@@ -21,8 +21,8 @@ workflow PREPARE_FASTA {
     ch_versions         = ch_versions.mix(TABIX_BGZIP.out.versions)
 
     // Generate Samtools index and chromosome sizes file
-    ch_samtools_faidx   = CUSTOM_GETCHROMSIZES (ch_compressed_fasta).fai
-    ch_versions         = ch_versions.mix(CUSTOM_GETCHROMSIZES.out.versions)
+    ch_samtools_faidx   = SAMTOOLS_FAIDX(ch_compressed_fasta, [[],[]], true).fai
+    ch_versions         = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
     // Read the .fai file, extract sequence statistics, and make an extended meta map
     sequence_map        = ch_samtools_faidx.map {
@@ -31,8 +31,8 @@ workflow PREPARE_FASTA {
     // Update all channels to use the extended meta map
     fasta_gz            = ch_compressed_fasta.join(sequence_map).map { [it[2], it[1]]}
     faidx               = ch_samtools_faidx.join(sequence_map).map { [it[2], it[1]]}
-    gzi                 = CUSTOM_GETCHROMSIZES.out.gzi.join(sequence_map).map { [it[2], it[1]]}
-    sizes               = CUSTOM_GETCHROMSIZES.out.sizes.join(sequence_map).map { [it[2], it[1]]}
+    gzi                 = SAMTOOLS_FAIDX.out.gzi.join(sequence_map).map { [it[2], it[1]]}
+    sizes               = SAMTOOLS_FAIDX.out.sizes.join(sequence_map).map { [it[2], it[1]]}
     expanded_fasta      = fasta.join(sequence_map).map { [it[2], it[1]]}
 
     // Generate Samtools dictionary

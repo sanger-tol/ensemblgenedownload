@@ -37,9 +37,9 @@ workflow PREPARE_GFF {
     no_csi              = tabix_selector.no_tabix.map {it[0]}
     no_tbi              = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map {it[0]}
 
-    ch_indexed_gff_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).csi
+    ch_indexed_gff_csi  = TABIX_TABIX_CSI ( tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi) ).index
     ch_versions         = ch_versions.mix(TABIX_TABIX_CSI.out.versions.first())
-    ch_indexed_gff_tbi  = TABIX_TABIX_TBI ( tabix_selector.tbi_and_csi ).tbi
+    ch_indexed_gff_tbi  = TABIX_TABIX_TBI ( tabix_selector.tbi_and_csi ).index
     ch_versions         = ch_versions.mix(TABIX_TABIX_TBI.out.versions.first())
 
 
