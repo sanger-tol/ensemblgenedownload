@@ -55,7 +55,7 @@ workflow PIPELINE_INITIALISATION {
     // Validate parameters and generate parameter summary to stdout
     //
 
-    beforeText = """
+    before_text = """
 -\033[2m----------------------------------------------------\033[0m-
 \033[0;34m   _____                               \033[0;32m _______   \033[0;31m _\033[0m
 \033[0;34m  / ____|                              \033[0;32m|__   __|  \033[0;31m| |\033[0m
@@ -68,9 +68,10 @@ workflow PIPELINE_INITIALISATION {
 \033[0;35m  ${workflow.manifest.name} ${workflow.manifest.version}\033[0m
 -\033[2m----------------------------------------------------\033[0m-
         """
-    afterText = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { "    https://doi.org/${it.trim().replace('https://doi.org/','')}"}.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+    after_text = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { "    https://doi.org/${it.trim().replace('https://doi.org/','')}"}.join("\n")}${workflow.manifest.doi ? "\n" : ""}
 * The nf-core framework
     https://doi.org/10.1038/s41587-020-0439-x
+
 * Software dependencies
     https://github.com/sanger-tol/ensemblgenedownload/blob/main/CITATIONS.md
 """
