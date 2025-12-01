@@ -1,0 +1,86 @@
+{
+    "-profile test": {
+        "content": [
+            13,
+            {
+                "CUSTOM_GETCHROMSIZES": {
+                    "getchromsizes": 1.21
+                },
+                "ENSEMBL_GENESET_DOWNLOAD": {
+                    "wget": 1.18,
+                    "BusyBox": "v1.32.1"
+                },
+                "SAMTOOLS_DICT": {
+                    "samtools": 1.21
+                },
+                "TABIX_BGZIP": {
+                    "tabix": 1.21
+                },
+                "TABIX_SORT_BGZIP": {
+                    "tabix": 1.12
+                },
+                "TABIX_TABIX_CSI": {
+                    "tabix": 1.21
+                },
+                "TABIX_TABIX_TBI": {
+                    "tabix": 1.21
+                },
+                "Workflow": {
+                    "sanger-tol/ensemblgenedownload": "v2.0.1"
+                }
+            },
+            [
+                "gene",
+                "gene/ensembl",
+                "gene/ensembl/2022_02",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.dict",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.fai",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.sizes",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz.dict",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz.fai",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.cds.fa.gz.sizes",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz.csi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz.dict",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz.fai",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi",
+                "gene/ensembl/2022_02/GCA_907164925.1.ensembl.2022_02.pep.fa.gz.sizes",
+                "pipeline_info",
+                "pipeline_info/ensemblgenedownload_software_versions.yml"
+            ],
+            [
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz:md5,4d5c420e52e3e7324b67ef74ff0fe1f7",
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.dict:md5,ccfd8ce56afc67c4e7e87b3128e7e879",
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.fai:md5,5e1ca6df54be3d0edb0ec8b900c74387",
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi:md5,9a29747ca7342b429c5848d7bafb6208",
+                "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.sizes:md5,a8ea9be2d59d9afee82aa0799ee0954e",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz:md5,c89040e34d8e3940cbf7e911e799a445",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.dict:md5,c5c0dd0a6011ef108f2a190ae3949668",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.fai:md5,901cf5cd97b25925ae884b9e2d9800b8",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi:md5,3652541cf1189eb8a2bdddd3a99542d2",
+                "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.sizes:md5,e8d3e2f1ffe554da6c6fbc5ca414c911",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz:md5,55906aed982f5430af357c45c96710e6",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.csi:md5,9ea1b599bbb1e2ae8b930546284ef841",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi:md5,ca69bb30adb6f53a44540ddaf01af816",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi:md5,d63256c11032177b1c2aa046d9894d1d",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz:md5,132610ec5f06f5d2d5c79629d6ecb15a",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.dict:md5,6241202186badff7a6f4ae879d26edbb",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.fai:md5,08382e9f7778e73109c95a4c3018c51b",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi:md5,2b47dfbf504eaec497bf7b16c7877f40",
+                "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.sizes:md5,ab9958659668a2d4f7b58e4e6aef99b5"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.2"
+        },
+        "timestamp": "2025-12-01T14:05:35.132757375"
+    }
+}
