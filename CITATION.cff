@@ -29,7 +29,7 @@ license: MIT
 message: If you use this software, please cite it using the metadata from this file
   and all references from CITATIONS.md .
 repository-code: https://github.com/sanger-tol/ensemblgenedownload
-title: sanger-tol/ensemblgenedownload v2.0.1 - Vicious Uruk-hai (patch 1)
+title: sanger-tol/ensemblgenedownload v2.0.2 - Vicious Uruk-hai (patch 2)
 type: software
 url: https://pipelines.tol.sanger.ac.uk/ensemblgenedownload
-version: 2.0.1
+version: 2.0.2
