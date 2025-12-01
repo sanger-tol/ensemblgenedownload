@@ -3,6 +3,26 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT LOCAL MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
+//
+include { DOWNLOAD      } from '../subworkflows/local/download'
+include { PREPARE_FASTA } from '../subworkflows/local/prepare_fasta'
+include { PREPARE_GFF   } from '../subworkflows/local/prepare_gff'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT NF-CORE MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
@@ -16,10 +36,28 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ense
 workflow ENSEMBLGENEDOWNLOAD {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    inputs      // channel: tuple(outdir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
     main:
 
     ch_versions = channel.empty()
+
+    // Actual download
+    DOWNLOAD (
+        inputs
+    )
+    ch_versions         = ch_versions.mix(DOWNLOAD.out.versions)
+
+    // Preparation of Fasta files
+    PREPARE_FASTA (
+        DOWNLOAD.out.genes
+    )
+    ch_versions         = ch_versions.mix(PREPARE_FASTA.out.versions)
+
+    // Preparation of GFF files
+    PREPARE_GFF (
+        DOWNLOAD.out.gff
+    )
+    ch_versions         = ch_versions.mix(PREPARE_GFF.out.versions)
 
     //
     // Collate and save software versions

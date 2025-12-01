@@ -54,6 +54,26 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+
+    beforeText = """
+-\033[2m----------------------------------------------------\033[0m-
+\033[0;34m   _____                               \033[0;32m _______   \033[0;31m _\033[0m
+\033[0;34m  / ____|                              \033[0;32m|__   __|  \033[0;31m| |\033[0m
+\033[0;34m | (___   __ _ _ __   __ _  ___ _ __ \033[0m ___ \033[0;32m| |\033[0;33m ___ \033[0;31m| |\033[0m
+\033[0;34m  \\___ \\ / _` | '_ \\ / _` |/ _ \\ '__|\033[0m|___|\033[0;32m| |\033[0;33m/ _ \\\033[0;31m| |\033[0m
+\033[0;34m  ____) | (_| | | | | (_| |  __/ |        \033[0;32m| |\033[0;33m (_) \033[0;31m| |____\033[0m
+\033[0;34m |_____/ \\__,_|_| |_|\\__, |\\___|_|        \033[0;32m|_|\033[0;33m\\___/\033[0;31m|______|\033[0m
+\033[0;34m                      __/ |\033[0m
+\033[0;34m                     |___/\033[0m
+\033[0;35m  ${workflow.manifest.name} ${workflow.manifest.version}\033[0m
+-\033[2m----------------------------------------------------\033[0m-
+        """
+    afterText = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { "    https://doi.org/${it.trim().replace('https://doi.org/','')}"}.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+* Software dependencies
+    https://github.com/sanger-tol/ensemblgenedownload/blob/main/CITATIONS.md
+"""
     command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
 
     UTILS_NFSCHEMA_PLUGIN (
@@ -79,28 +99,36 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
-    channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
-        .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
-        }
-        .groupTuple()
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
-        }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
-        }
-        .set { ch_samplesheet }
+    if (params.input) {
+
+        Channel
+            .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+            // Make the outdir relative to params.outdir if necessary
+            .map { outdir, assembly_accession, ensembl_species_name, annotation_method, geneset_version -> [
+                (outdir.startsWith("/") ? "" : params.outdir + "/") + outdir,
+                assembly_accession,
+                ensembl_species_name,
+                annotation_method,
+                geneset_version,
+            ] }
+            .set { ch_inputs }
+
+    } else {
+
+        Channel.of(
+            [
+                params.outdir,
+                params.assembly_accession,
+                params.ensembl_species_name,
+                params.annotation_method,
+                params.geneset_version,
+            ]
+        )
+        .set { ch_inputs }
+    }
 
     emit:
-    samplesheet = ch_samplesheet
+    inputs      = ch_inputs
     versions    = ch_versions
 }
 
@@ -156,20 +184,6 @@ workflow PIPELINE_COMPLETION {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-//
-// Validate channels from input samplesheet
-//
-def validateInputSamplesheet(input) {
-    def (metas, fastqs) = input[1..2]
-
-    // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    def endedness_ok = metas.collect{ meta -> meta.single_end }.unique().size == 1
-    if (!endedness_ok) {
-        error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
-    }
-
-    return [ metas[0], fastqs ]
-}
 //
 // Generate methods description for MultiQC
 //

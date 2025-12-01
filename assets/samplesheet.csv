@@ -1,3 +1,5 @@
-sample,fastq_1,fastq_2
-SAMPLE_PAIRED_END,/path/to/fastq/files/AEG588A1_S1_L002_R1_001.fastq.gz,/path/to/fastq/files/AEG588A1_S1_L002_R2_001.fastq.gz
-SAMPLE_SINGLE_END,/path/to/fastq/files/AEG588A4_S4_L003_R1_001.fastq.gz,
+outdir,assembly_accession,ensembl_species_name,annotation_method,geneset_version
+Asterias_rubens/eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2020_11
+Asterias_rubens/eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2022_03
+Osmia_bicornis/iOsmBic2.1_alternate_haplotype,GCA_907164925.1,Osmia_bicornis_bicornis,ensembl,2022_02
+Noctua_fimbriata/ilNocFimb1.1,GCA_905163415.1,Noctua_fimbriata,braker,2022_03

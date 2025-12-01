@@ -28,7 +28,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_ense
 workflow SANGERTOL_ENSEMBLGENEDOWNLOAD {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+    inputs      // channel: tuple(outdir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
 
     main:
 
@@ -36,7 +36,7 @@ workflow SANGERTOL_ENSEMBLGENEDOWNLOAD {
     // WORKFLOW: Run pipeline
     //
     ENSEMBLGENEDOWNLOAD (
-        samplesheet
+        inputs
     )
 }
 /*
@@ -67,7 +67,7 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     SANGERTOL_ENSEMBLGENEDOWNLOAD (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.inputs
     )
     //
     // SUBWORKFLOW: Run completion tasks
