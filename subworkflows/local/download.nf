@@ -81,5 +81,5 @@ workflow DOWNLOAD {
     emit:
     genes    = ch_all_gene_fasta         // path: (cdna|cds|pep).fa
     gff      = ch_gff                    // path: genes.gff
-    versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
+    versions = ch_versions               // channel: [ versions.yml ]
 }

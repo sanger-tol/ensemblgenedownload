@@ -46,7 +46,7 @@ workflow PREPARE_FASTA {
     dict     = ch_samtools_dict          // path: genome.fa.dict
     gzi      = gzi                       // path: genome.fa.gz.gzi
     sizes    = sizes                     // path: genome.fa.gz.sizes
-    versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
+    versions = ch_versions               // channel: [ versions.yml ]
 }
 
 // Read the .fai file to extract the number of sequences, the maximum and total sequence length

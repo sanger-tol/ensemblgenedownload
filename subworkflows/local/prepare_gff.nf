@@ -49,7 +49,7 @@ workflow PREPARE_GFF {
     gff_tbi  = ch_indexed_gff_tbi        // path: genes.gff.tbi
     no_csi   = no_csi                       // (only meta)
     no_tbi   = no_tbi                       // (only meta)
-    versions = ch_versions.ifEmpty(null) // channel: [ versions.yml ]
+    versions = ch_versions               // channel: [ versions.yml ]
 }
 
 // Inspired from https://github.com/nf-core/rnaseq/blob/3.10.1/lib/WorkflowRnaseq.groovy
