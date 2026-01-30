@@ -27,11 +27,11 @@ workflow PREPARE_GFF {
         }
         .branch { meta, gff_gz, max_coord ->
             tbi_and_csi: max_coord < 2 ** 29
-            return [meta, gff_gz]
+            [meta, gff_gz]
             only_csi: max_coord < 2 ** 31
-            return [meta, gff_gz]
+            [meta, gff_gz]
             no_tabix: true
-            return [meta, gff_gz]
+            [meta, gff_gz]
         }
 
     // Output channels to tell the downstream subworkflows which indexes are missing
