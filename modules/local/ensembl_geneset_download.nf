@@ -6,19 +6,19 @@ process ENSEMBL_GENESET_DOWNLOAD {
     label 'process_single'
 
     conda "bioconda::gnu-wget=1.18"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/gnu-wget:1.18--h7132678_6' :
-        'biocontainers/gnu-wget:1.18--h7132678_6' }"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://depot.galaxyproject.org/singularity/gnu-wget:1.18--h7132678_6'
+        : 'biocontainers/gnu-wget:1.18--h7132678_6'}"
 
     input:
     tuple val(meta), val(ftp_path), val(remote_filename_stem)
 
     output:
-    tuple val(meta), path("*-cdna.fa")    , emit: cdna
-    tuple val(meta), path("*-cds.fa")     , emit: cds
-    tuple val(meta), path("*-genes.gff3") , emit: gff
-    tuple val(meta), path("*-pep.fa")     , emit: pep
-    path  "versions.yml"                  , emit: versions
+    tuple val(meta), path("*-cdna.fa"), emit: cdna
+    tuple val(meta), path("*-cds.fa"), emit: cds
+    tuple val(meta), path("*-genes.gff3"), emit: gff
+    tuple val(meta), path("*-pep.fa"), emit: pep
+    path "versions.yml", emit: versions
 
     when:
     task.ext.when == null || task.ext.when
