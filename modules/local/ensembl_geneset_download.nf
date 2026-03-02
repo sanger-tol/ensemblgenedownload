@@ -18,7 +18,7 @@ process ENSEMBL_GENESET_DOWNLOAD {
     tuple val(meta), path("*-cds.fa"), emit: cds
     tuple val(meta), path("*-genes.gff3"), emit: gff
     tuple val(meta), path("*-pep.fa"), emit: pep
-    path "versions.yml", emit: versions
+    tuple val("${task.process}"), val('wget'), eval("wget --version | head -n 1 | cut -d' ' -f3"), topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -40,11 +40,5 @@ process ENSEMBL_GENESET_DOWNLOAD {
         md5sum -c md5checksums_restricted.txt
     fi
     gunzip *.gz
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        wget: \$(wget --version | head -n 1 | cut -d' ' -f3)
-        BusyBox: \$(busybox | head -1 | cut -d' ' -f2)
-    END_VERSIONS
     """
 }

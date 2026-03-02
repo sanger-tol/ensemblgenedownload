@@ -10,7 +10,6 @@ workflow DOWNLOAD {
     annotation_params // tuple(outdir, assembly_accession, ensembl_species_name, annotation_method, geneset_version)
 
     main:
-    ch_versions = channel.empty()
 
     ENSEMBL_GENESET_DOWNLOAD(
         annotation_params.map { outdir, assembly_accession, ensembl_species_name, annotation_method, geneset_version ->
@@ -43,7 +42,6 @@ workflow DOWNLOAD {
             ]
         }
     )
-    ch_versions = ch_versions.mix(ENSEMBL_GENESET_DOWNLOAD.out.versions.first())
 
     // Set meta.id
     ch_all_gene_fasta = channel.empty()
@@ -72,5 +70,4 @@ workflow DOWNLOAD {
     emit:
     genes    = ch_all_gene_fasta // path: (cdna|cds|pep).fa
     gff      = ch_gff // path: genes.gff
-    versions = ch_versions // channel: [ versions.yml ]
 }
