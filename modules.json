@@ -8,7 +8,8 @@
                     "samtools/bgzip": {
                         "branch": "master",
                         "git_sha": "1d2fbdcbca677bbe8da0f9d0d2bb7c02f2cab1c9",
-                        "installed_by": ["fasta_compress_index"]
+                        "installed_by": ["fasta_compress_index"],
+                        "patch": "modules/nf-core/samtools/bgzip/samtools-bgzip.diff"
                     },
                     "samtools/dict": {
                         "branch": "master",

@@ -23,7 +23,7 @@ process SORT_GFF {
     """
     (
         grep "^#" ${input} || true
-        grep -v "^#" ${input} | sort -k1,1 -k4,4n
+        grep -v "^#" ${input} | LC_ALL=C sort -k1,1 -k4,4n
     ) > ${prefix}.sorted.${input.extension}
     """
 }
