@@ -1,11 +1,17 @@
 {
     "-profile test": {
         "content": [
-            13,
+            12,
             {
+                "BGZIPTABIX": {
+                    "bgzip": 1.21,
+                    "tabix": 1.21
+                },
                 "ENSEMBL_GENESET_DOWNLOAD": {
-                    "wget": 1.18,
-                    "BusyBox": "v1.32.1"
+                    "wget": 1.18
+                },
+                "SAMTOOLS_BGZIP": {
+                    "samtools": "1.22.1"
                 },
                 "SAMTOOLS_DICT": {
                     "samtools": "1.22.1"
@@ -13,17 +19,8 @@
                 "SAMTOOLS_FAIDX": {
                     "samtools": "1.22.1"
                 },
-                "TABIX_BGZIP": {
-                    "tabix": 1.21
-                },
-                "TABIX_SORT_BGZIP": {
-                    "tabix": 1.12
-                },
-                "TABIX_TABIX_CSI": {
-                    "tabix": 1.21
-                },
-                "TABIX_TABIX_TBI": {
-                    "tabix": 1.21
+                "SORT_GFF": {
+                    "coreutils": 9.5
                 },
                 "Workflow": {
                     "sanger-tol/ensemblgenedownload": "v2.0.2"
@@ -65,9 +62,9 @@
                 "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi:md5,3652541cf1189eb8a2bdddd3a99542d2",
                 "GCA_907164925.1.ensembl.2022_02.cds.fa.gz.sizes:md5,e8d3e2f1ffe554da6c6fbc5ca414c911",
                 "GCA_907164925.1.ensembl.2022_02.gff3.gz:md5,55906aed982f5430af357c45c96710e6",
-                "GCA_907164925.1.ensembl.2022_02.gff3.gz.csi:md5,9ea1b599bbb1e2ae8b930546284ef841",
-                "GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi:md5,ca69bb30adb6f53a44540ddaf01af816",
-                "GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi:md5,d63256c11032177b1c2aa046d9894d1d",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.csi:md5,cd5e91300bc3a9ee15751fb50896a665",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi:md5,76acea52809336fc329e3ae5ad75b9a8",
+                "GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi:md5,3d3e26cedb587763f02ffe4412c57e8f",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz:md5,132610ec5f06f5d2d5c79629d6ecb15a",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.fai:md5,08382e9f7778e73109c95a4c3018c51b",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi:md5,2b47dfbf504eaec497bf7b16c7877f40",
@@ -78,6 +75,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.2"
         },
-        "timestamp": "2025-12-02T10:15:04.317734785"
+        "timestamp": "2026-03-02T16:32:01.165332795"
     }
 }

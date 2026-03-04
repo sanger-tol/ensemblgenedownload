@@ -2,55 +2,27 @@
 // Uncompress and prepare GFF files
 //
 
-include { TABIX_SORT_BGZIP               } from '../../modules/local/tabix_sort_bgzip'
-include { TABIX_TABIX as TABIX_TABIX_CSI } from '../../modules/nf-core/tabix/tabix/main'
-include { TABIX_TABIX as TABIX_TABIX_TBI } from '../../modules/nf-core/tabix/tabix/main'
+include { SORT_GFF   } from '../../modules/local/sort_gff'
+include { BGZIPTABIX } from '../../modules/sanger-tol/bgziptabix/main'
 
 
 workflow PREPARE_GFF {
     take:
-    gff // file: /path/to/genes.gff
+    ch_gff // file: /path/to/genes.gff
 
     main:
-    ch_versions = channel.empty()
 
-    // Compress the GFF file
-    ch_compressed_gff = TABIX_SORT_BGZIP(gff).output
-    ch_versions = ch_versions.mix(TABIX_SORT_BGZIP.out.versions.first())
+    ch_sorted_gff = SORT_GFF(ch_gff).sorted
 
-    // Try indexing the GFF file in two formats for maximum compatibility
-    // but each has its own limitations
-    tabix_selector = ch_compressed_gff
-        .join(gff)
-        .map { meta, gff_gz, gff_ungz ->
-            [meta, gff_gz, get_max_coord(gff_ungz)]
-        }
-        .branch { meta, gff_gz, max_coord ->
-            tbi_and_csi: max_coord < 2 ** 29
-            [meta, gff_gz]
-            only_csi: max_coord < 2 ** 31
-            [meta, gff_gz]
-            no_tabix: true
-            [meta, gff_gz]
-        }
+    ch_gff_with_seq_length = ch_sorted_gff.map { meta, gff -> [meta, gff, get_max_coord(gff)] }
+    BGZIPTABIX(ch_gff_with_seq_length)
 
-    // Output channels to tell the downstream subworkflows which indexes are missing
-    // (therefore, only meta is available)
-    no_csi = tabix_selector.no_tabix.map { meta, _gff_gz -> meta }
-    no_tbi = tabix_selector.only_csi.mix(tabix_selector.no_tabix).map { meta, _gff_gz -> meta }
-
-    ch_indexed_gff_csi = TABIX_TABIX_CSI(tabix_selector.tbi_and_csi.mix(tabix_selector.only_csi)).index
-    ch_versions = ch_versions.mix(TABIX_TABIX_CSI.out.versions.first())
-    ch_indexed_gff_tbi = TABIX_TABIX_TBI(tabix_selector.tbi_and_csi).index
-    ch_versions = ch_versions.mix(TABIX_TABIX_TBI.out.versions.first())
+    ch_indexed_gff = BGZIPTABIX.out.gz_index
+        .join(BGZIPTABIX.out.tbi, by: 0, remainder: true)
+        .join(BGZIPTABIX.out.csi, by: 0, remainder: true)
 
     emit:
-    gff_gz   = ch_compressed_gff // path: genes.gff.gz
-    gff_csi  = ch_indexed_gff_csi // path: genes.gff.csi
-    gff_tbi  = ch_indexed_gff_tbi // path: genes.gff.tbi
-    no_csi   = no_csi // (only meta)
-    no_tbi   = no_tbi // (only meta)
-    versions = ch_versions // channel: [ versions.yml ]
+    gff = ch_indexed_gff // channel: [ meta, gff.gz, gff.gzi, tbi?, csi? ]
 }
 
 // Inspired from https://github.com/nf-core/rnaseq/blob/3.10.1/lib/WorkflowRnaseq.groovy

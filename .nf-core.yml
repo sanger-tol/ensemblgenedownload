@@ -17,6 +17,7 @@ lint:
     - assets/sendmail_template.txt
     - lib/NfcoreTemplate.groovy
     - .github/workflows/branch.yml
+    - .gitattributes
   multiqc_config: false
   nextflow_config:
     - manifest.name
