@@ -17,11 +17,12 @@ lint:
     - assets/sendmail_template.txt
     - lib/NfcoreTemplate.groovy
     - .github/workflows/branch.yml
+    - .gitattributes
   multiqc_config: false
   nextflow_config:
     - manifest.name
     - manifest.homePage
-nf_core_version: 3.5.2
+nf_core_version: 4.1.0
 repository_type: pipeline
 template:
   author: "@muffato"
