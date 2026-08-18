@@ -4,7 +4,24 @@
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "modules": {
-                "nf-core": {}
+                "nf-core": {
+                    "samtools/bgzip": {
+                        "branch": "master",
+                        "git_sha": "1d2fbdcbca677bbe8da0f9d0d2bb7c02f2cab1c9",
+                        "installed_by": ["fasta_compress_index"],
+                        "patch": "modules/nf-core/samtools/bgzip/samtools-bgzip.diff"
+                    },
+                    "samtools/dict": {
+                        "branch": "master",
+                        "git_sha": "9a48bce39a67e2cb34b8f125fc1d50f0ad98b616",
+                        "installed_by": ["fasta_compress_index"]
+                    },
+                    "samtools/faidx": {
+                        "branch": "master",
+                        "git_sha": "b2e78932ef01165fd85829513eaca29eff8e640a",
+                        "installed_by": ["fasta_compress_index"]
+                    }
+                }
             },
             "subworkflows": {
                 "nf-core": {
@@ -21,6 +38,26 @@
                     "utils_nfschema_plugin": {
                         "branch": "master",
                         "git_sha": "a7b27fd25bfa8dcc07d299e88bd790585901a436",
+                        "installed_by": ["subworkflows"]
+                    }
+                }
+            }
+        },
+        "https://github.com/sanger-tol/nf-core-modules.git": {
+            "modules": {
+                "sanger-tol": {
+                    "bgziptabix": {
+                        "branch": "main",
+                        "git_sha": "2e28234fb0e2970767dab28310c7eb553ad40081",
+                        "installed_by": ["modules"]
+                    }
+                }
+            },
+            "subworkflows": {
+                "sanger-tol": {
+                    "fasta_compress_index": {
+                        "branch": "main",
+                        "git_sha": "4ed6e8ec7e7ec833378e13fedd245984cc114aeb",
                         "installed_by": ["subworkflows"]
                     }
                 }
