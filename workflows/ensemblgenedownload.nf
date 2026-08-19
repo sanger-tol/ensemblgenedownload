@@ -35,15 +35,16 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ense
 
 workflow ENSEMBLGENEDOWNLOAD {
     take:
-    inputs // channel: tuple(outdir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
+    ch_samplesheet // channel: samplesheet read in from --input. tuple(outdir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
+    outdir
 
     main:
 
-    ch_versions = channel.empty()
+    def ch_versions = channel.empty()
 
     // Actual download
     DOWNLOAD(
-        inputs
+        ch_samplesheet
     )
 
     // Preparation of Fasta files
@@ -77,16 +78,14 @@ workflow ENSEMBLGENEDOWNLOAD {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
-            name: 'ensemblgenedownload_software_' + 'versions.yml',
+            storeDir: "${outdir}/pipeline_info",
+            name:  'ensemblgenedownload_software_'  + 'versions.yml',
             sort: true,
-            newLine: true,
+            newLine: true
         )
-        .set { ch_collated_versions }
-
     emit:
     versions = ch_collated_versions // channel: [ path(versions.yml) ]
 }
