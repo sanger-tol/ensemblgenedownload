@@ -7,27 +7,32 @@
     "items": {
         "type": "object",
         "properties": {
-            "sample": {
+            "outdir": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "errorMessage": "Species directory must not contain spaces"
             },
-            "fastq_1": {
+            "assembly_accession": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
+                "errorMessage": "Assembly accession number must be provided and be of the form GCA_*"
             },
-            "fastq_2": {
+            "ensembl_species_name": {
                 "type": "string",
-                "format": "file-path",
-                "exists": true,
-                "pattern": "^([\\S\\s]*\\/)?[^\\s\\/]+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "pattern": "^\\S+$",
+                "errorMessage": "The (Ensembl) species name must be provided and cannot contain spaces"
+            },
+            "annotation_method": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "The annotation method must be provided and cannot contain spaces"
+            },
+            "geneset_version": {
+                "type": "string",
+                "pattern": "^20[0-9]{2}_[01][0-9]$",
+                "errorMessage": "The version of the geneset must be in the form `YYYY_MM`."
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["outdir", "assembly_accession", "ensembl_species_name", "annotation_method", "geneset_version"]
     }
 }
