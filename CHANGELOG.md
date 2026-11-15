@@ -3,10 +3,25 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## TBD
+## [[3.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/3.0.0)] - Flamboyant Smaug - [2026-11-20]
 
-- Upgraded to the nf-core template v4.1.0
+- Support Ensembl's new FTP structure <https://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/>
+- Upgraded to the nf-core template v4.2.0
 - Slack / Teams functionality now moved to Nextflow plugins ([nf-slack](https://github.com/seqeralabs/nf-slack), [nf-teams](https://github.com/nvnieuwk/nf-teams))
+
+### Parameters
+
+| Old parameter          | New parameter |
+| ---------------------- | ------------- |
+| --ensembl_species_name |               |
+
+_In the samplesheet_
+
+| Old parameter        | New parameter |
+| -------------------- | ------------- |
+| ensembl_species_name |               |
+
+> **NB:** Parameter has been **updated** if both old and new parameter information is present. </br> **NB:** Parameter has been **added** if just the new parameter information is present. </br> **NB:** Parameter has been **removed** if new parameter information isn't present.
 
 ## [[2.0.2](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/2.0.2)] - Vicious Uruk-hai (patch 2) - [2024-12-09]
 

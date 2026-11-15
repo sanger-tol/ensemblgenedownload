@@ -36,11 +36,6 @@ gene
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.fai
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.sizes
-        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz
-        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.dict
-        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.fai
-        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.gzi
-        ├── GCA_907164925.1.ensembl.2022_02.cds.fa.gz.sizes
         ├── GCA_907164925.1.ensembl.2022_02.gff3.gz
         ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.csi
         ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi
@@ -68,8 +63,7 @@ _The following documentation is copied from Ensembl's FTP_
 
 Ensembl provide gene sequences in FASTA format in three files. The 'cdna' file contains
 transcript sequences for all types of gene (including, for example,
-pseudogenes and RNA genes). The 'cds' file contains the DNA sequences
-of the coding regions of protein-coding genes. The 'pep' file contains
+pseudogenes and RNA genes). The 'pep' file contains
 the amino acid sequences of protein-coding genes.
 
 The headers in the 'cdna' FASTA files have the format:
@@ -82,18 +76,6 @@ Example 'cdna' header:
 
 ```text
 >ENSZVIT00000000002.1 cdna UG_Zviv_1:LG1:3600:22235:-1 gene:ENSZVIG00000000002.1 gene_biotype:protein_coding transcript_biotype:protein_coding
-```
-
-The headers in the 'cds' FASTA files have the format:
-
-```text
-><transcript_stable_id> <seq_type> <assembly_name>:<seq_name>:<coding_start>:<coding_end>:<strand> gene:<gene_stable_id> gene_biotype:<gene_biotype> transcript_biotype:<transcript_biotype> [gene_symbol:<gene_symbol>] [description:<description>]
-```
-
-Example 'cds' header:
-
-```text
->ENSZVIT00000000002.1 cds UG_Zviv_1:LG1:5289:19862:-1 gene:ENSZVIG00000000002.1 gene_biotype:protein_coding transcript_biotype:protein_coding
 ```
 
 The headers in the 'pep' FASTA files have the format:

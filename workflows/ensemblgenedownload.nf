@@ -35,7 +35,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ense
 
 workflow ENSEMBLGENEDOWNLOAD {
     take:
-    ch_samplesheet // channel: samplesheet read in from --input. tuple(outdir, ensembl_species_name, assembly_accession, annotation_method, geneset_version)
+    ch_samplesheet // channel: samplesheet read in from --input. tuple(outdir, assembly_accession, annotation_method, geneset_version)
     outdir
 
     main:

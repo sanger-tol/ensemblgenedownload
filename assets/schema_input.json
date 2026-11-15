@@ -17,11 +17,6 @@
                 "pattern": "^GCA_[0-9]{9}\\.[0-9]+$",
                 "errorMessage": "Assembly accession number must be provided and be of the form GCA_*"
             },
-            "ensembl_species_name": {
-                "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "The (Ensembl) species name must be provided and cannot contain spaces"
-            },
             "annotation_method": {
                 "type": "string",
                 "pattern": "^\\S+$",
@@ -33,6 +28,6 @@
                 "errorMessage": "The version of the geneset must be in the form `YYYY_MM`."
             }
         },
-        "required": ["outdir", "assembly_accession", "ensembl_species_name", "annotation_method", "geneset_version"]
+        "required": ["outdir", "assembly_accession", "annotation_method", "geneset_version"]
     }
 }

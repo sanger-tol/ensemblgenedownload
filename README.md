@@ -20,8 +20,8 @@
 
 **sanger-tol/ensemblgenedownload** is a pipeline that downloads gene annotations from Ensembl into a Tree of Life directory structure.
 
-The pipeline takes a CSV file that contains assembly accession number, Ensembl species names (as they may differ from Tree of Life ones !), output directories, geneset methods and geneset versions.
-The pipeline downloads the Fasta files of the genes (cdna, cds, and protein sequences) as well as the GFF3 file.
+The pipeline takes a CSV file that contains assembly accession number, output directories, geneset methods and geneset versions.
+The pipeline downloads the Fasta files of the genes (cdna and protein sequences) as well as the GFF3 file.
 All files are compressed with `bgzip`, and indexed with `samtools faidx` or `tabix`.
 
 Steps involved:
@@ -32,18 +32,15 @@ Steps involved:
   `samtools dict`.
 - Compress and index the GFF3 file with `bgzip` and `tabix`.
 
-> [!WARNING]
-> Only the _Rapid Release_ site is currently supported, not the other Ensembl sites.
-
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/get_started/environment_setup/overview) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/get_started/run-your-first-pipeline) with `-profile test` before running the workflow on actual data.
 
-The easiest is to provide the exact species name and versions of the assembly and annotations like this:
+The easiest is to provide version of the assembly and annotations like this:
 
 ```console
-nextflow run sanger-tol/ensemblgenedownload --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03
+nextflow run sanger-tol/ensemblgenedownload --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03
 ```
 
 > [!WARNING]

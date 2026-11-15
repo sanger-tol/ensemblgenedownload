@@ -13,29 +13,24 @@ It also builds a set of common indices (such as `samtools faidx`, `tabix`).
 
 The pipeline accepts command-one line arguments to specify a single genome to download:
 
-- `--ensembl_species_name`: How Ensembl name the species (as it can be different from Tree of Life),
 - `--assembly_accession`: The accession number of the assembly,
 - `--annotation_method`: The annotation method of the geneset,
 - `--geneset_version`: The geneset version to download,
 - `--outdir`: Where the pipeline runtime information will be stored, and where data will be downloaded (except if absolute paths are given in the samplesheet).
 
 ```bash
-nextflow run sanger-tol/ensemblgenedownload -profile singularity --ensembl_species_name Noctua_fimbriata --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir Noctua_fimbriata_braker_2022_03
+nextflow run sanger-tol/ensemblgenedownload -profile singularity --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir Noctua_fimbriata_braker_2022_03
 ```
 
-This will launch the pipeline and download the `2022_03` Braker annotation of the assembly of `Noctua_fimbriata` accession `GCA_905163415.1` into the `Noctua_fimbriata_braker_2022_03/` directory,
+This will launch the pipeline and download the `2022_03` _Braker_ annotation of the assembly `GCA_905163415.1` into the `Noctua_fimbriata_braker_2022_03/` directory,
 which will be created if needed.
 
-Those parameters can be retrieved by browsing the [Ensembl Rapid Release](https://rapid.ensembl.org/) site.
+Annotation parameters can be retrieved by browsing the [Ensembl](https://www.ensembl.org/) site.
 
-- Go to the [species list](https://rapid.ensembl.org/info/about/species.html) and click on the
-  annotation link of your species of interest.
-- From the URL, e.g. `https://ftp.ensembl.org/pub/rapid-release/species/Noctua_fimbriata/GCA_905163425.1/braker/geneset/`,
-  extract the species name, the assembly accession, and the annotation method.
-- From the firectory listing, grab the version of the geneset.
-
-> [!WARNING]
-> Only the _Rapid Release_ site is currently supported, not the other Ensembl sites.
+- Go to the assembly page <https://www.ensembl.org/genome/GCA_905163415.1>
+  and click on the "Get files" button on the right-hand side.
+- From the URL of any link, e.g. `https://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/905/163/415/1/braker/2022_03/genome`,
+  extract the annotation method and version.
 
 Current annotation methods include:
 
@@ -46,23 +41,21 @@ Current annotation methods include:
 ## Bulk download
 
 The pipeline can download multiple genesets at once, by providing them in a `.csv` file through the `--input` parameter.
-It has to be a comma-separated file with five columns, and a header row as shown in the examples below.
+It has to be a comma-separated file with four columns, and a header row as shown in the examples below.
 
 ```csv title="samplesheet.csv"
-outdir,assembly_accession,ensembl_species_name,annotation_method,geneset_version
-Asterias_rubens/eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2020_11
-Asterias_rubens/eAstRub1.3,GCA_902459465.3,Asterias_rubens,refseq,2022_03
-Osmia_bicornis/iOsmBic2.1_alternate_haplotype,GCA_907164925.1,Osmia_bicornis_bicornis,ensembl,2022_02
-Noctua_fimbriata/ilNocFimb1.1,GCA_905163415.1,Noctua_fimbriata,braker,2022_03
+outdir,assembly_accession,annotation_method,geneset_version
+Asterias_rubens/eAstRub1.3,GCA_902459465.3,ensembl,2020_11
+Osmia_bicornis/iOsmBic2.1_alternate_haplotype,GCA_907164925.1,ensembl,2022_02
+Noctua_fimbriata/ilNocFimb1.1,GCA_905163415.1,braker,2022_03
 ```
 
-| Column                 | Description                                                                                                                                                              |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `outdir`               | Output directory for this annotation (evaluated from `--outdir` if a relative path). Analysis results are in a sub-directory `gene/$annotation_method/$geneset_version`. |
-| `assembly_accession`   | Accession number of the assembly to download. Typically of the form `GCA_*.*`.                                                                                           |
-| `ensembl_species_name` | Name of the species, _as used by Ensembl_. Note: it may differ from Tree of Life's.                                                                                      |
-| `annotation_method`    | Name of the method of the geneset.                                                                                                                                       |
-| `geneset_version`      | Version of the geneset, usually in the form `YYYY_MM`.                                                                                                                   |
+| Column               | Description                                                                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `outdir`             | Output directory for this annotation (evaluated from `--outdir` if a relative path). Analysis results are in a sub-directory `gene/$annotation_method/$geneset_version`. |
+| `assembly_accession` | Accession number of the assembly to download. Typically of the form `GCA_*.*`.                                                                                           |
+| `annotation_method`  | Name of the method of the geneset.                                                                                                                                       |
+| `geneset_version`    | Version of the geneset, usually in the form `YYYY_MM`.                                                                                                                   |
 
 A samplesheet may contain:
 
@@ -108,7 +101,6 @@ with:
 
 ```yaml title="params.yaml"
 assembly_accession: "GCA_905163415.1"
-ensembl_species_name: "Noctua_fimbriata"
 annotation_method: "braker"
 geneset_version: "2022_03"
 outdir: "./results/"
