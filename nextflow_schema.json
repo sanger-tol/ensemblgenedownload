@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/sanger-tol/ensemblgenedownload/main/nextflow_schema.json",
-    "title": "sanger-tol/ensemblgenedownload pipeline parameters",
+    "$id": "https://raw.githubusercontent.com/sanger-tol/ensembldownload/main/nextflow_schema.json",
+    "title": "sanger-tol/ensembldownload pipeline parameters",
     "description": "Pipeline to download gene annotations from Ensembl into a Tree of Life directory structure",
     "type": "object",
     "$defs": {

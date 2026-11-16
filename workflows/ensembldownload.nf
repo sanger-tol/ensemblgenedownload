@@ -23,7 +23,7 @@ include { DOWNLOAD               } from '../subworkflows/local/download'
 
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
-include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
+include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ensembldownload_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,7 +31,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_ense
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow ENSEMBLGENEDOWNLOAD {
+workflow ENSEMBLDOWNLOAD {
     take:
     ch_samplesheet // channel: samplesheet read in from --input. tuple(outdir, assembly_accession, annotation_method, geneset_version)
     outdir
@@ -69,7 +69,7 @@ workflow ENSEMBLGENEDOWNLOAD {
         .mix(topic_versions_string)
         .collectFile(
             storeDir: "${outdir}/pipeline_info",
-            name:  'ensemblgenedownload_software_'  + 'versions.yml',
+            name:  'ensembldownload_software_'  + 'versions.yml',
             sort: true,
             newLine: true
         )

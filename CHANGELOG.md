@@ -1,9 +1,9 @@
-# sanger-tol/ensemblgenedownload: Changelog
+# sanger-tol/ensembldownload: Changelog
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [[3.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/3.0.0)] - Flamboyant Smaug - [2026-11-20]
+## [[3.0.0](https://github.com/sanger-tol/ensembldownload/releases/tag/3.0.0)] - Flamboyant Smaug - [2026-11-20]
 
 - Support Ensembl's new FTP structure <https://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/> which
   provides data _already compressed with `bgzip` and indexed_ !
@@ -28,13 +28,13 @@ _In the samplesheet_
 
 > **NB:** Parameter has been **updated** if both old and new parameter information is present. </br> **NB:** Parameter has been **added** if just the new parameter information is present. </br> **NB:** Parameter has been **removed** if new parameter information isn't present.
 
-## [[2.0.2](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/2.0.2)] - Vicious Uruk-hai (patch 2) - [2024-12-09]
+## [[2.0.2](https://github.com/sanger-tol/ensembldownload/releases/tag/2.0.2)] - Vicious Uruk-hai (patch 2) - [2024-12-09]
 
 ### Enhancements & fixes
 
 - Remove defaults from lib/Utils.groovy
 
-## [[2.0.1](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/2.0.1)] - Vicious Uruk-hai (patch 1) - [2024-12-05]
+## [[2.0.1](https://github.com/sanger-tol/ensembldownload/releases/tag/2.0.1)] - Vicious Uruk-hai (patch 1) - [2024-12-05]
 
 ### Enhancements & fixes
 
@@ -51,7 +51,7 @@ Note, since the pipeline is using Nextflow DSL2, each process will be run with i
 | `samtools` | 1.17        | 1.21        |
 | `tabix`    | 1.11        | 1.20        |
 
-## [[2.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/2.0.0)] – Vicious Uruk-hai – [2024-06-04]
+## [[2.0.0](https://github.com/sanger-tol/ensembldownload/releases/tag/2.0.0)] – Vicious Uruk-hai – [2024-06-04]
 
 This version supports the new FTP structure of Ensembl
 
@@ -88,7 +88,7 @@ Note, since the pipeline is using Nextflow DSL2, each process will be run with i
 | ---------- | ----------- | ----------- |
 | multiqc    | 1.13        | 1.14        |
 
-## [[1.0.1](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/1.0.1)] – Hefty mûmakil (patch 1) – [2022-10-19]
+## [[1.0.1](https://github.com/sanger-tol/ensembldownload/releases/tag/1.0.1)] – Hefty mûmakil (patch 1) – [2022-10-19]
 
 Minor bugfix update.
 
@@ -96,9 +96,9 @@ Minor bugfix update.
 
 - When a samplesheet is provided, do not process the individual command-line parameters
 
-## [[1.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/1.0.0)] – Hefty mûmakil – [2022-10-07]
+## [[1.0.0](https://github.com/sanger-tol/ensembldownload/releases/tag/1.0.0)] – Hefty mûmakil – [2022-10-07]
 
-Initial release of sanger-tol/ensemblgenedownload, created with the [nf-core](https://nf-co.re/) template.
+Initial release of sanger-tol/ensembldownload, created with the [nf-core](https://nf-co.re/) template.
 
 ### Added
 

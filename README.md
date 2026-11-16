@@ -1,8 +1,8 @@
-# ![sanger-tol/ensemblgenedownload](docs/images/sanger-tol-ensemblgenedownload_logo.png)
+# ![sanger-tol/ensembldownload](docs/images/sanger-tol-ensembldownload_logo.png)
 
-[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/sanger-tol/ensemblgenedownload)
-[![GitHub Actions CI Status](https://github.com/sanger-tol/ensemblgenedownload/actions/workflows/nf-test.yml/badge.svg)](https://github.com/sanger-tol/ensemblgenedownload/actions/workflows/nf-test.yml)
-[![GitHub Actions Linting Status](https://github.com/sanger-tol/ensemblgenedownload/actions/workflows/linting.yml/badge.svg)](https://github.com/sanger-tol/ensemblgenedownload/actions/workflows/linting.yml)
+[![Open in GitHub Codespaces](https://img.shields.io/badge/Open_In_GitHub_Codespaces-black?labelColor=grey&logo=github)](https://github.com/codespaces/new/sanger-tol/ensembldownload)
+[![GitHub Actions CI Status](https://github.com/sanger-tol/ensembldownload/actions/workflows/nf-test.yml/badge.svg)](https://github.com/sanger-tol/ensembldownload/actions/workflows/nf-test.yml)
+[![GitHub Actions Linting Status](https://github.com/sanger-tol/ensembldownload/actions/workflows/linting.yml/badge.svg)](https://github.com/sanger-tol/ensembldownload/actions/workflows/linting.yml)
 [![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7155206-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7155206)
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
@@ -11,14 +11,14 @@
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
-[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/sanger-tol/ensemblgenedownload)
+[![Launch on Seqera Platform](https://img.shields.io/badge/Launch%20%F0%9F%9A%80-Seqera%20Platform-%234256e7)](https://cloud.seqera.io/launch?pipeline=https://github.com/sanger-tol/ensembldownload)
 
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40sangertol-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/sangertol)
 [![Watch on YouTube](http://img.shields.io/badge/youtube-tree--of--life-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/channel/UCFeDpvjU58SA9V0ycRXejhA)
 
 ## Introduction
 
-**sanger-tol/ensemblgenedownload** is a pipeline that downloads gene annotations from Ensembl into a Tree of Life directory structure.
+**sanger-tol/ensembldownload** is a pipeline that downloads gene annotations from Ensembl into a Tree of Life directory structure.
 
 The pipeline takes a CSV file that contains assembly accession number, output directories, geneset methods and geneset versions.
 The pipeline downloads the Fasta files of the genes (cdna and protein sequences) as well as the GFF3 file.
@@ -40,18 +40,18 @@ Steps involved:
 The easiest is to provide version of the assembly and annotations like this:
 
 ```console
-nextflow run sanger-tol/ensemblgenedownload --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03
+nextflow run sanger-tol/ensembldownload --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03
 ```
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/running/run-pipelines#using-parameter-files).
 
 The pipeline also supports bulk downloads through a sample-sheet.
-More information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/ensemblgenedownload/usage).
+More information about this mode on our [pipeline website](https://pipelines.tol.sanger.ac.uk/ensembldownload/usage).
 
 ## Credits
 
-sanger-tol/ensemblgenedownload was originally written by [Matthieu Muffato](https://github.com/muffato).
+sanger-tol/ensembldownload was originally written by [Matthieu Muffato](https://github.com/muffato).
 
 We thank the following people for their assistance in the development of this pipeline:
 
@@ -64,7 +64,7 @@ If you would like to contribute to this pipeline, please see the [contributing g
 
 ## Citations
 
-If you use sanger-tol/ensemblgenedownload for your analysis, please cite it using the following doi: [10.5281/zenodo.7155206](https://doi.org/10.5281/zenodo.7155206)
+If you use sanger-tol/ensembldownload for your analysis, please cite it using the following doi: [10.5281/zenodo.7155206](https://doi.org/10.5281/zenodo.7155206)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

@@ -1,4 +1,4 @@
-# sanger-tol/ensemblgenedownload: Output
+# sanger-tol/ensembldownload: Output
 
 ## Introduction
 

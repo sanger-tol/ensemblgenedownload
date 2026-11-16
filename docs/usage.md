@@ -1,6 +1,6 @@
-# sanger-tol/ensemblgenedownload: Usage
+# sanger-tol/ensembldownload: Usage
 
-## :warning: Please read this documentation on the nf-core website: [https://pipelines.tol.sanger.ac.uk/ensemblgenedownload/usage](https://pipelines.tol.sanger.ac.uk/ensemblgenedownload/usage)
+## :warning: Please read this documentation on the nf-core website: [https://pipelines.tol.sanger.ac.uk/ensembldownload/usage](https://pipelines.tol.sanger.ac.uk/ensembldownload/usage)
 
 > _Documentation of pipeline parameters is generated automatically from the pipeline schema and can no longer be found in markdown files._
 
@@ -19,7 +19,7 @@ The pipeline accepts command-one line arguments to specify a single genome to do
 - `--outdir`: Where the pipeline runtime information will be stored, and where data will be downloaded (except if absolute paths are given in the samplesheet).
 
 ```bash
-nextflow run sanger-tol/ensemblgenedownload -profile singularity --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir Noctua_fimbriata_braker_2022_03
+nextflow run sanger-tol/ensembldownload -profile singularity --assembly_accession GCA_905163415.1 --annotation_method braker --geneset_version 2022_03 --outdir Noctua_fimbriata_braker_2022_03
 ```
 
 This will launch the pipeline and download the `2022_03` _Braker_ annotation of the assembly `GCA_905163415.1` into the `Noctua_fimbriata_braker_2022_03/` directory,
@@ -80,7 +80,7 @@ except `outdir` which, if a relative path, is interpreted under `--oudir`.
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 ```bash
-nextflow run sanger-tol/ensemblgenedownload --input ./samplesheet.csv --outdir ./results  -profile docker
+nextflow run sanger-tol/ensembldownload --input ./samplesheet.csv --outdir ./results  -profile docker
 ```
 
 ## Nextflow outputs
@@ -104,7 +104,7 @@ Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <
 The above pipeline run specified with a params file in yaml format:
 
 ```bash
-nextflow run sanger-tol/ensemblgenedownload -profile docker -params-file params.yaml
+nextflow run sanger-tol/ensembldownload -profile docker -params-file params.yaml
 ```
 
 with:
@@ -123,14 +123,14 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
 
 ```bash
-nextflow pull sanger-tol/ensemblgenedownload
+nextflow pull sanger-tol/ensembldownload
 ```
 
 ### Reproducibility
 
 It is a good idea to specify the pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [sanger-tol/ensemblgenedownload releases page](https://github.com/sanger-tol/ensemblgenedownload/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
+First, go to the [sanger-tol/ensembldownload releases page](https://github.com/sanger-tol/ensembldownload/releases) and find the latest pipeline version - numeric only (eg. `1.3.1`). Then specify this when running the pipeline with `-r` (one hyphen) - eg. `-r 1.3.1`. Of course, you can switch to another version by changing the number after the `-r` flag.
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future.
 

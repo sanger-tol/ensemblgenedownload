@@ -1,9 +1,9 @@
 #!/usr/bin/env nextflow
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    sanger-tol/ensemblgenedownload
+    sanger-tol/ensembldownload
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Github : https://github.com/sanger-tol/ensemblgenedownload
+    Github : https://github.com/sanger-tol/ensembldownload
 ----------------------------------------------------------------------------------------
 */
 
@@ -13,9 +13,9 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { ENSEMBLGENEDOWNLOAD     } from './workflows/ensemblgenedownload'
-include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
-include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_ensemblgenedownload_pipeline'
+include { ENSEMBLDOWNLOAD         } from './workflows/ensembldownload'
+include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_ensembldownload_pipeline'
+include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_ensembldownload_pipeline'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     NAMED WORKFLOWS FOR PIPELINE
@@ -25,7 +25,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_ense
 //
 // WORKFLOW: Run main analysis pipeline depending on type of input
 //
-workflow SANGERTOL_ENSEMBLGENEDOWNLOAD {
+workflow SANGERTOL_ENSEMBLDOWNLOAD {
     take:
     samplesheet // channel: tuple(outdir, assembly_accession, annotation_method, geneset_version)
 
@@ -34,7 +34,7 @@ workflow SANGERTOL_ENSEMBLGENEDOWNLOAD {
     //
     // WORKFLOW: Run pipeline
     //
-    ENSEMBLGENEDOWNLOAD (
+    ENSEMBLDOWNLOAD (
         samplesheet,
         params.outdir,
     )
@@ -64,7 +64,7 @@ workflow {
     //
     // WORKFLOW: Run main workflow
     //
-    SANGERTOL_ENSEMBLGENEDOWNLOAD(
+    SANGERTOL_ENSEMBLDOWNLOAD(
         PIPELINE_INITIALISATION.out.inputs
     )
     //

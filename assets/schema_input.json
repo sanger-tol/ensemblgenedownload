@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/sanger-tol/ensemblgenedownload/main/assets/schema_input.json",
-    "title": "sanger-tol/ensemblgenedownload pipeline - params.input schema",
+    "$id": "https://raw.githubusercontent.com/sanger-tol/ensembldownload/main/assets/schema_input.json",
+    "title": "sanger-tol/ensembldownload pipeline - params.input schema",
     "description": "Schema for the file provided with params.input",
     "type": "array",
     "items": {

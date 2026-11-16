@@ -1,10 +1,10 @@
 lint:
   files_exist:
     - assets/multiqc_config.yml
-    - assets/nf-core-ensemblgenedownload_logo_light.png
+    - assets/nf-core-ensembldownload_logo_light.png
     - conf/igenomes.config
-    - docs/images/nf-core-ensemblgenedownload_logo_light.png
-    - docs/images/nf-core-ensemblgenedownload_logo_dark.png
+    - docs/images/nf-core-ensembldownload_logo_light.png
+    - docs/images/nf-core-ensembldownload_logo_dark.png
     - .github/ISSUE_TEMPLATE/config.yml
     - .github/workflows/awstest.yml
     - .github/workflows/awsfulltest.yml
@@ -31,7 +31,7 @@ template:
     Life directory structure
   force: false
   is_nfcore: false
-  name: ensemblgenedownload
+  name: ensembldownload
   org: sanger-tol
   outdir: .
   skip_features:

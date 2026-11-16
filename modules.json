@@ -1,6 +1,6 @@
 {
-    "name": "sanger-tol/ensemblgenedownload",
-    "homePage": "https://github.com/sanger-tol/ensemblgenedownload",
+    "name": "sanger-tol/ensembldownload",
+    "homePage": "https://github.com/sanger-tol/ensembldownload",
     "repos": {
         "https://github.com/nf-core/modules.git": {
             "subworkflows": {
