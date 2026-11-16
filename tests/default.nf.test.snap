@@ -1,7 +1,7 @@
 {
     "-profile test": {
         "content": [
-            9,
+            8,
             {
                 "BGZIPTABIX": {
                     "bgzip": 1.21,
@@ -18,9 +18,6 @@
                 },
                 "SAMTOOLS_FAIDX": {
                     "samtools": "1.22.1"
-                },
-                "SORT_GFF": {
-                    "coreutils": 9.5
                 },
                 "Workflow": {
                     "sanger-tol/ensemblgenedownload": "v2.0.2"
@@ -52,17 +49,17 @@
                 "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.fai:md5,e9fc4e2e121ec90b252a252ec32a05ff",
                 "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi:md5,893959eb3b1387db246a5b583c1f5f30",
                 "GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.sizes:md5,a8ea9be2d59d9afee82aa0799ee0954e",
-                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz:md5,b80c67d201e551f55617573f31ae7e2d",
-                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz.csi:md5,68e7b8950af01d96a1583cce0b7f792f",
-                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz.gzi:md5,d8cd2bf29a4904a21934dff70d0d180b",
-                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz.tbi:md5,5b01180f95e3693128fde8119cb53e63",
+                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz:md5,4a4acb71664a65102706b9a118db8a6c",
+                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz.csi:md5,fa51f3c6123ba0f0fb9e920b91e5374f",
+                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz.gzi:md5,785993628cee36f7c9ce39f9deda55d7",
+                "GCA_907164925.1.ensembl.2022_02.genes.gff3.gz.tbi:md5,b80e501818b06d5c8ec6b032b68be4d8",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz:md5,38ebdcafbac7f7439070be203cd43715",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.fai:md5,95b9f6b24f73af293a17c74eea5a8f29",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi:md5,bc0b925c1b01abaa6f0130750d1e41b0",
                 "GCA_907164925.1.ensembl.2022_02.pep.fa.gz.sizes:md5,ab9958659668a2d4f7b58e4e6aef99b5"
             ]
         ],
-        "timestamp": "2026-11-16T15:58:29.186943373",
+        "timestamp": "2026-11-16T16:05:59.226624792",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.0"

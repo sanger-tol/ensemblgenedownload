@@ -2,7 +2,6 @@
 // Uncompress and prepare GFF files
 //
 
-include { SORT_GFF   } from '../../modules/local/sort_gff'
 include { BGZIPTABIX } from '../../modules/sanger-tol/bgziptabix/main'
 
 
@@ -12,9 +11,7 @@ workflow PREPARE_GFF {
 
     main:
 
-    ch_sorted_gff = SORT_GFF(ch_gff).sorted
-
-    ch_gff_with_seq_length = ch_sorted_gff.map { meta, gff -> [meta, gff, get_max_coord(gff)] }
+    ch_gff_with_seq_length = ch_gff.map { meta, gff -> [meta, gff, get_max_coord(gff)] }
     BGZIPTABIX(ch_gff_with_seq_length)
 
     ch_indexed_gff = BGZIPTABIX.out.gz_index
