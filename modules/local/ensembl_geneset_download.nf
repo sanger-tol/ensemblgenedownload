@@ -44,4 +44,12 @@ process ENSEMBL_GENESET_DOWNLOAD {
     mv pep.fa.bgz ${filename_stem}.pep.fa.gz
     gunzip *.gz
     """
+
+    stub:
+    def filename_stem = "${meta.assembly_accession}.${meta.method}.${meta.geneset_version}"
+    """
+    touch ${filename_stem}.cdna.fa
+    touch ${filename_stem}.genes.gff3
+    touch ${filename_stem}.pep.fa
+    """
 }
