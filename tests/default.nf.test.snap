@@ -7,7 +7,7 @@
                     "rsync": "3.4.1"
                 },
                 "Workflow": {
-                    "sanger-tol/ensembldownload": "v2.0.2"
+                    "sanger-tol/ensembldownload": "v3.0.0"
                 }
             },
             [

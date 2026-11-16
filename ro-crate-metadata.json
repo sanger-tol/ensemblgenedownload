@@ -175,10 +175,10 @@
             },
             "url": [
                 "https://github.com/sanger-tol/ensembldownload",
-                "https://pipelines.tol.sanger.ac.uk/ensembldownload/2.0.2/"
+                "https://pipelines.tol.sanger.ac.uk/ensembldownload/3.0.0/"
             ],
             "version": [
-                "2.0.2"
+                "3.0.0"
             ]
         },
         {
@@ -338,6 +338,7 @@
             "@id": "https://orcid.org/0000-0001-8687-5905",
             "@type": "Person",
             "affiliation": "Wellcome Sanger Institute",
+            "email": "tc25@sanger.ac.uk",
             "name": "Chafin, Tyler",
             "url": "https://github.com/tkchafin"
         },
@@ -353,6 +354,7 @@
             "@id": "https://orcid.org/0000-0003-1262-8973",
             "@type": "Person",
             "affiliation": "Wellcome Sanger Institute",
+            "email": "729395+gq1@users.noreply.github.com",
             "name": "Qi, Guoying",
             "url": "https://github.com/gq1"
         },
