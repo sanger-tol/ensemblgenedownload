@@ -17,11 +17,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Gene annotation files](#gene-annotation-files) - Annotation files straight from the Ensembl FTP, and indices built on them
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-All data files are compressed (and indexed) with `bgzip`.
-
-All Fasta files are indexed with `samtools faidx`, which allows accessing any region of the assembly in constant time, and `samtools dict`, which allows identifying a sequence by its MD5 checksum.
-
-All BED files are indexed with tabix in both TBI and CSI modes, unless the sequences are too large.
+All data files are compressed with `bgzip`.
+All Fasta files are indexed with `samtools faidx`, which allows accessing any region of the assembly in constant time.
+All BED files are indexed with tabix in CSI mode.
 
 ### Gene annotation files
 
@@ -32,19 +30,14 @@ gene
 └── ensembl
     └── 2022_02
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz
-        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.dict
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.fai
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.gzi
-        ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz.sizes
         ├── GCA_907164925.1.ensembl.2022_02.gff3.gz
         ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.csi
         ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.gzi
-        ├── GCA_907164925.1.ensembl.2022_02.gff3.gz.tbi
         ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz
-        ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.dict
         ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.fai
         ├── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.gzi
-        └── GCA_907164925.1.ensembl.2022_02.pep.fa.gz.sizes
 ```
 
 All files are named after:
@@ -54,8 +47,6 @@ All files are named after:
 - the annotation date, e.g. `2022_02`.
 
 These information are also in the directory names to allow multiple annotations to be loaded.
-
-The `.seq_length.tsv` files are tabular analogous to the common `chrom.sizes`. They contain the sequence names and their lengths.
 
 _The following documentation is copied from Ensembl's FTP_
 

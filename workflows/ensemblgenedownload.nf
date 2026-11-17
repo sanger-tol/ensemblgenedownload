@@ -14,8 +14,6 @@
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { DOWNLOAD               } from '../subworkflows/local/download'
-include { FASTA_COMPRESS_INDEX   } from '../subworkflows/sanger-tol/fasta_compress_index/main'
-include { PREPARE_GFF            } from '../subworkflows/local/prepare_gff'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,17 +43,6 @@ workflow ENSEMBLGENEDOWNLOAD {
     // Actual download
     DOWNLOAD(
         ch_samplesheet
-    )
-
-    // Preparation of Fasta files
-    FASTA_COMPRESS_INDEX(
-        DOWNLOAD.out.genes,
-        true,
-    )
-
-    // Preparation of GFF files
-    PREPARE_GFF(
-        DOWNLOAD.out.gff
     )
 
     //

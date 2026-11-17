@@ -5,7 +5,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [[3.0.0](https://github.com/sanger-tol/ensemblgenedownload/releases/tag/3.0.0)] - Flamboyant Smaug - [2026-11-20]
 
-- Support Ensembl's new FTP structure <https://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/>
+- Support Ensembl's new FTP structure <https://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/> which
+  provides data _already compressed with `bgzip` and indexed_ !
+  - The pipeline now merely downloads and renames the files to comply with the standard
+    Genome After-Party file nomenclature.
+  - Downloads happen with the rsync protocol.
+  - The pipeline will add extra analyses such as gene density tracks in a later release.
 - Upgraded to the nf-core template v4.2.0
 - Slack / Teams functionality now moved to Nextflow plugins ([nf-slack](https://github.com/seqeralabs/nf-slack), [nf-teams](https://github.com/nvnieuwk/nf-teams))
 

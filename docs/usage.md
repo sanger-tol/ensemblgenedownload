@@ -32,11 +32,21 @@ Annotation parameters can be retrieved by browsing the [Ensembl](https://www.ens
 - From the URL of any link, e.g. `https://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/905/163/415/1/braker/2022_03/genome`,
   extract the annotation method and version.
 
-Current annotation methods include:
+Current annotation represent pipelines:
 
 - `ensembl` for Ensembl's own annotation pipeline
-- `braker` for [BRAKER2](https://academic.oup.com/nargab/article/3/1/lqaa108/6066535)
+- `braker` for the [BRAKER2](https://academic.oup.com/nargab/article/3/1/lqaa108/6066535) pipeline
+- `helixer` for the [Helixer](https://doi.org/10.1038/s41592-025-02939-1) pipeline
+- `prokka` for the [Prokka](https://academic.oup.com/bioinformatics/article-lookup/doi/10.1093/bioinformatics/btu153) pipeline
+
+or source databases the annotation is loaded from:
+
 - `refseq` for [RefSeq](https://academic.oup.com/nar/article/49/D1/D1020/6018440)
+- `flybase` for [FlyBase](https://academic.oup.com/genetics/article-lookup/doi/10.1093/genetics/iyad211)
+- `genbank` for [GenBank](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkab1135)
+- `veupathdb` for [VEuPathDB](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkad1003)
+- `wormbase` for [WormBase](https://academic.oup.com/genetics/article-lookup/doi/10.1093/genetics/iyae050)
+- `community` and many `community_*` strings for other annotations pulled from the community
 
 ## Bulk download
 

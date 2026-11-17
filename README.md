@@ -28,9 +28,9 @@ Steps involved:
 
 - Download from Ensembl the GFF3 file, and the sequences of the genes in
   Fasta format.
-- Compress and index all Fasta files with `bgzip`, `samtools faidx`, and
-  `samtools dict`.
-- Compress and index the GFF3 file with `bgzip` and `tabix`.
+- Ensure all Fasta files are compressed with `bgzip` and indexed with
+  `samtools faidx`.
+- Ensure all GFF3 files are compress with `bgzip` and indexed with `tabix`.
 
 ## Usage
 

@@ -50,8 +50,8 @@
                 },
                 "ftp_root": {
                     "type": "string",
-                    "description": "Root location of the Ensembl FTP, in which all annotations can be found. Access protocol is actually not limited to FTP, and we use HTTPS by default.",
-                    "default": "https://ftp.ebi.ac.uk/pub/ensemblorganisms",
+                    "description": "Root location of the Ensembl FTP, in which all annotations can be found. Access protocol must be rsync.",
+                    "default": "rsync://ftp.ebi.ac.uk/pub/ensemblorganisms",
                     "hidden": true,
                     "fa_icon": "fas fa-link"
                 },
