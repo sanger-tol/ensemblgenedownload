@@ -23,10 +23,10 @@ All BED files are indexed with tabix in CSI mode.
 
 ### Gene annotation files
 
-Here are the files you can expect in the `gene/` sub-directory.
+Here are the files you can expect in the results directory.
 
 ```text
-gene
+genes
 └── ensembl
     └── 2022_02
         ├── GCA_907164925.1.ensembl.2022_02.cdna.fa.gz
