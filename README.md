@@ -17,6 +17,9 @@
 
 ## Introduction
 
+> [!CAUTION]
+> This pipeline is deprecated. Please use <https://github.com/sanger-tol/ensembldownload> instead.
+
 **sanger-tol/ensemblgenedownload** is a pipeline that downloads gene annotations from Ensembl into a Tree of Life directory structure.
 
 The pipeline takes a CSV file that contains assembly accession number, Ensembl species names (as they may differ from Tree of Life ones !), output directories, geneset methods and geneset versions.
